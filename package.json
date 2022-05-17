@@ -16,9 +16,7 @@
       "default": "./dist/infinite.cjs"
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "tsup",
     "format": "dprint fmt",
