@@ -1,6 +1,6 @@
 {
   "name": "trpc-swr",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "description": "tRPC-ified SWR hooks",
   "main": "dist/index.cjs",
