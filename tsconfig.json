@@ -13,6 +13,6 @@
     "jsx": "preserve",
     "types": ["node", "vite/client", "vitest/globals"]
   },
-  "include": ["src", "global.d.ts", "test"],
+  "include": ["src", "test", "vite.config.ts"],
   "exclude": ["node_modules", "dist"]
 }

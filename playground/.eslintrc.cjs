@@ -1,5 +1,10 @@
 module.exports = {
   extends: 'next/core-web-vitals',
+  settings: {
+    next: {
+      rootDir: 'playground',
+    },
+  },
   overrides: [
     {
       files: '*.ts',
