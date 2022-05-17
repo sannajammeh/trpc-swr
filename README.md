@@ -192,6 +192,8 @@ Now use it in a component:
 
 ```ts
 // users.tsx
+import { useSWRInfinite } from './trpc'
+
 const Users = () => {
   const { data, size, setSize } = useSWRInfinite(
     // pass in path
