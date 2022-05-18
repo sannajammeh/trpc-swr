@@ -28,12 +28,14 @@ Then, add the `trpc.TRPCProvider` to your root `App` component:
 import { createTRPCClient } from '@trpc/client'
 import { trpc } from '../utils/trpc'
 
-// create a tRPC vanilla client
-// see https://trpc.io/docs/vanilla
-// note that you should pass data transformers (https://trpc.io/docs/data-transformers) here
-const client = createTRPCClient({ url: 'http://localhost:3000/api/trpc' })
-
 const App = () => {
+  // create a tRPC vanilla client
+  // see https://trpc.io/docs/vanilla
+  // note that you should pass data transformers (https://trpc.io/docs/data-transformers) here
+  const [client] = useState(() =>
+    createTRPCClient({ url: 'http://localhost:3000/api/trpc' }),
+  );
+
   return (
     <trpc.TRPCProvider client={client}>
       <Component {...pageProps} />
