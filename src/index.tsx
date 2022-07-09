@@ -88,3 +88,6 @@ export const getUseMatchMutate = <TRouter extends AnyRouter>() => {
     }
   }
 }
+
+export { TRPCContext }
+export type { TRPCContextState }
