@@ -1,7 +1,7 @@
 import { TRPCClient, TRPCClientErrorLike, TRPCRequestOptions } from '@trpc/client'
 import { AnyRouter, inferHandlerInput } from '@trpc/server'
 import React from 'react'
-import _useSWR, { Key, mutate as mutateSWR, MutatorOptions, SWRConfiguration, SWRResponse, useSWRConfig } from 'swr'
+import _useSWR, { Key, MutatorOptions, SWRConfiguration, SWRResponse, useSWRConfig } from 'swr'
 import { TRPCContext, TRPCContextState } from './context'
 import { inferProcedures, WrapPromiseAndMutatorCallback } from './types'
 import { getClientArgs } from './utils'
@@ -19,13 +19,13 @@ export function createSWRHooks<TRouter extends AnyRouter>() {
     client: TRPCClient<TRouter>
     children: React.ReactNode
   }) => {
+    const { mutate } = useSWRConfig()
+
     return (
       <Context.Provider
         value={{
           client,
-          mutate(pathAndInput, data, opts) {
-            return mutateSWR(pathAndInput, data, opts)
-          },
+          mutate,
         }}
       >
         {children}
