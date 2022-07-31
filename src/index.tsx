@@ -4,7 +4,7 @@ import React from 'react'
 import _useSWR, { Key, MutatorOptions, SWRConfiguration, SWRResponse, useSWRConfig } from 'swr'
 import { TRPCContext, TRPCContextState } from './context'
 import { inferProcedures, WrapPromiseAndMutatorCallback } from './types'
-import { getClientArgs } from './utils'
+import { getClientArguments } from './utils'
 
 export interface UseSWROptions<TData, TError> extends TRPCRequestOptions, SWRConfiguration<TData, TError> {}
 
@@ -46,7 +46,7 @@ export function createSWRHooks<TRouter extends AnyRouter>() {
 		return _useSWR(
 			pathAndInput,
 			// @ts-expect-error normalize args
-			() => client.query(...getClientArgs(pathAndInput, config)),
+			() => client.query(...getClientArguments(pathAndInput, config)),
 			config,
 		)
 	}

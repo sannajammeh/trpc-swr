@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import useSWRInfinite, { SWRInfiniteConfiguration, SWRInfiniteResponse } from 'swr/infinite'
 import { TRPCContext, TRPCContextState } from './context'
 import { inferProcedures } from './types'
-import { getClientArgs } from './utils'
+import { getClientArguments } from './utils'
 
 export interface UseSWRInfiniteOptions<TData, TError>
 	extends TRPCRequestOptions, SWRInfiniteConfiguration<TData, TError>
@@ -30,14 +30,14 @@ export const getUseSWRInfinite = <TRouter extends AnyRouter>() => {
 		const { client } = useContext(Context)
 
 		return useSWRInfinite(
-			(...keyArgs) => {
-				const args = getKey(...keyArgs)
-				if (args === null) return null
+			(...keyArguments) => {
+				const arguments_ = getKey(...keyArguments)
+				if (arguments_ === null) return null
 
-				return [path, ...args]
+				return [path, ...arguments_]
 			},
 			// @ts-expect-error normalize args
-			(...args) => client.query(...getClientArgs(args, config)),
+			(...arguments_) => client.query(...getClientArguments(arguments_, config)),
 			config,
 		)
 	}

@@ -1,5 +1,5 @@
 {
 	"editor.defaultFormatter": "dprint.dprint",
 	"dprint.path": "node_modules/dprint/dprint",
-	"testing.automaticallyOpenPeekView": "never"
+	"eslint.workingDirectories": ["./", "./playground"]
 }

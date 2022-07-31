@@ -4,10 +4,10 @@ import { MutatorCallback } from 'swr'
 export type WrapPromiseAndMutatorCallback<TData> = TData | Promise<TData> | MutatorCallback<TData>
 
 export type inferProcedures<
-	TObj extends ProcedureRecord<any, any, any, any, any, any>,
+	TObject extends ProcedureRecord<any, any, any, any, any, any>,
 > = {
-	[TPath in keyof TObj]: {
-		input: inferProcedureInput<TObj[TPath]>
-		output: inferProcedureOutput<TObj[TPath]>
+	[TPath in keyof TObject]: {
+		input: inferProcedureInput<TObject[TPath]>
+		output: inferProcedureOutput<TObject[TPath]>
 	}
 }

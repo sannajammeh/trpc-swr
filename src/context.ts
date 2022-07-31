@@ -13,7 +13,7 @@ export interface TRPCContextState<TRouter extends AnyRouter> {
 	>(
 		pathAndInput: [path: TPath, ...args: inferHandlerInput<TProcedure>],
 		data?: WrapPromiseAndMutatorCallback<TOutput>,
-		opts?: boolean | MutatorOptions<TOutput>,
+		options?: boolean | MutatorOptions<TOutput>,
 	): Promise<TOutput | undefined>
 }
 
