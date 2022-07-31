@@ -8,7 +8,7 @@ import { AppRouter } from './router'
 import { getServer } from './server'
 
 const createAppRouterSWRHooks = () => {
-  return createSWRHooks<AppRouter>()
+	return createSWRHooks<AppRouter>()
 }
 
 let client: TRPCClient<AppRouter>
@@ -17,23 +17,23 @@ export let trpc: ReturnType<typeof createAppRouterSWRHooks>
 let server: Server
 
 beforeEach(async () => {
-  const port = await getPort()
-  client = createTRPCClient<AppRouter>({ url: `http://localhost:${port}` })
-  trpc = createAppRouterSWRHooks()
-  server = getServer().server
-  server.listen(port)
+	const port = await getPort()
+	client = createTRPCClient<AppRouter>({ url: `http://localhost:${port}` })
+	trpc = createAppRouterSWRHooks()
+	server = getServer().server
+	server.listen(port)
 })
 
 afterEach(() => {
-  cleanup()
-  server.close()
+	cleanup()
+	server.close()
 })
 
 const customRender = (ui: React.ReactElement, options: RenderOptions = {}) =>
-  render(ui, {
-    wrapper: ({ children }) => <trpc.TRPCProvider client={client}>{children}</trpc.TRPCProvider>,
-    ...options,
-  })
+	render(ui, {
+		wrapper: ({ children }) => <trpc.TRPCProvider client={client}>{children}</trpc.TRPCProvider>,
+		...options,
+	})
 
 export * from '@testing-library/react'
 // override render export

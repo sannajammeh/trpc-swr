@@ -5,16 +5,16 @@ import { MutatorOptions } from 'swr'
 import { WrapPromiseAndMutatorCallback } from './types'
 
 export interface TRPCContextState<TRouter extends AnyRouter> {
-  client: TRPCClient<TRouter>
-  mutate<
-    TPath extends keyof TRouter['_def']['queries'] & string,
-    TProcedure extends TRouter['_def']['queries'][TPath],
-    TOutput extends inferProcedureOutput<TProcedure>,
-  >(
-    pathAndInput: [path: TPath, ...args: inferHandlerInput<TProcedure>],
-    data?: WrapPromiseAndMutatorCallback<TOutput>,
-    opts?: boolean | MutatorOptions<TOutput>,
-  ): Promise<TOutput | undefined>
+	client: TRPCClient<TRouter>
+	mutate<
+		TPath extends keyof TRouter['_def']['queries'] & string,
+		TProcedure extends TRouter['_def']['queries'][TPath],
+		TOutput extends inferProcedureOutput<TProcedure>,
+	>(
+		pathAndInput: [path: TPath, ...args: inferHandlerInput<TProcedure>],
+		data?: WrapPromiseAndMutatorCallback<TOutput>,
+		opts?: boolean | MutatorOptions<TOutput>,
+	): Promise<TOutput | undefined>
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
