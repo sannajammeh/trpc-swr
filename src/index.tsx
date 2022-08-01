@@ -8,6 +8,8 @@ import { getClientArguments } from './utils'
 
 export interface UseSWROptions<TData, TError> extends TRPCRequestOptions, SWRConfiguration<TData, TError> {}
 
+type TypeOrFunctionReturnType<T> = T | (() => T)
+
 export function createSWRHooks<TRouter extends AnyRouter>() {
 	type TError = TRPCClientErrorLike<TRouter>
 	type TQueries = TRouter['_def']['queries']
@@ -38,7 +40,7 @@ export function createSWRHooks<TRouter extends AnyRouter>() {
 	}
 
 	const useSWR = <TPath extends keyof TQueryValues & string>(
-		pathAndInput: [path: TPath, ...args: inferHandlerInput<TQueries[TPath]>],
+		pathAndInput: TypeOrFunctionReturnType<[path: TPath, ...args: inferHandlerInput<TQueries[TPath]>] | null>,
 		config?: UseSWROptions<TQueryValues[TPath]['output'], TError>,
 	): SWRResponse<TQueryValues[TPath]['output'], TError> => {
 		const { client } = useContext()

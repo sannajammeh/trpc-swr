@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { act } from 'react-dom/test-utils'
 import { expect, it } from 'vitest'
 import { render, screen, trpc, waitFor } from './utils'
 
@@ -30,5 +32,48 @@ it('makes query with args', async () => {
 
 	await waitFor(() => {
 		expect(screen.getByText('bar')).toBeInTheDocument()
+	})
+})
+
+it('makes conditional query', async () => {
+	const Component = () => {
+		const [shouldFetch, setShouldFetch] = useState(true)
+
+		const { data } = trpc.useSWR(shouldFetch ? ['hello'] : null)
+
+		return (
+			<>
+				<button onClick={() => setShouldFetch(false)}>toggle</button>
+				<div>{data ? data : 'disabled'}</div>
+			</>
+		)
+	}
+
+	render(<Component />)
+
+	await waitFor(() => {
+		expect(screen.getByText('world')).toBeInTheDocument()
+	})
+
+	const toggleButton = await screen.findByText('toggle')
+
+	act(() => toggleButton.click())
+
+	await waitFor(() => {
+		expect(screen.getByText('disabled')).toBeInTheDocument()
+	})
+})
+
+it('makes query with function query key', async () => {
+	const Component = () => {
+		const { data } = trpc.useSWR(() => ['hello'])
+
+		return <p>{data}</p>
+	}
+
+	render(<Component />)
+
+	await waitFor(() => {
+		expect(screen.getByText('world')).toBeInTheDocument()
 	})
 })
