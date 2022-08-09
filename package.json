@@ -27,7 +27,8 @@
 		}
 	},
 	"files": [
-		"dist"
+		"dist",
+		"infinite"
 	],
 	"scripts": {
 		"build": "tsup",
