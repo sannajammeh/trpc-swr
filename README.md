@@ -1,3 +1,5 @@
+![trpc-swr](assets/banner.png)
+
 # trpc-swr
 
 [tRPC](https://trpc.io/)-ified [SWR](https://swr.vercel.app/) hooks
