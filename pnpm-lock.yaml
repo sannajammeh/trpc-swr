@@ -65,12 +65,12 @@ importers:
       next: 12.3.0
       react: 18.2.0
       react-dom: 18.2.0
-      zod: 3.19.0
+      zod: 3.19.1
     dependencies:
       next: 12.3.0_biqbaboplfbrettd7655fr4n2y
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      zod: 3.19.0
+      zod: 3.19.1
     devDependencies:
       '@types/node': 18.6.3
       '@types/react-dom': 18.0.6
@@ -3681,6 +3681,6 @@ packages:
     resolution: {integrity: sha512-IHXnQYQuOOOL/XgHhgl8YjNxBHi3xX0mVcHmqsvJgcxKkEczPshoWdxqyFwsARpf41E0v9U95WUROqsHHxt0UQ==}
     dev: true
 
-  /zod/3.19.0:
-    resolution: {integrity: sha512-Yw0qvUsCNGBe5YacikdMt5gVYeUuaEFVDIHKMfElrGSaBhwR3CQK6vOzgfAJOjTdGIhEeoaj8GtT+NDZrepZbw==}
+  /zod/3.19.1:
+    resolution: {integrity: sha512-LYjZsEDhCdYET9ikFu6dVPGp2YH9DegXjdJToSzD9rO6fy4qiRYFoyEYwps88OseJlPyl2NOe2iJuhEhL7IpEA==}
     dev: false
