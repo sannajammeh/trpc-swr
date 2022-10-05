@@ -3,7 +3,7 @@ import { createTRPCClient, TRPCClient } from '@trpc/client'
 import getPort from 'get-port'
 import { Server } from 'http'
 import { afterEach, beforeEach } from 'vitest'
-import { createSWRHooks } from '../src'
+import { createSWRHooks } from '../src_old'
 import { AppRouter } from './router'
 import { getServer } from './server'
 

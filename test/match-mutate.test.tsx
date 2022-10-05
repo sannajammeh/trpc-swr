@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { expect, it } from 'vitest'
-import { getUseMatchMutate } from '../src'
+import { getUseMatchMutate } from '../src_old'
 import { AppRouter } from './router'
 import { render, screen, trpc, waitFor } from './utils'
 

@@ -1,5 +1,5 @@
 import { it } from 'vitest'
-import { getUseSWRInfinite } from '../src/infinite'
+import { getUseSWRInfinite } from '../src_old/infinite'
 import { AppRouter } from './router'
 import { render, screen, userEvent, waitFor } from './utils'
 
