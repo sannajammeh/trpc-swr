@@ -89,7 +89,7 @@ export function createSWRHooks<TRouter extends AnyRouter>(
 
   const getKey = <PreloadData extends ReturnType<GetQueryKey>>(
     pathAndInput: PreloadData,
-    unserialized: boolean = false
+    unserialized = false
   ) => {
     return unserialized ? pathAndInput : unstable_serialize(pathAndInput);
   };
