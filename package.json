@@ -76,8 +76,7 @@
 	},
 	"tsup": {
 		"entry": [
-			"src/index.tsx",
-			"src/infinite.ts"
+			"src/index.ts"
 		],
 		"format": [
 			"esm",
