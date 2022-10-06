@@ -1,25 +1,10 @@
-import { createTRPCClient, httpBatchLink } from "@trpc/client";
+import { httpBatchLink } from "@trpc/client";
 import getPort from "get-port";
 import { describe } from "vitest";
 import { createSWRProxyHooks } from "../src";
 import type { AppRouter } from "./router";
 
 describe("tRPC-swr proxy hooks creator", () => {
-    it("Should create the proxy hooks using a client", async () => {
-        // TODO
-        
-        const client = createTRPCClient<AppRouter>({
-            links: [
-                httpBatchLink({ url: `http://localhost:${await getPort()}` }),
-            ],
-        });
-
-        const trpc = createSWRProxyHooks(null, client);
-
-        expect(trpc).toBeTruthy();
-        expect(trpc.hello.getKey).toBeTruthy();
-    });
-
     it("Should create the proxy hooks using config", async () => {
 
         const trpc = createSWRProxyHooks<AppRouter>({
