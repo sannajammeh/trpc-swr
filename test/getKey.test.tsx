@@ -20,7 +20,7 @@ describe('Standalone getKey', () => {
 		expect(key2).toEqual(['user.get', { id: 1 }])
 	})
 
-	it("Should throw when non-boolean is provided to unserialized", () => {
+	it('Should throw when non-boolean is provided to unserialized', () => {
 		expect(() => {
 			trpc.hello.getKey(void 0, 1 as any)
 		}).toThrowErrorMatchingInlineSnapshot(`"Expected second argument to be a boolean"`)

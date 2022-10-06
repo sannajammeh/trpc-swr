@@ -1,11 +1,11 @@
-import { TRPCClient } from '@trpc/client'
+import { createTRPCClient, CreateTRPCClientOptions, TRPCClient } from '@trpc/client'
 import { AnyRouter } from '@trpc/server'
-import { PropsWithChildren, useContext } from 'react'
+import { PropsWithChildren, useContext, useEffect } from 'react'
 import _useSWR, { preload as _preload, SWRConfiguration, unstable_serialize } from 'swr'
 import { TRPCContext, TRPCContextType } from '../context'
 
 import _useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation'
-import { GetQueryKey } from '../../types'
+import { CreateClient, GetQueryKey } from '../../types'
 
 /**
  * Creates a query key for use inside SWR (unserialized)
@@ -21,16 +21,22 @@ export const getQueryKey: GetQueryKey = (path: string, input: any) => {
  * @internal - use this to create custom hooks
  */
 export function createSWRHooks<TRouter extends AnyRouter>(
-	client: TRPCClient<TRouter>,
+	config: CreateTRPCClientOptions<TRouter>,
 ): CreateTRPCSWRHooks<TRouter> {
 	// TODO - Infer types of useSWR
 	// type TQueries = TRouter['_def']['queries']
 	// type TSubscriptions = TRouter['_def']['subscriptions']
 	// type TMutations = TRouter['_def']['mutations']
 
+	const createClient = () => {
+		return createTRPCClient(config)
+	}
+
 	const Context = TRPCContext as unknown as React.Context<
 		TRPCContextType<TRouter>
 	>
+
+	const useTRPCContext = () => useContext(Context)
 
 	const useSWR = (
 		pathAndInput: [string, any],
@@ -38,6 +44,7 @@ export function createSWRHooks<TRouter extends AnyRouter>(
 			isDisabled?: boolean
 		},
 	) => {
+		const { client } = useTRPCContext()
 		const { isDisabled, ...swrConfig } = config || {}
 		return _useSWR(
 			isDisabled ? null : pathAndInput,
@@ -52,6 +59,7 @@ export function createSWRHooks<TRouter extends AnyRouter>(
 		path: string,
 		config: SWRMutationConfiguration<any, any>,
 	) => {
+		const { client } = useTRPCContext()
 		return _useSWRMutation(
 			path,
 			(path: any, { arg }: any) => {
@@ -61,14 +69,19 @@ export function createSWRHooks<TRouter extends AnyRouter>(
 		)
 	}
 
+	let _clientRef: TRPCClient<TRouter> | null = null
+
 	const TRPCProvider = ({
 		children,
-		client: trpcClient = client,
+		client,
 	}: PropsWithChildren<{ client: TRPCClient<TRouter> }>) => {
+		useEffect(() => {
+			_clientRef = client
+		}, [client])
 		return (
 			<Context.Provider
 				value={{
-					client: trpcClient,
+					client,
 				}}
 			>
 				{children}
@@ -85,8 +98,13 @@ export function createSWRHooks<TRouter extends AnyRouter>(
 		if (typeof window === 'undefined') {
 			return Promise.resolve()
 		}
+
 		return _preload(pathAndInput, (pathAndInput: PreloadData) => {
-			return (client as any).query(...pathAndInput)
+			// Create client instance if not already created (Will be Garbage collected once TRPCProvider mounts)
+			if (!_clientRef) {
+				_clientRef = createClient()
+			}
+			return (_clientRef as any).query(...pathAndInput)
 		})
 	}
 
@@ -97,13 +115,16 @@ export function createSWRHooks<TRouter extends AnyRouter>(
 		return unserialized ? pathAndInput : unstable_serialize(pathAndInput)
 	}
 
+	
+
 	return {
 		Provider: TRPCProvider,
-		useContext: () => useContext(Context),
+		useContext: useTRPCContext,
 		useSWR,
 		useSWRMutation,
 		preload: preload,
 		getKey: getKey,
+		createClient,
 	}
 }
 
@@ -123,4 +144,5 @@ export interface CreateTRPCSWRHooks<TRouter extends AnyRouter> {
 		unserialized?: boolean,
 	) => string | PreloadData
 	preload: (pathAndInput: ReturnType<GetQueryKey>) => Promise<void>
+	createClient: CreateClient<TRouter>
 }
