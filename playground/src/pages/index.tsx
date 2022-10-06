@@ -1,15 +1,14 @@
 import type { NextPage } from 'next'
 import { trpc } from '../utils/trpc'
 
-trpc.user.byId.preload({id: 1});
+trpc.user.byId.preload({ id: 1 })
 
 const Home: NextPage = () => {
-	
-	const { data, mutate, isValidating } = trpc.user.byId.useSWR({id: 2});
-	const { data: user1, isLoading } = trpc.user.byId.useSWR({id: 1});
+	const { data, mutate, isValidating } = trpc.user.byId.useSWR({ id: 2 })
+	const { data: user1, isLoading } = trpc.user.byId.useSWR({ id: 1 })
 	const { client } = trpc.useContext()
 
-	const {data: userData} = trpc.user.get.useSWR();
+	const { data: userData } = trpc.user.get.useSWR()
 
 	return (
 		<>
