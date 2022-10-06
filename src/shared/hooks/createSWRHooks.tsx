@@ -117,6 +117,6 @@ export interface CreateTRPCSWRHooks<TRouter extends AnyRouter> {
 	useContext: () => TRPCContextType<TRouter>
 	useSWR: any
 	useSWRMutation: any
-	getKey: any
+	getKey: <PreloadData extends readonly [string] | readonly [string, any]>(pathAndInput: PreloadData, unserialized?: boolean) => string | PreloadData,
 	preload: (pathAndInput: ReturnType<GetQueryKey>) => Promise<void>
 }
