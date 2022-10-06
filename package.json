@@ -2,6 +2,7 @@
 	"name": "@chiefkoshi/trpc-swr",
 	"version": "1.0.0-beta.1",
 	"type": "module",
+	"private": false,
 	"description": "tRPC-ified SWR hooks",
 	"repository": {
 		"type": "git",
@@ -14,6 +15,7 @@
 	"author": "Sachin Raja <sachinraja2349@gmail.com>",
 	"license": "MIT",
 	"main": "dist/index.cjs",
+	"module": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"exports": {
 		"./package.json": "./package.json",

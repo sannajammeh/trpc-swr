@@ -2,7 +2,7 @@ import { CreateTRPCClientOptions, TRPCClient, TRPCRequestOptions } from '@trpc/c
 import { AnyProcedure, AnyRouter, inferProcedureInput } from '@trpc/server'
 
 export type CreateClient<TRouter extends AnyRouter> = (
-	opts: CreateTRPCClientOptions<TRouter>,
+	options: CreateTRPCClientOptions<TRouter>,
 ) => TRPCClient<TRouter>
 
 /**
@@ -14,7 +14,7 @@ export type GetKey<TProcedure extends AnyProcedure, TPath extends string> = <
 	TInput = inferProcedureInput<TProcedure>,
 	RawKey extends boolean | undefined = false,
 >(
-	input: TInput,
+	input: inferProcedureInput<TProcedure>,
 	unserialized?: RawKey,
 ) => RawKey extends true ? [TPath, TInput] : string
 

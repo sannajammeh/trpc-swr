@@ -8,7 +8,7 @@ import { AppRouter } from './router'
 import { getServer } from './server'
 
 const createAppRouterSWRHooks = (client: TRPCClient<AppRouter>) => {
-	return createSWRProxyHooks<AppRouter>(null, client);
+	return createSWRProxyHooks<AppRouter>(null, client)
 }
 
 let client: TRPCClient<AppRouter>
@@ -18,16 +18,15 @@ let server: Server
 
 beforeEach(async () => {
 	const port = await getPort()
-	server = getServer().server;
-	server.listen(port);
-	
+	server = getServer().server
+	server.listen(port)
+
 	client = createTRPCClient<AppRouter>({
 		links: [
-			httpBatchLink({ url: `http://localhost:${port}` })
-		]
+			httpBatchLink({ url: `http://localhost:${port}` }),
+		],
 	})
 	trpc = createAppRouterSWRHooks(client)
-
 })
 
 afterEach(() => {

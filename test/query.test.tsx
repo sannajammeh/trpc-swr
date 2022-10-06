@@ -5,7 +5,7 @@ import { render, screen, trpc, waitFor } from './utils'
 
 it('makes query without args', async () => {
 	const Component = () => {
-		const { data } = trpc.hello.useSWR();
+		const { data } = trpc.hello.useSWR()
 
 		return data ? <p>{data}</p> : <div>Loading...</div>
 	}
@@ -21,7 +21,7 @@ it('makes query without args', async () => {
 
 it('makes query with args', async () => {
 	const Component = () => {
-		const { data: user } = trpc.user.get.useSWR({id: 1})
+		const { data: user } = trpc.user.get.useSWR({ id: 1 })
 
 		return user ? <p>{user.name}</p> : <div>Loading...</div>
 	}

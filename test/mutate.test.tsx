@@ -7,19 +7,19 @@ it('refetches query', async () => {
 
 	const Component = () => {
 		const { data, mutate } = trpc.user.get.useSWR({ id: 1 }) // 1st render
-		const { trigger } = trpc.user.changeName.useSWRMutation();
+		const { trigger } = trpc.user.changeName.useSWRMutation()
 
 		renderCount += 1
 
 		useEffect(() => {
 			if (!data) {
 				setTimeout(() => {
-					(async () => {
+					;(async () => {
 						const result = await trigger({ // Triggers render in useSWRMutation (second render)
 							id: 1,
 							name: 'baz',
-						});
-						
+						})
+
 						mutate(result) // Third render
 					})()
 				}, 10)
