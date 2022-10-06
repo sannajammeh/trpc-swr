@@ -1,14 +1,13 @@
-import { createTRPCClient } from '@trpc/client'
 import type { AppProps } from 'next/app'
+import { useState } from 'react'
 import { trpc } from '../utils/trpc'
 
-const client = createTRPCClient({ url: 'http://localhost:3000/api/trpc' })
-
 const App = ({ Component, pageProps }: AppProps) => {
+	const [client] = useState(() => trpc.createClient())
 	return (
-		<trpc.TRPCProvider client={client}>
+		<trpc.Provider client={client}>
 			<Component {...pageProps} />
-		</trpc.TRPCProvider>
+		</trpc.Provider>
 	)
 }
 
