@@ -1,14 +1,14 @@
 import { cleanup, render, RenderOptions } from '@testing-library/react'
-import { createTRPCClient, TRPCClient } from '@trpc/client'
+import { createTRPCClient, httpBatchLink, TRPCClient } from '@trpc/client'
 import getPort from 'get-port'
 import { Server } from 'http'
 import { afterEach, beforeEach } from 'vitest'
-import { createSWRHooks } from '../src_old'
+import { createSWRProxyHooks } from '../src'
 import { AppRouter } from './router'
 import { getServer } from './server'
 
-const createAppRouterSWRHooks = () => {
-	return createSWRHooks<AppRouter>()
+const createAppRouterSWRHooks = (client: TRPCClient<AppRouter>) => {
+	return createSWRProxyHooks<AppRouter>(null, client);
 }
 
 let client: TRPCClient<AppRouter>
@@ -18,20 +18,26 @@ let server: Server
 
 beforeEach(async () => {
 	const port = await getPort()
-	client = createTRPCClient<AppRouter>({ url: `http://localhost:${port}` })
-	trpc = createAppRouterSWRHooks()
-	server = getServer().server
-	server.listen(port)
+	server = getServer().server;
+	server.listen(port);
+	
+	client = createTRPCClient<AppRouter>({
+		links: [
+			httpBatchLink({ url: `http://localhost:${port}` })
+		]
+	})
+	trpc = createAppRouterSWRHooks(client)
+
 })
 
 afterEach(() => {
 	cleanup()
-	server.close()
+	server?.close()
 })
 
 const customRender = (ui: React.ReactElement, options: RenderOptions = {}) =>
 	render(ui, {
-		wrapper: ({ children }) => <trpc.TRPCProvider client={client}>{children}</trpc.TRPCProvider>,
+		wrapper: ({ children }) => <trpc.Provider client={client}>{children}</trpc.Provider>,
 		...options,
 	})
 

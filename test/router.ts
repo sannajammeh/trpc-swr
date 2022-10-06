@@ -1,4 +1,5 @@
-import { router, TRPCError } from '@trpc/server'
+import { initTRPC, TRPCError } from '@trpc/server'
+
 import { z } from 'zod'
 
 interface User {
@@ -13,45 +14,42 @@ const data: { users: User[] } = {
 	],
 }
 
-export const appRouter = router().query('hello', {
-	resolve() {
-		return 'world'
-	},
-}).query('user.get', {
-	input: z.object({ id: z.number() }),
-	async resolve({ input }) {
+export const t = initTRPC.create()
+
+const userRouter = t.router({
+	get: t.procedure.input(z.object({ id: z.number() })).query(({ input }) => {
 		const user = data.users.find((user) => user.id === input.id)
 
 		if (!user) throw new TRPCError({ code: 'NOT_FOUND' })
-
-		return { name: user.name }
-	},
-}).mutation('user.create', {
-	input: z.object({
-		name: z.string(),
-	}),
-	async resolve({ input }) {
-		const newUser: User = {
-			id: data.users.length,
-			name: input.name,
-		}
-
-		data.users.push(newUser)
-		return newUser
-	},
-}).mutation('user.changeName', {
-	input: z.object({
-		id: z.number(),
-		newName: z.string(),
-	}),
-	resolve({ input }) {
-		const user = data.users.find((user) => user.id === input.id)
-		if (!user) throw new TRPCError({ code: 'NOT_FOUND' })
-
-		user.name = input.newName
 
 		return user
-	},
+	}),
+	create: t.procedure.input(z.object({ name: z.string() })).mutation(({ input }) => {
+		const user = { id: data.users.length, name: input.name }
+
+		data.users.push(user)
+
+		return user
+	}),
+	changeName: t.procedure.input(z.object({ id: z.number(), name: z.string() })).mutation(({ input }) => {
+		const user = data.users.find((user) => {
+			return user.id === input.id
+		})
+
+		if (!user) throw new TRPCError({ code: 'NOT_FOUND' })
+
+		user.name = input.name
+
+		return user
+	}),
+})
+
+export const appRouter = t.router({
+	// this is the "root" query
+	hello: t.procedure.query(() => {
+		return 'world'
+	}),
+	user: userRouter,
 })
 
 export type AppRouter = typeof appRouter

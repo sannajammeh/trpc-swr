@@ -6,16 +6,23 @@ it('refetches query', async () => {
 	let renderCount = 0
 
 	const Component = () => {
-		const { data, mutate } = trpc.useSWR(['user.get', { id: 2 }])
-		const { client } = trpc.useContext()
+		const { data, mutate } = trpc.user.get.useSWR({ id: 1 }) // 1st render
+		const { trigger } = trpc.user.changeName.useSWRMutation();
 
 		renderCount += 1
 
 		useEffect(() => {
 			if (!data) {
-				mutate(async () => {
-					await client.mutation('user.create', { name: 'baz' })
-				})
+				setTimeout(() => {
+					(async () => {
+						const result = await trigger({ // Triggers render in useSWRMutation (second render)
+							id: 1,
+							name: 'baz',
+						});
+						
+						mutate(result) // Third render
+					})()
+				}, 10)
 			}
 		}, [data])
 
@@ -30,5 +37,5 @@ it('refetches query', async () => {
 		expect(screen.getByText('baz')).toBeInTheDocument()
 	})
 
-	expect(renderCount).toBe(2)
+	expect(renderCount).toBe(3)
 })

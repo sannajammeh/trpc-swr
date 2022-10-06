@@ -35,13 +35,16 @@ export function createSWRHooks<TRouter extends AnyRouter>(
     TRPCContextType<TRouter>
   >;
 
-  const useSWR = (pathAndInput: [string, any], config: SWRConfiguration) => {
+  const useSWR = (pathAndInput: [string, any], config?: SWRConfiguration & {
+    isDisabled?: boolean;
+  }) => {
+    const { isDisabled, ...swrConfig } = config || {};
     return _useSWR(
-      pathAndInput,
+      isDisabled ? null : pathAndInput,
       (pathAndInput: ReturnType<GetQueryKey>) => {
         return (client as any).query(...pathAndInput);
       },
-      config
+      swrConfig
     );
   };
 

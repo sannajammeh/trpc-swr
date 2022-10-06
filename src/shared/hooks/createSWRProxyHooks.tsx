@@ -28,7 +28,9 @@ type DecorateProcedure<
   ? {
       useSWR: <TData = inferProcedureOutput<TProcedure>>(
         input: inferProcedureInput<TProcedure>,
-        opts?: SWRConfiguration<TData>
+        opts?: SWRConfiguration<TData> & {
+          isDisabled?: boolean;
+        }
       ) => SWRResponse<TData, TRPCClientErrorLike<TProcedure>>;
 
       preload: (input: inferProcedureInput<TProcedure>) => Promise<void>;
