@@ -33,7 +33,7 @@ export const trpc = createSWRProxyHooks<AppRouter>({
 
 Then, add the `trpc.Provider` to your root `App` component:
 
-```ts
+```tsx
 // _app.tsx
 import { createTRPCClient } from '@trpc/client'
 import { trpc } from '../utils/trpc'
@@ -43,9 +43,9 @@ const App = ({ pageProps }) => {
 	const [client] = useState(() => trpc.createClient())
 
 	return (
-		<trpc.TRPCProvider client={client}>
+		<trpc.Provider client={client}>
 			<Component {...pageProps} />
-		</trpc.TRPCProvider>
+		</trpc.Provider>
 	)
 }
 ```
@@ -56,7 +56,7 @@ const App = ({ pageProps }) => {
 
 Now use `trpc` to query in a component:
 
-```ts
+```tsx
 // profile.tsx
 import { trpc } from './trpc'
 
@@ -81,7 +81,7 @@ const Profile = (props: { userId: string }) => {
 
 You can use `trpc.useSWRMutation` api to get a tRPC client for mutations:
 
-```ts
+```tsx
 // profile.tsx
 import { trpc } from './trpc'
 
