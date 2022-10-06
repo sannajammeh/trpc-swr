@@ -28,6 +28,10 @@ export function createSWRHooks<TRouter extends AnyRouter>(
 	// type TSubscriptions = TRouter['_def']['subscriptions']
 	// type TMutations = TRouter['_def']['mutations']
 
+	const createClient = () => {
+		return createTRPCClient(config)
+	}
+
 	const Context = TRPCContext as unknown as React.Context<
 		TRPCContextType<TRouter>
 	>
@@ -94,11 +98,12 @@ export function createSWRHooks<TRouter extends AnyRouter>(
 		if (typeof window === 'undefined') {
 			return Promise.resolve()
 		}
-		// Create client instance if not already created (Will be Garbage collected once TRPCProvider mounts)
-		if (!_clientRef) {
-			_clientRef = createTRPCClient(config)
-		}
+
 		return _preload(pathAndInput, (pathAndInput: PreloadData) => {
+			// Create client instance if not already created (Will be Garbage collected once TRPCProvider mounts)
+			if (!_clientRef) {
+				_clientRef = createClient()
+			}
 			return (_clientRef as any).query(...pathAndInput)
 		})
 	}
@@ -110,9 +115,7 @@ export function createSWRHooks<TRouter extends AnyRouter>(
 		return unserialized ? pathAndInput : unstable_serialize(pathAndInput)
 	}
 
-	const createClient = () => {
-		return createTRPCClient(config)
-	}
+	
 
 	return {
 		Provider: TRPCProvider,
