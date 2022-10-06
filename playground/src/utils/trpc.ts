@@ -15,7 +15,7 @@ const getUrl = () => {
 export const trpc = createSWRProxyHooks<AppRouter>({
 	links: [
 		loggerLink({
-			enabled(op) {
+			enabled() {
 				return process.env.NODE_ENV === 'development'
 			},
 		}),
