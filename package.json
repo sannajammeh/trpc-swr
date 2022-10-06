@@ -57,6 +57,7 @@
 		"@types/react": "18.0.21",
 		"@vitejs/plugin-react": "2.1.0",
 		"@vitest/ui": "^0.23.4",
+		"c8": "^7.12.0",
 		"cross-fetch": "^3.1.5",
 		"dprint": "0.32.1",
 		"eslint": "8.24.0",

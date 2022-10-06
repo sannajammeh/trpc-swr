@@ -23,9 +23,10 @@ export const getQueryKey: GetQueryKey = (path: string, input: any) => {
 export function createSWRHooks<TRouter extends AnyRouter>(
 	client: TRPCClient<TRouter>,
 ): CreateTRPCSWRHooks<TRouter> {
-	type TQueries = TRouter['_def']['queries']
-	type TSubscriptions = TRouter['_def']['subscriptions']
-	type TMutations = TRouter['_def']['mutations']
+	// TODO - Infer types of useSWR
+	// type TQueries = TRouter['_def']['queries']
+	// type TSubscriptions = TRouter['_def']['subscriptions']
+	// type TMutations = TRouter['_def']['mutations']
 
 	const Context = TRPCContext as unknown as React.Context<
 		TRPCContextType<TRouter>
@@ -117,6 +118,9 @@ export interface CreateTRPCSWRHooks<TRouter extends AnyRouter> {
 	useContext: () => TRPCContextType<TRouter>
 	useSWR: any
 	useSWRMutation: any
-	getKey: <PreloadData extends readonly [string] | readonly [string, any]>(pathAndInput: PreloadData, unserialized?: boolean) => string | PreloadData,
+	getKey: <PreloadData extends readonly [string] | readonly [string, any]>(
+		pathAndInput: PreloadData,
+		unserialized?: boolean,
+	) => string | PreloadData
 	preload: (pathAndInput: ReturnType<GetQueryKey>) => Promise<void>
 }

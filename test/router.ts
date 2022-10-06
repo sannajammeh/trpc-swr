@@ -1,4 +1,5 @@
 import { initTRPC, TRPCError } from '@trpc/server'
+import { beforeEach } from 'vitest'
 
 import { z } from 'zod'
 
@@ -44,12 +45,29 @@ const userRouter = t.router({
 	}),
 })
 
+let count = 0
+
+beforeEach(() => {
+	count = 0
+})
+
+const preloadRouter = t.router({
+	exec: t.procedure.query(() => {
+		count += 1 // Increase count
+		return {
+			text: 'foo',
+			count,
+		}
+	}),
+})
+
 export const appRouter = t.router({
 	// this is the "root" query
 	hello: t.procedure.query(() => {
 		return 'world'
 	}),
 	user: userRouter,
+	preloadTest: preloadRouter,
 })
 
 export type AppRouter = typeof appRouter

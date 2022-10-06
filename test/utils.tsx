@@ -2,6 +2,7 @@ import { cleanup, render, RenderOptions } from '@testing-library/react'
 import { createTRPCClient, httpBatchLink, TRPCClient } from '@trpc/client'
 import getPort from 'get-port'
 import { Server } from 'http'
+import { SWRConfig } from 'swr'
 import { afterEach, beforeEach } from 'vitest'
 import { createSWRProxyHooks } from '../src'
 import { AppRouter } from './router'
@@ -36,7 +37,11 @@ afterEach(() => {
 
 const customRender = (ui: React.ReactElement, options: RenderOptions = {}) =>
 	render(ui, {
-		wrapper: ({ children }) => <trpc.Provider client={client}>{children}</trpc.Provider>,
+		wrapper: ({ children }) => (
+			<SWRConfig>
+				<trpc.Provider client={client}>{children}</trpc.Provider>
+			</SWRConfig>
+		),
 		...options,
 	})
 

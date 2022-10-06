@@ -172,7 +172,6 @@ export function createSWRProxyHooksInternal<TRouter extends AnyRouter>(
 				if (typeof name === 'string') {
 					return createSWRProxyDecoration(name, hooks)
 				}
-
 				throw new Error('Not supported')
 			},
 		},
