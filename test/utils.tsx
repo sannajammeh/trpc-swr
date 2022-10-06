@@ -10,7 +10,7 @@ import { AppRouter } from './router'
 import { getServer } from './server'
 
 const createAppRouterSWRHooks = (config: CreateTRPCClientOptions<AppRouter>) => {
-	return createSWRProxyHooks<AppRouter>(config);
+	return createSWRProxyHooks<AppRouter>(config)
 }
 
 export let trpc: ReturnType<typeof createAppRouterSWRHooks>
@@ -36,7 +36,7 @@ afterEach(() => {
 const customRender = (ui: React.ReactElement, options: RenderOptions = {}) =>
 	render(ui, {
 		wrapper: ({ children }) => {
-			const [client] = useState(() => trpc.createClient());
+			const [client] = useState(() => trpc.createClient())
 			return (
 				<SWRConfig>
 					<trpc.Provider client={client}>{children}</trpc.Provider>

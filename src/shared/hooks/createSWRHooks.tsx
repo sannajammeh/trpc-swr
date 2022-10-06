@@ -21,7 +21,7 @@ export const getQueryKey: GetQueryKey = (path: string, input: any) => {
  * @internal - use this to create custom hooks
  */
 export function createSWRHooks<TRouter extends AnyRouter>(
-	config: CreateTRPCClientOptions<TRouter>
+	config: CreateTRPCClientOptions<TRouter>,
 ): CreateTRPCSWRHooks<TRouter> {
 	// TODO - Infer types of useSWR
 	// type TQueries = TRouter['_def']['queries']
@@ -32,7 +32,7 @@ export function createSWRHooks<TRouter extends AnyRouter>(
 		TRPCContextType<TRouter>
 	>
 
-	const useTRPCContext = () => useContext(Context);
+	const useTRPCContext = () => useContext(Context)
 
 	const useSWR = (
 		pathAndInput: [string, any],
@@ -40,7 +40,7 @@ export function createSWRHooks<TRouter extends AnyRouter>(
 			isDisabled?: boolean
 		},
 	) => {
-		const {client} = useTRPCContext();
+		const { client } = useTRPCContext()
 		const { isDisabled, ...swrConfig } = config || {}
 		return _useSWR(
 			isDisabled ? null : pathAndInput,
@@ -55,7 +55,7 @@ export function createSWRHooks<TRouter extends AnyRouter>(
 		path: string,
 		config: SWRMutationConfiguration<any, any>,
 	) => {
-		const {client} = useTRPCContext();
+		const { client } = useTRPCContext()
 		return _useSWRMutation(
 			path,
 			(path: any, { arg }: any) => {
@@ -96,7 +96,7 @@ export function createSWRHooks<TRouter extends AnyRouter>(
 		}
 		// Create client instance if not already created (Will be Garbage collected once TRPCProvider mounts)
 		if (!_clientRef) {
-			_clientRef = createTRPCClient(config);
+			_clientRef = createTRPCClient(config)
 		}
 		return _preload(pathAndInput, (pathAndInput: PreloadData) => {
 			return (_clientRef as any).query(...pathAndInput)

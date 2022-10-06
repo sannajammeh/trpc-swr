@@ -79,29 +79,26 @@ describe('[endpoint].preload', () => {
 		}
 
 		const Page = () => {
-			const [show, setShow] = useState(false);
-            const [count, setCount] = useState<any>(0);
+			const [show, setShow] = useState(false)
+			const [count, setCount] = useState<any>(0)
 			useEffect(() => {
 				trpc.preloadTest.exec.preload().then((count) => {
-                    setCount((count as any).count);
-                } )
-                
-            }, [])
-            
+					setCount((count as any).count)
+				})
+			}, [])
 
-			return show ? <Comp /> : <button data-testid="click-btn" onClick={() => setShow(true)}>click:{count}</button>
-		};
+			return show ? <Comp /> : <button data-testid='click-btn' onClick={() => setShow(true)}>click:{count}</button>
+		}
 
-        render(<Page />);
-        const elem = await screen.findByText('click:1');
+		render(<Page />)
+		const elem = await screen.findByText('click:1')
 
-        fireEvent.click(elem);
-        
-        await screen.findByText('data:foo');
-        const elem2 = await screen.findByTestId('count-stat');
-        const [, newCount] = elem2?.textContent?.split(':') ?? [];
+		fireEvent.click(elem)
 
-        expect(Number(newCount)).toBe(1);
-	});
-});
+		await screen.findByText('data:foo')
+		const elem2 = await screen.findByTestId('count-stat')
+		const [, newCount] = elem2?.textContent?.split(':') ?? []
 
+		expect(Number(newCount)).toBe(1)
+	})
+})
