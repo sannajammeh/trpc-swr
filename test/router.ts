@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker'
 import { initTRPC, TRPCError } from '@trpc/server'
 import { beforeEach } from 'vitest'
 
@@ -62,6 +63,60 @@ const preloadRouter = t.router({
 	}),
 })
 
+interface Person {
+	id: string
+	name: string
+	cursor: number
+}
+
+const people: Person[] = []
+for (const _ of Array.from({ length: 2 })) {
+	people.push({
+		id: faker.database.mongodbObjectId(),
+		name: faker.name.firstName(),
+		cursor: faker.datatype.number(),
+	})
+}
+
+const peopleRouter = t.router({
+	getMany: t.procedure.input(z.object({
+		limit: z.number().optional(),
+		page: z.number().optional(),
+	})).query(({ input }) => {
+		const { limit = 10, page = 0 } = input
+
+		return [...people].slice(page * limit, (page + 1) * limit)
+	}),
+
+	byCursor: t.procedure.input(z.object({
+		cursor: z.number().nullish(),
+	})).query(({ input }) => {
+		const limit = 1 // preset limit
+		const { cursor } = input
+
+		/**
+		 * EMULATED DB CURSOR LOGIC
+		 */
+
+		// Find the index of the cursor if it exists
+		const cursorIndex = people.findIndex((person) => person.cursor === cursor)
+
+		// If the cursor exists, return items and nextCursor
+		if (cursorIndex !== -1) {
+			return {
+				items: [...people].slice(cursorIndex, cursorIndex + limit),
+				nextCursor: people[cursorIndex + limit]?.cursor ?? null,
+			}
+		}
+
+		// If the cursor does not exist, return items and nextCursor
+		return {
+			items: [...people].slice(0, limit),
+			nextCursor: people[limit]?.cursor ?? null,
+		}
+	}),
+})
+
 export const appRouter = t.router({
 	// this is the "root" query
 	hello: t.procedure.query(() => {
@@ -75,6 +130,7 @@ export const appRouter = t.router({
 		}
 	}),
 	user: userRouter,
+	people: peopleRouter,
 	preloadTest: preloadRouter,
 })
 

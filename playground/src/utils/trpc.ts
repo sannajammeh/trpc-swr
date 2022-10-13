@@ -1,5 +1,6 @@
 import { httpBatchLink, loggerLink } from '@trpc/client'
 import { createSWRProxyHooks } from '../../../src'
+import { createSWRInfiniteProxy } from '../../../src/infinite'
 import { AppRouter } from '../server/router'
 
 const getUrl = () => {
@@ -24,3 +25,5 @@ export const trpc = createSWRProxyHooks<AppRouter>({
 		}),
 	],
 })
+
+export const infinite = createSWRInfiniteProxy(trpc)
