@@ -47,6 +47,9 @@ const customRender = (ui: React.ReactElement, options: RenderOptions = {}) =>
 	})
 
 export * from '@testing-library/react'
+export const getUrl = async () => {
+	return `http://localhost:${await getPort()}`
+}
 // override render export
 export { customRender as render }
 export { default as userEvent } from '@testing-library/user-event'

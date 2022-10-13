@@ -1,7 +1,7 @@
-import { TRPCClient, TRPCRequestOptions } from '@trpc/client'
+import { CreateTRPCClientOptions, TRPCClient, TRPCRequestOptions } from '@trpc/client'
 import { AnyProcedure, AnyRouter, inferProcedureInput } from '@trpc/server'
 
-export type CreateClient<TRouter extends AnyRouter> = () => TRPCClient<TRouter>
+export type CreateClient<TRouter extends AnyRouter> = (config?: CreateTRPCClientOptions<TRouter>) => TRPCClient<TRouter>
 
 /**
  * Gets the current key of a procedure call, useful for cache mutation & manual SSR

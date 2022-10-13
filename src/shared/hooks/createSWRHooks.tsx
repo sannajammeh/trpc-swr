@@ -28,8 +28,8 @@ export function createSWRHooks<TRouter extends AnyRouter>(
 	// type TSubscriptions = TRouter['_def']['subscriptions']
 	// type TMutations = TRouter['_def']['mutations']
 
-	const createClient = () => {
-		return createTRPCClient(config)
+	const createClient = (configOverride?: CreateTRPCClientOptions<TRouter>) => {
+		return createTRPCClient(configOverride || config)
 	}
 
 	const Context = TRPCContext as unknown as React.Context<
@@ -114,8 +114,6 @@ export function createSWRHooks<TRouter extends AnyRouter>(
 	) => {
 		return unserialized ? pathAndInput : unstable_serialize(pathAndInput)
 	}
-
-	
 
 	return {
 		Provider: TRPCProvider,

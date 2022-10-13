@@ -2,6 +2,7 @@ import { initTRPC, TRPCError } from '@trpc/server'
 import { beforeEach } from 'vitest'
 
 import { z } from 'zod'
+import { Context } from './server'
 
 interface User {
 	id: number
@@ -15,7 +16,7 @@ const data: { users: User[] } = {
 	],
 }
 
-export const t = initTRPC.create()
+export const t = initTRPC.context<Context>().create()
 
 const userRouter = t.router({
 	get: t.procedure.input(z.object({ id: z.number() })).query(({ input }) => {
@@ -65,6 +66,13 @@ export const appRouter = t.router({
 	// this is the "root" query
 	hello: t.procedure.query(() => {
 		return 'world'
+	}),
+	xTest: t.procedure.query(({ ctx }) => {
+		const xTestHeader = ctx.req.headers['X-Test']
+
+		return {
+			header: xTestHeader,
+		}
 	}),
 	user: userRouter,
 	preloadTest: preloadRouter,
