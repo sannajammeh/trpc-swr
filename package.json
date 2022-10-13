@@ -1,6 +1,6 @@
 {
 	"name": "@chiefkoshi/trpc-swr",
-	"version": "1.0.0-beta.4.1",
+	"version": "1.0.0-beta.5",
 	"type": "module",
 	"private": false,
 	"description": "tRPC-ified SWR hooks",
