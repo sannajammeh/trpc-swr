@@ -10,8 +10,8 @@ importers:
       '@testing-library/jest-dom': 5.16.5
       '@testing-library/react': 13.4.0
       '@testing-library/user-event': 14.4.3
-      '@trpc/client': 10.0.0-proxy-beta.14
-      '@trpc/server': 10.0.0-proxy-beta.14
+      '@trpc/client': 10.0.0-proxy-beta.19
+      '@trpc/server': 10.0.0-proxy-beta.19
       '@types/node': 18.8.2
       '@types/react': 18.0.21
       '@vitejs/plugin-react': 2.1.0
@@ -41,8 +41,8 @@ importers:
       '@testing-library/jest-dom': 5.16.5
       '@testing-library/react': 13.4.0_biqbaboplfbrettd7655fr4n2y
       '@testing-library/user-event': 14.4.3_znccgeejomvff3jrsk3ljovfpu
-      '@trpc/client': 10.0.0-proxy-beta.14_5mq2botmoztuf5q2t6sfiqfqna
-      '@trpc/server': 10.0.0-proxy-beta.14
+      '@trpc/client': 10.0.0-proxy-beta.19_tn7jjvonwo5zocadywwmeyiaze
+      '@trpc/server': 10.0.0-proxy-beta.19
       '@types/node': 18.8.2
       '@types/react': 18.0.21
       '@vitejs/plugin-react': 2.1.0_vite@3.0.4
@@ -738,16 +738,16 @@ packages:
     engines: {node: '>= 10'}
     dev: true
 
-  /@trpc/client/10.0.0-proxy-beta.14_5mq2botmoztuf5q2t6sfiqfqna:
-    resolution: {integrity: sha512-keVKwKwlnJSApxujLjm/YgI9RCOrMt7aF7fHscHQ2hNEj3z7fSlGNqa+i08k2PZ0+KrWInUveSrgtzTlWyqpkA==}
+  /@trpc/client/10.0.0-proxy-beta.19_tn7jjvonwo5zocadywwmeyiaze:
+    resolution: {integrity: sha512-xwVMoi0eATtD5nu8rcZsJ6/dzKOnUoyBrmgIa58BlbcHEELp5LdgwI2OBRq/7GSXueofECccoqhDoEVbe+yb3g==}
     peerDependencies:
-      '@trpc/server': 10.0.0-proxy-beta.14
+      '@trpc/server': 10.0.0-proxy-beta.19
     dependencies:
-      '@trpc/server': 10.0.0-proxy-beta.14
+      '@trpc/server': 10.0.0-proxy-beta.19
     dev: true
 
-  /@trpc/server/10.0.0-proxy-beta.14:
-    resolution: {integrity: sha512-BzxJL9N5NFb7aNvC+KDN/bStL08VO2vbnAURF+4egwIoLp2p1fDuyM4LHXCUgKdBlbEWSKsM1PaygjtVmscxSQ==}
+  /@trpc/server/10.0.0-proxy-beta.19:
+    resolution: {integrity: sha512-KYNBfvnNA6A27KAZhkEg+XLBSvVn3U36stEnBcGSkMtnadqX5oVP4piU66x6eq/UnfOxiA2/YWtmqStBPkuuCw==}
     dev: true
 
   /@types/aria-query/4.2.2:
