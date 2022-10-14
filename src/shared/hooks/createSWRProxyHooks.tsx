@@ -38,50 +38,8 @@ type DecorateProcedure<
 			) => SWRMutationResponse<TData, TError, TMutationInput, TPath>
 
 			getKey: GetKey<TProcedure, TPath>
-		} // & (inferProcedureInput<TProcedure> extends { cursor?: any }
-	: //   ? {
-	//       useInfiniteQuery: <
-	//         _TQueryFnData = inferProcedureOutput<TProcedure>,
-	//         TData = inferProcedureOutput<TProcedure>
-	//       >(
-	//         input: Omit<inferProcedureInput<TProcedure>, "cursor">,
-	//         opts?: UseTRPCInfiniteQueryOptions<
-	//           TPath,
-	//           inferProcedureInput<TProcedure>,
-	//           TData,
-	//           TRPCClientErrorLike<TProcedure>
-	//         >
-	//       ) => UseInfiniteQueryResult<TData, TRPCClientErrorLike<TProcedure>>;
-	//     }
-	//   : {})
-	//   : TProcedure extends { _type: "mutation" }
-	//   ? {
-	//       useMutation: <TContext = unknown>(
-	//         opts?: UseTRPCMutationOptions<
-	//           inferProcedureInput<TProcedure>,
-	//           TRPCClientErrorLike<TProcedure>,
-	//           inferProcedureOutput<TProcedure>,
-	//           TContext
-	//         >
-	//       ) => UseMutationResult<
-	//         inferProcedureOutput<TProcedure>,
-	//         TRPCClientErrorLike<TProcedure>,
-	//         inferProcedureInput<TProcedure>,
-	//         TContext
-	//       >;
-	//     }
-	//   : TProcedure extends { _type: "subscription" }
-	//   ? {
-	//       useSubscription: (
-	//         input: inferProcedureInput<TProcedure>,
-	//         opts?: UseTRPCSubscriptionOptions<
-	//           inferObservableValue<inferProcedureOutput<TProcedure>>,
-	//           TRPCClientErrorLike<TProcedure>
-	//         >
-	//       ) => void;
-	//     }
-
-	never
+		}
+	: never
 
 /**
  * @internal
