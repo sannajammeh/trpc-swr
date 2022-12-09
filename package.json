@@ -45,7 +45,7 @@
 		"@trpc/client": ">=9.23.2",
 		"@trpc/server": ">=9.23.2",
 		"react": "^17 || ^18",
-		"swr": "^1"
+		"swr": "^1 || ^2.0.0"
 	},
 	"devDependencies": {
 		"@sachinraja/eslint-config": "0.1.1",
