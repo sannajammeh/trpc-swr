@@ -1,6 +1,6 @@
 {
 	"name": "trpc-swr",
-	"version": "1.0.0-rc.1",
+	"version": "1.0.0-SNAPSHOT.1",
 	"private": false,
 	"description": "tRPC-ified SWR hooks",
 	"repository": {
@@ -30,37 +30,34 @@
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
-			"import": "./dist/index.js",
+			"import": "./dist/index.mjs",
+			"module": "./dist/index.esm.js",
 			"require": "./dist/index.cjs",
 			"types": "./dist/index.d.ts"
 		},
 		"./infinite": {
-			"import": "./dist/infinite/index.js",
-			"require": "./dist/infinite/index.cjs",
+			"import": "./dist/infinite.mjs",
+			"module": "./dist/infinite.esm.js",
+			"require": "./dist/infinite.cjs",
 			"types": "./dist/infinite.d.ts"
 		},
 		"./next": {
-			"import": "./dist/next/index.js",
-			"require": "./dist/next/index.cjs",
+			"import": "./dist/next.mjs",
+			"module": "./dist/next.esm.js",
+			"require": "./dist/next.cjs",
 			"types": "./dist/next.d.ts"
 		},
 		"./ssg": {
-			"import": "./dist/ssg/index.js",
-			"require": "./dist/ssg/index.cjs",
+			"import": "./dist/ssg.mjs",
+			"module": "./dist/ssg.esm.js",
+			"require": "./dist/ssg.cjs",
 			"types": "./dist/ssg.d.ts"
 		}
 	},
-	"main": "dist/index.cjs",
-	"module": "dist/index.js",
-	"types": "dist/index.d.ts",
 	"files": [
 		"./dist/**/*.{js,d.ts,cjs,mjs}",
 		"./package.json",
-		"./README.md",
-		"./index.ts",
-		"./infinite.ts",
-		"./next.ts",
-		"./ssg.ts"
+		"./README.md"
 	],
 	"scripts": {
 		"build": "bunchee",
