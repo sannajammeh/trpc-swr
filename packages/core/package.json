@@ -1,6 +1,6 @@
 {
 	"name": "trpc-swr",
-	"version": "1.0.0-rc.3",
+	"version": "1.0.0-rc.4",
 	"private": false,
 	"description": "tRPC-ified SWR hooks",
 	"repository": {
@@ -62,7 +62,7 @@
 		"./README.md"
 	],
 	"scripts": {
-		"build": "rimraf dist && tsup",
+		"build": "tsup",
 		"dev": "bunchee -w",
 		"format": "dprint fmt",
 		"lint:format": "dprint check",
