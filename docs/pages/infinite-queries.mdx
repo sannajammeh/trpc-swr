@@ -1,0 +1,139 @@
+# Infinite queries
+
+Infinite queries are query call that keep fetching data until the user stops the query. Infinite queries are useful for paginated data.
+
+To handle this, `tRPC-SWR` provides the `createSWRInfiniteProxy` function. It creates a proxy that leverages SWR's `useSWRInfinite` hook.
+
+## Setup
+
+In your `trpc` utils file, import the infinite library and pass it the current trpc client
+
+```tsx
+import { createSWRInfiniteProxy } from "trpc-swr/infinite";
+
+// ... previous tRPC hooks above
+
+export const infinite = createSWRInfiniteProxy(client);
+```
+
+## Usage
+
+### Using `limit` & `page`
+
+#### In your paginated route:
+
+```tsx
+const userRouter = t.router({
+  getMany: t.procedure
+    .input({
+      limit: t.number.optional.default(10),
+      page: t.number.optional.default(1),
+    })
+    .query(({ input }) => {
+      return prisma.user.findMany({
+        take: input.limit,
+        skip: input.limit * (input.page - 1),
+      });
+    }),
+});
+```
+
+#### In your React component:
+
+```tsx
+const { data, error, size, setSize } = infinite.user.getMany.use(
+  (index, previousPageData) => {
+    return {
+      limit: 10,
+      page: 1,
+    };
+  }
+);
+
+const users = data?.pages.flat() || [];
+
+return (
+  <div>
+    {users.map((user) => (
+      <div key={user.id}>{user.name}</div>
+    ))}
+    <button
+      onClick={() => {
+        setSize(size + 1);
+      }}
+    >
+      Load more
+    </button>
+  </div>
+);
+```
+
+### Using `cursor`
+
+#### In your paginated route:
+
+Example with `prisma`
+
+```tsx
+const userRouter = t.router({
+  getMany: t.procedure
+    .input({
+      limit: z.number().min(1).max(100).nullish(),
+      cursor: z.number().nullish(),
+    })
+    .query(({ input }) => {
+      const limit = input.limit ?? 10;
+      const { cursor } = input;
+
+      const items = await prisma.user.findMany({
+        take: limit + 1,
+        cursor: cursor ? { myCursor: cursor } : undefined,
+        orderBy: { myCursor: "asc" },
+      });
+
+      let nextCursor: typeof cursor | null = null;
+      if (items.length > limit) {
+        nextCursor = items[items.length - 1].myCursor;
+        items.pop();
+      }
+
+      return {
+        items,
+        nextCursor,
+      };
+    }),
+});
+```
+
+#### In your React component:
+
+The useCursor method is a convenience wrapper around `use`. It will automatically pass the `nextCursor` as the `cursor` input to the next query. You can build this functionality with `.use()`
+
+```tsx
+const { data, error, size, setSize } = infinite.user.getMany.useCursor(
+  { limit: 3 },
+  (index, previousPageData) => {
+    return previousPageData?.nextCursor;
+  }
+);
+
+const users = data?.pages.flat() || [];
+const hasMore = data?.at(-1).nextCursor !== null;
+
+return (
+  <div>
+    {users.map((user) => (
+      <div key={user.id}>{user.name}</div>
+    ))}
+    {hasMore && (
+      <button
+        onClick={() => {
+          setSize(size + 1);
+        }}
+      >
+        Load more
+      </button>
+    )}
+  </div>
+);
+```

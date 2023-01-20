@@ -1,0 +1,83 @@
+# Fetching data on the server
+
+## The `<endpoint>.fetch()` method
+
+The .fetch method is available on any queries you use when fetching data on the server. It's a simple method that returns the data from the query.
+
+```tsx
+import { createSSG } from "server/ssg";
+
+const getUser = (id: number) => {
+  const trpc = createSSG();
+
+  return trpc.users.byId({ id });
+};
+
+await getUser(1); // {id: 1, name: "john"}
+```
+
+Additionally you can opt into using the data-transformer on the data. This uses the transformer you've supplied when creating your `Router` typically SuperJSON. If no transformer exists then the values are returned.
+
+```tsx
+const getUser = (id: number) => {
+  const trpc = createSSG();
+
+  return trpc.users.byId(
+    { id },
+    {
+      transform: true,
+    }
+  );
+};
+
+await getUser(1); // {json: {id: 1, name: "john"}}
+```
+
+## Dehydrating state - passing state to SWR
+
+### Parallel data fetching
+
+In the previous section, we saw how to fetch data from a single source. In this section, we will see how to fetch data from multiple sources in parallel.
+
+#### In your getData or getStaticProps function
+
+```tsx
+import { createSSG } from "server/ssg";
+
+export const getStaticProps = async () => {
+  const trpc = createSSG();
+
+  trpc.users.byId({ id: 1 });
+  trpc.posts.byUser({ id: 1 });
+
+  return {
+    props: {
+      swr: await trpc.dehydrate(),
+    },
+  };
+};
+```
+
+Here any `trpc.users.byId` and `trpc.posts.byUser` calls will be executed in parallel. Any hooks in your components will have the data available immediately.
+
+If you wanted to opt out of parallel fetching, you can use the `await` keyword on the call:
+
+```tsx
+export const getServerSideProps = async () => {
+  const trpc = createSSG();
+
+  const user = await trpc.users.byId({ id: 1 });
+  // Do something with the user:
+  if (user.isBanned) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: {
+      swr: await trpc.dehydrate(),
+    },
+  };
+};
+```

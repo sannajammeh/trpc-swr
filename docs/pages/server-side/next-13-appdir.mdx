@@ -1,0 +1,228 @@
+# Next 13 App Dir
+
+When using `trpc-swr` with the new Next.js 13 React Server Components, some minor changes are required to get it working. This guide will show you how to configure `trpc-swr` to work with Next.js 13.
+
+### 1. Mark `swr` as an external package
+
+Next.js uses their Rust compiler to compile all dependencies of RSC components. `SWR` unfortunately is not compatible with this compiler due to its use of `useRef`. This means that `SWR` needs to be marked as an external package so that it is not compiled by Next.js.
+
+```js
+// next.config.mjs
+export default {
+  ...
+  experimental: {
+    serverComponentsExternalPackages: ["swr"],
+    ...
+  },
+};
+```
+
+### 2. Wrap your root layout `trpc.Provider`
+
+Create a new file called `Providers.tsx` in your `app` folder. This will serve as the file where all your Context providers wrap.
+
+```tsx
+"use client";
+
+export default function Providers({ children }: React.PropsWithChildren<{}>) {
+  const [client] = useState(() => trpc.createClient());
+  return <trpc.Provider client={client}>{children}</trpc.Provider>;
+}
+```
+
+In your Root layout add wrap the `children` with `Providers`
+
+```tsx
+import Providers from "./Providers";
+
+export default function RootLayout({ children }: React.PropsWithChildren<{}>) {
+  return (
+    <html>
+      <head />
+      <body>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
+  );
+}
+```
+
+### 3. Export `createSSG` helpers
+
+In your `trpc` folder, create a new file called `trpc-ssg.ts` and add the following code:
+
+```tsx
+import { appRouter } from "<router-location>";
+import { createProxySSGHelpers } from "trpc-swr/ssg";
+
+export const createSSG = () => {
+  return createProxySSGHelpers({
+    router: appRouter,
+    ctx: {},
+  });
+};
+```
+
+### 3. Use `createSSG` in your pages
+
+There are two ways to use `createSSG` in your pages:
+
+1. Layout level
+2. Page level
+
+#### Page level data
+
+Page level data does not require `useSWR` at all, thus it is very simple to use, and you can use the `createSSG` helpers directly.
+
+In your pages, import `createSSG` and use it:
+
+```tsx
+// app/home/page.tsx
+import { createSSG } from "<trpc-ssg-location>";
+
+const getData = () => {
+  const rsc = createSSG();
+
+  return rsc.home.getVersion.fetch();
+};
+
+export default async function HomePage() {
+  const version = await getData();
+
+  return <div>{version}</div>;
+}
+```
+
+Thats it, your server component will use `trpc-swr` to fetch data from your `trpc` server.
+
+#### Global
+
+If you want to use `trpc-swr` in your layout, you can use the `createSSG` helpers in your layout and pass them down to your pages.
+Any `client` components using `useSWR` will be able to use the cache render with fresh data on the server:
+
+In order to do this, we must create a `client component` which acts as a context provider for trpc-swr. We can do this by exporting our 'own' `SWRConfig`.
+
+1. In `app/SWRConfig.tsx` export this component:
+
+```tsx
+"use client"; // This is the reason we're faking the export.
+import { trpc } from "../utils/trpc"; // trpc client library
+
+const SWRConfig = ({
+  children,
+  ...rest
+}: React.ComponentProps<typeof trpc.SWRConfig>) => {
+  return <trpc.SWRConfig {...rest}>{children}</trpc.SWRConfig>;
+};
+
+export default SWRConfig;
+```
+
+**NOTE** This component can be used multiple times anywhere in your App. It simply wraps the native SWRConfig with the data transformers needed for `trpc-swr`.
+
+2. In your layout, import `createSSG` and use it. Pass the `dehydratedState` to your custom `SWRConfig`:
+
+```tsx
+// app/home/layout.tsx
+import { createSSG } from "<trpc-ssg-location>";
+import SWRConfig from "./SWRConfig";
+
+const getData = () => {
+  const rsc = createSSG();
+
+  rsc.home.getVersion.fetch();
+
+  return rsc.dehydrate();
+};
+
+export default async function Layout({ children }) {
+  return (
+    <SWRConfig
+      value={{
+        fallback: getData(),
+      }}
+    >
+      {children}
+    </SWRConfig>
+  );
+}
+```
+
+3. In your client components: use `trpc-swr` normally, watch it render with data already available on the server:
+
+```tsx
+"use client";
+
+import { trpc } from "utils/trpc";
+
+const Version = () => {
+  const { data } = trpc.home.getVersion.useSWR();
+
+  console.assert(data !== undefined, "data should be available"); // Will not fire since data is available.
+
+  return (
+    <div>
+      version:
+      {data!}
+    </div>
+  );
+};
+```
+
+#### Using both Page level and global data
+
+Lets say you use page level data in your server component, but you render some client components which should have access to this data.
+If you've setup your custom `SWRConfig`, this is trivial.
+
+```tsx
+// app/dashboard/page.tsx
+
+import { createSSG } from "<trpc-ssg-location>";
+import SWRConfig from "../SWRConfig";
+
+const getData = (id: number) => {
+  const rsc = createSSG();
+
+  const user = await rsc.users.byId.fetch({ id });
+
+  return {
+    user,
+    fallback: await rsc.dehydrate(),
+  };
+};
+
+async function DashboardPage() {
+  const { users, fallback } = await getData();
+
+  return (
+    <SWRConfig value={{ fallback }}>
+      <User user={user} />
+      <UpdateUserForm /> {/* <-- is a client component since its a form */}
+    </SWRConfig>
+  );
+}
+
+export default DashboardPage;
+```
+
+Use the prefetched data in your client component:
+
+```tsx
+// app/dashboard/components/UpdateUserForm.tsx
+
+import { trpc } from "utils/trpc";
+
+const UpdateUserForm = ({ id }: { id: number }) => {
+  const { data } = trpc.users.byId.useSWR({ id: 1 });
+
+  console.assert(data !== undefined, "data should be available"); // Will not fire since data is available.
+
+  return (
+    <form>
+      <input defaultValue={data!.name} />
+    </form>
+  );
+};
+```
+
+It is possible to prop-drill here, but you can imagine a deep tree of client components requiring this data.
