@@ -1,16 +1,14 @@
 import type { NextPage } from 'next'
-import { trpc, useSWRInfinite } from '../utils/trpc'
+import { trpc } from '../utils/trpc'
+
+trpc.user.byId.preload({ id: 1 })
 
 const Home: NextPage = () => {
-	const { data, mutate, isValidating } = trpc.useSWR(['user.get', { id: 2 }])
+	const { data, mutate, isValidating } = trpc.user.byId.useSWR({ id: 2 })
+	const { data: user1, isLoading } = trpc.user.byId.useSWR({ id: 1 })
 	const { client } = trpc.useContext()
 
-	const { data: userData, size, setSize } = useSWRInfinite('user.get', (pageIndex, previousData) => {
-		if (previousData === undefined) return null
-
-		return [{ id: pageIndex }]
-	})
-
+	const { data: userData } = trpc.user.get.useSWR()
 	return (
 		<>
 			<div>
@@ -24,25 +22,28 @@ const Home: NextPage = () => {
 			<button
 				onClick={async () => {
 					mutate(() => {
-						return client.mutation('user.create', { name: 'trpc2' })
+						return (client as any).mutation('user.create', { name: 'trpc2' })
 					}, { optimisticData: { name: 'trpc2' } })
 				}}
 			>
 				Post Name
 			</button>
 
+			<h2>User with id 1 -{'>'} preloaded</h2>
+
+			<div>
+				Name: {!user1 && isLoading
+					? 'loading...'
+					: user1
+					? user1.name
+					: 'User does not exist'}
+			</div>
+			<h3>Users</h3>
+
 			{userData?.map((user) => {
 				if (!user) return
 				return <div key={user?.name}>{user?.name ? `Name: ${user.name}` : 'loading...'}</div>
 			})}
-
-			<button
-				onClick={() => {
-					setSize(size + 1)
-				}}
-			>
-				Load More Users
-			</button>
 		</>
 	)
 }

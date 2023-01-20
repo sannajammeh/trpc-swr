@@ -13,6 +13,6 @@
 		"jsx": "react-jsx",
 		"types": ["node", "vite/client", "vitest/globals"]
 	},
-	"include": ["src", "test", "vite.config.ts"],
+	"include": ["src_old", "test", "vite.config.ts"],
 	"exclude": ["node_modules", "dist"]
 }

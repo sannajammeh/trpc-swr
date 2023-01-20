@@ -5,7 +5,7 @@ import { render, screen, trpc, waitFor } from './utils'
 
 it('makes query without args', async () => {
 	const Component = () => {
-		const { data } = trpc.useSWR(['hello'])
+		const { data } = trpc.hello.useSWR()
 
 		return data ? <p>{data}</p> : <div>Loading...</div>
 	}
@@ -21,7 +21,7 @@ it('makes query without args', async () => {
 
 it('makes query with args', async () => {
 	const Component = () => {
-		const { data: user } = trpc.useSWR(['user.get', { id: 1 }])
+		const { data: user } = trpc.user.get.useSWR({ id: 1 })
 
 		return user ? <p>{user.name}</p> : <div>Loading...</div>
 	}
@@ -39,7 +39,9 @@ it('makes conditional query', async () => {
 	const Component = () => {
 		const [shouldFetch, setShouldFetch] = useState(true)
 
-		const { data } = trpc.useSWR(shouldFetch ? ['hello'] : null)
+		const { data } = trpc.hello.useSWR(undefined, {
+			isDisabled: !shouldFetch,
+		})
 
 		return (
 			<>
@@ -61,19 +63,5 @@ it('makes conditional query', async () => {
 
 	await waitFor(() => {
 		expect(screen.getByText('disabled')).toBeInTheDocument()
-	})
-})
-
-it('makes query with function query key', async () => {
-	const Component = () => {
-		const { data } = trpc.useSWR(() => ['hello'])
-
-		return <p>{data}</p>
-	}
-
-	render(<Component />)
-
-	await waitFor(() => {
-		expect(screen.getByText('world')).toBeInTheDocument()
 	})
 })

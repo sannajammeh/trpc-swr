@@ -1,7 +1,35 @@
-import { createSWRHooks, getUseMatchMutate } from '../../../src'
-import { getUseSWRInfinite } from '../../../src/infinite'
-import { AppRouter } from '../server/router'
+import { httpBatchLink, loggerLink } from '@trpc/client'
+import SuperJSON from 'superjson'
+import { createSWRProxyHooks } from '../../../src'
+import { createSWRInfiniteProxy } from '../../../src/infinite'
+import type { AppRouter } from '../server/router'
 
-export const trpc = createSWRHooks<AppRouter>()
-export const useMatchMutate = getUseMatchMutate<AppRouter>()
-export const useSWRInfinite = getUseSWRInfinite<AppRouter>()
+const getUrl = () => {
+	if (typeof window === 'undefined') {
+		if (process.env.NODE_ENV === 'development') {
+			return 'http://localhost:3000/api/trpc'
+		}
+		if (process.env.VERCEL_URL) {
+			return `https://${process.env.VERCEL_URL}/api/trpc`
+		}
+		return 'https://localhost:3000/api/trpc'
+	}
+
+	return '/api/trpc'
+}
+
+export const trpc = createSWRProxyHooks<AppRouter>({
+	links: [
+		loggerLink({
+			enabled() {
+				return process.env.NODE_ENV === 'development'
+			},
+		}),
+		httpBatchLink({
+			url: getUrl(),
+		}),
+	],
+	transformer: SuperJSON,
+})
+
+export const infinite = createSWRInfiniteProxy(trpc)

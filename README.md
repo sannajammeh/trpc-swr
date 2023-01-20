@@ -7,7 +7,7 @@
 ## Installation
 
 ```sh
-npm install trpc-swr @trpc/client
+npm install trpc-swr @trpc/client @trpc/server
 ```
 
 ## Usage
@@ -16,32 +16,36 @@ First, create your fully typed hooks using your router type:
 
 ```ts
 // trpc.ts
-import { createSWRHooks } from 'trpc-swr'
+import { createSWRProxyHooks } from 'trpc-swr'
 // `import type` ensures this import is fully erased at runtime
-import type { AppRouter } from './router'
+import type { AppRouter } from './server/router'
 
-export const trpc = createSWRHooks<AppRouter>()
+// Pass the tRPC configuration object in here
+// note that you should pass data transformers (https://trpc.io/docs/data-transformers) here
+export const trpc = createSWRProxyHooks<AppRouter>({
+	links: [
+		httpBatchLink({
+			url: 'http://localhost:3000/api/trpc',
+		}),
+	],
+})
 ```
 
-Then, add the `trpc.TRPCProvider` to your root `App` component:
+Then, add the `trpc.Provider` to your root `App` component:
 
-```ts
+```tsx
 // _app.tsx
 import { createTRPCClient } from '@trpc/client'
 import { trpc } from '../utils/trpc'
 
-const App = () => {
+const App = ({ pageProps }) => {
 	// create a tRPC vanilla client
-	// see https://trpc.io/docs/vanilla
-	// note that you should pass data transformers (https://trpc.io/docs/data-transformers) here
-	const [client] = useState(() =>
-		createTRPCClient({ url: 'http://localhost:3000/api/trpc' })
-	)
+	const [client] = useState(() => trpc.createClient())
 
 	return (
-		<trpc.TRPCProvider client={client}>
+		<trpc.Provider client={client}>
 			<Component {...pageProps} />
-		</trpc.TRPCProvider>
+		</trpc.Provider>
 	)
 }
 ```
@@ -52,16 +56,16 @@ const App = () => {
 
 Now use `trpc` to query in a component:
 
-```ts
+```tsx
 // profile.tsx
 import { trpc } from './trpc'
 
 const Profile = (props: { userId: string }) => {
-	const { data, isValidating } = trpc.useSWR(['user.get', { id: props.userId }])
+	const { data, isLoading } = trpc.user.get.useSWR({ id: props.userId })
 
 	return (
 		<div>
-			Name: {!data && isValidating
+			Name: {!data && isLoading
 				? 'loading...'
 				: data
 				? data.name
@@ -75,24 +79,25 @@ const Profile = (props: { userId: string }) => {
 
 ### Mutations
 
-You can use `trpc.useContext` to get a tRPC client for mutations:
+You can use `trpc.useSWRMutation` api to get a tRPC client for mutations:
 
-```ts
+```tsx
 // profile.tsx
 import { trpc } from './trpc'
 
 const Profile = (props: { userId: string }) => {
 	// get `mutate` from trpc.useSWR
 	// this is a bound mutate (https://swr.vercel.app/docs/mutation#bound-mutate)
-	const { data, mutate, isValidating } = trpc.useSWR(['user.get', {
+	const { data, mutate, isLoading } = trpc.user.get.useSWR({
 		id: props.userId,
-	}])
-	const { client } = trpc.useContext()
+	})
+
+	const { trigger } = trpc.user.changeName.useSWRMutation()
 
 	return (
 		<div>
 			<div>
-				Name: {!data && isValidating
+				Name: {!data && isLoading
 					? 'loading...'
 					: data
 					? data.name
@@ -109,7 +114,7 @@ const Profile = (props: { userId: string }) => {
 					// so it is refetched after the mutation is complete
 					mutate(
 						() => {
-							return client.mutation('user.changeName', {
+							return trigger({
 								id: props.userId,
 								newName,
 							})
@@ -124,165 +129,79 @@ const Profile = (props: { userId: string }) => {
 }
 ```
 
-You can also use `trpc.useContext` to get a `mutate` function which is the same as [SWR's global mutate](https://swr.vercel.app/docs/mutation). However, you will have the pass the same key, meaning the query path and input that you passed to `useSWR`. Here it is with the same example as above:
+### Preloading data
 
-```ts
-// profile.tsx
-import { trpc } from './trpc'
+This is useful for kicking off a request early when you know you'll need the data soon.
 
-const Profile = (props: { userId: string }) => {
-	const { data, isValidating } = trpc.useSWR(['user.get', {
-		id: props.userId,
-	}])
+```tsx
+// UserList.tsx
 
-	// get `mutate` from `trpc.useContext`
-	const { client, mutate } = trpc.useContext()
+const UserList = () => {
+	const { data: users } = trpc.user.getAll.useSWR()
 
-	return (
-		<div>
-			<div>
-				Name: {!data && isValidating
-					? 'loading...'
-					: data
-					? data.name
-					: 'User does not exist'}
-			</div>
-
-			<button
-				onClick={() => {
-					const newName = 'Jack'
-
-					mutate(
-						// must pass in exact same query path and input
-						// to revalidate the query key
-						// note that you can use `matchMutate` to
-						// revalidate query keys with the same path
-						['user.get', { id: props.userId }],
-						() => {
-							return client.mutation('user.changeName', {
-								id: props.userId,
-								newName,
-							})
-						},
-						{ optimisticData: { name: newName } },
-					)
-				}}
-			>
-			</button>
-		</div>
-	)
-}
-```
-
-### useSWRInfinite
-
-`trpc-swr` also provides a [`useSWRInfinite`](https://swr.vercel.app/docs/pagination#useswrinfinite) wrapper. Create your typed `useSWRInfinite`:
-
-```ts
-// trpc.ts
-import { createSWRHooks } from 'trpc-swr'
-import { getUseSWRInfinite } from 'trpc-swr/infinite'
-
-// `import type` ensures this import is fully erased at runtime
-import type { AppRouter } from './router'
-
-export const trpc = createSWRHooks<AppRouter>()
-export const useSWRInfinite = getUseSWRInfinite<AppRouter>()
-```
-
-> This requires using `getUseSWRInfinite` and passing in the `AppRouter` type again, so we can take full advantage of tree shaking and remove the functions that your app does not use.
-
-Now use it in a component:
-
-```ts
-// users.tsx
-import { useSWRInfinite } from './trpc'
-
-const Users = () => {
-	const { data, size, setSize } = useSWRInfinite(
-		// pass in path
-		'user.get',
-		(index, previousPageData) => {
-			if (index !== 0 && !previousPageData) return null
-
-			// return a value for the input of the path you passed
-			// `user.get` in this case
-			return [{ id: index }]
-		},
-	)
-
-	if (!data) {
-		return <div>Loading...</div>
+	const handleHover = (id: number) => {
+		// Preload the data once the user hovers
+		// This makes sure we have the user object in SWR cache when the user clicks the link
+		trpc.user.get.preload({ id })
 	}
 
 	return (
-		<>
-			<div>
-				{data.map((user) => {
-					return <p key={user.name}>{user.name}</p>
-				})}
-			</div>
-
-			<button onClick={() => setSize(size + 1)}>Load More Users</button>
-		</>
+		<ul>
+			{users.map((user) => (
+				<li onHover={() => handleHover(user.id)} key={user.id}>
+					<Link href={`/users/${user.id}`}>
+						<a>{user.name}</a>
+					</Link>
+				</li>
+			))}
+		</ul>
 	)
 }
 ```
 
-## Utility
+### SSG & SSR
 
-### matchMutate
+To prefetch data on the server, you must provide a serializable key.
 
-The [`matchMutate`](https://swr.vercel.app/docs/advanced/cache#mutate-multiple-keys-from-regex) utility allows you to invalidate query keys that match a tRPC route. Create your typed `useMutateMutate` function:
+```tsx
+const HomePage: NextPage = ({ fallback }) => {
+	return (
+		<SWRConfig value={{ fallback }}>
+			<h1>Home</h1>
+			<Profile userId='1' />
+		</SWRConfig>
+	)
+}
 
-```ts
-// trpc.ts
-import { createSWRHooks, getUseMatchMutate } from 'trpc-swr'
-// `import type` ensures this import is fully erased at runtime
-import type { AppRouter } from './router'
-
-export const trpc = createSWRHooks<AppRouter>()
-export const useMatchMutate = getUseMatchMutate<AppRouter>()
-```
-
-Now use it in a component:
-
-```ts
-import { trpc, useMatchMutate } from './trpc'
-
-// profiles.tsx
-const Profiles = () => {
-	const userBobData = trpc.useSWR([
-		'user.get',
-		{
-			name: 'Bob',
-		},
-	])
-
-	const userAvaData = trpc.useSWR([
-		'user.get',
-		{
-			name: 'Ava',
-		},
-	])
-
-	const matchMutate = useMatchMutate()
+const Profile = (props: { userId: string }) => {
+	// The data is already available in the UI
+	const { data, isLoading } = trpc.user.get.useSWR({
+		id: props.userId,
+	})
 
 	return (
 		<div>
-			{[userBobData, userAvaData].map(({ data: user, isValidating }) => (
-				<div>
-					Name: {!data && isValidating
-						? 'loading...'
-						: data
-						? data.name
-						: 'User does not exist'}
-				</div>
-			))}
-			<button onClick={() => matchMutate('user.get')}>
-				Revalidate all tRPC `user.get` queries
-			</button>
+			Name: {!data && isLoading
+				? 'loading...'
+				: data
+				? data.name
+				: 'User does not exist'}
 		</div>
 	)
+}
+
+export const getServerSideProps = () => {
+	const client = trpc.createClient()
+	// Manually fetch the data using the native trpc client
+	const { data } = await client.query('user.get', { id: '1' })
+
+	return {
+		props: {
+			fallback: {
+				// Get a serialized key to the data
+				[trpc.user.get.getKey({ id: '1' })]: data,
+			},
+		},
+	}
 }
 ```

@@ -3,5 +3,9 @@ import { appRouter } from '../../../server/router'
 
 export default createNextApiHandler({
 	router: appRouter,
-	createContext: () => null,
+
+	createContext: () => {
+		// put your context here
+		return {}
+	},
 })

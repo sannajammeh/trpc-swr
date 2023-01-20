@@ -1,0 +1,98 @@
+# Setting up server side rendering
+
+Server side rendering and static site generation is supported using the `/next` & `/ssg` entry points. In `trpc-swr` this is done using server side calls; meaning no http requests are made on the server.
+
+## Manual setup
+
+If you're using trpc-swr in a framework other than Next.js, this is how you can set it up.
+
+Export a reusable function that creates a `createProxySSGHelpers` function.
+
+```tsx
+import { createProxySSGHelpers } from "trpc-swr/ssg";
+
+export const createSSG = () => {
+  return createProxySSGHelpers({
+    router: appRouter,
+    ctx: {},
+  });
+};
+```
+
+Then in your server rendered pages use it.
+
+```tsx
+import { createSSG } from "server/ssg";
+import { trpc } from "utils/trpc";
+
+const getData = () => {
+  const trpc = createSSG();
+
+  // You can await this function if you want to wait for the data to be fetched. It's not necessary though.
+  trpc.users.byId.fetch({ id: 1 });
+
+  return trpc.dehydrate(); // Makes sure all data is fetched and serializes data to SWR-compatible format
+};
+
+export default function App({ children, fallback }) {
+  return (
+    <trpc.SWRConfig
+      value={{
+        fallback: fallback,
+      }}
+    >
+      {children}
+    </trpc.SWRConfig>
+  );
+}
+```
+
+In a child component
+
+```tsx
+() => {
+  const { data } = trpc.users.byId.useSWR({ id: 1 });
+
+  return <div>{data!.name}</div>; // data is always defined since it's fetched on the server
+};
+```
+
+## Using Next.js
+
+If you're using Next.js, you can use the `withTRPCSWR` helper function. Then in your pages you must return the `swr` props from `getServerSideProps` or `getStaticProps`.
+
+In `pages/_app.tsx`
+
+```tsx
+import { withTRPCSWR } from "trpc-swr/next";
+
+const MyApp = ({ Component, pageProps }) => {
+  return <Component {...pageProps} />;
+};
+
+export default withTRPCSWR({})(MyApp);
+```
+
+In a page
+
+```tsx
+import { createSSG } from "server/ssg";
+
+export default function Page() {
+  const { data } = trpc.users.byId.useSWR({ id: 1 });
+
+  return <div>{data!.name}</div>; // data is always defined since it's fetched on the server
+}
+
+export const getServerSideProps = () => {
+    const trpc = createSSG();
+
+    // You can await this function if you want to wait for the data to be fetched. It's not necessary though.
+    trpc.users.byId.fetch({ id: 1 });
+    return {
+        props: {
+            swr: await trpc.dehydrate();
+        }
+    }
+}
+```
