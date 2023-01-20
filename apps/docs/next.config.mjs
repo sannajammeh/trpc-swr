@@ -1,13 +1,8 @@
-import Nextra from 'nextra'
+import Nextra from "nextra";
 
 const withNextra = Nextra({
-	theme: 'nextra-theme-docs',
-	themeConfig: './theme.config.tsx',
-	staticImage: true,
-})
+  theme: "nextra-theme-docs",
+  themeConfig: "./theme.config.tsx",
+});
 
-export default withNextra({
-	experimental: {
-		externalDir: true,
-	},
-})
+export default withNextra();
