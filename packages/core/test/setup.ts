@@ -1,9 +1,11 @@
 import '@testing-library/jest-dom'
 import { vi } from 'vitest'
 
-import { fetch } from 'cross-fetch'
+import { fetch } from 'undici'
 
 beforeAll(() => {
-	global.fetch = fetch as any
+	if (!globalThis.fetch) {
+		globalThis.fetch = fetch as any
+	}
 	vi.stubGlobal('fetch', fetch)
 })

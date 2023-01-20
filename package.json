@@ -28,5 +28,8 @@
 	"bugs": {
 		"url": "https://github.com/sachinraja/trpc-swr/issues"
 	},
-	"homepage": "https://github.com/sachinraja/trpc-swr#readme"
+	"homepage": "https://github.com/sachinraja/trpc-swr#readme",
+	"engines": {
+		"node": ">=18"
+	}
 }
