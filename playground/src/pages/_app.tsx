@@ -1,6 +1,9 @@
-import type { AppProps } from 'next/app'
+import { AppProps } from 'next/dist/shared/lib/router/router'
 import { useState } from 'react'
+import { withTRPCSWR } from '../../../src/next'
 import { trpc } from '../utils/trpc'
+import '../styles.css'
+import SuperJSON from 'superjson'
 
 const App = ({ Component, pageProps }: AppProps) => {
 	const [client] = useState(() => trpc.createClient())
@@ -11,4 +14,6 @@ const App = ({ Component, pageProps }: AppProps) => {
 	)
 }
 
-export default App
+export default withTRPCSWR({
+	transformer: SuperJSON,
+})(App)

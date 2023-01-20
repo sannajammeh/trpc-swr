@@ -3,6 +3,8 @@ const nextConfig = {
 	reactStrictMode: false,
 	experimental: {
 		externalDir: true,
+		serverComponentsExternalPackages: ['swr'],
+		appDir: true,
 	},
 }
 

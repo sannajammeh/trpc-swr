@@ -9,7 +9,6 @@ const Home: NextPage = () => {
 	const { client } = trpc.useContext()
 
 	const { data: userData } = trpc.user.get.useSWR()
-
 	return (
 		<>
 			<div>

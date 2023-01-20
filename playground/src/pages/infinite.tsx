@@ -14,10 +14,12 @@ const Infinite = () => {
 export default Infinite
 
 const UsingPage = () => {
-	const { data, setSize } = infinite.user.getMany.use((index, previousPageData) => {
-		if (index !== 0 && !previousPageData?.hasMore) return null
-		return { limit: 3, page: index }
-	})
+	const { data, setSize } = infinite.user.getMany.use(
+		(index, previousPageData) => {
+			if (index !== 0 && !previousPageData?.hasMore) return null
+			return { limit: 3, page: index }
+		},
+	)
 
 	const mergedData = data?.flatMap((page) => page.data) ?? []
 	const hasMore = data?.at(-1)?.hasMore
@@ -30,8 +32,12 @@ const UsingPage = () => {
 				Useful for custom solutions not using cursor.
 			</p>
 			<div>
-				{mergedData?.map(user => {
-					return <div key={user.id}>{user.id + 1}. {user.name}</div>
+				{mergedData?.map((user) => {
+					return (
+						<div key={user.id}>
+							{user.id + 1}. {user.name}
+						</div>
+					)
 				})}
 				{hasMore && <button onClick={() => setSize((s) => s + 1)}>Load more</button>}
 			</div>
@@ -40,7 +46,10 @@ const UsingPage = () => {
 }
 
 const UsingCursor = () => {
-	const { data, setSize } = infinite.user.getManyCursor.useCursor({ limit: 3 }, (data) => data?.nextCursor)
+	const { data, setSize } = infinite.user.getManyCursor.useCursor(
+		{ limit: 3 },
+		(data) => data?.nextCursor,
+	)
 
 	const mergedData = data?.flatMap((page) => page.data) ?? []
 	const hasMore = data?.at(-1)?.nextCursor
@@ -53,8 +62,12 @@ const UsingCursor = () => {
 				Uses the cursor to determine when to stop & fetch more data. Useful for working with Prisma.
 			</p>
 			<div>
-				{mergedData?.map(user => {
-					return <div key={user.id}>{user.id + 1}. {user.name}</div>
+				{mergedData?.map((user) => {
+					return (
+						<div key={user.id}>
+							{user.id + 1}. {user.name}
+						</div>
+					)
 				})}
 				{hasMore && <button onClick={() => setSize((s) => s + 1)}>Load more</button>}
 			</div>

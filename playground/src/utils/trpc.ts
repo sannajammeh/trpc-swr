@@ -1,12 +1,17 @@
 import { httpBatchLink, loggerLink } from '@trpc/client'
+import SuperJSON from 'superjson'
 import { createSWRProxyHooks } from '../../../src'
 import { createSWRInfiniteProxy } from '../../../src/infinite'
-import { AppRouter } from '../server/router'
+import type { AppRouter } from '../server/router'
 
 const getUrl = () => {
 	if (typeof window === 'undefined') {
-		if (process.env.NODE_ENV === 'development') return 'http://localhost:3000/api/trpc'
-		if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}/api/trpc`
+		if (process.env.NODE_ENV === 'development') {
+			return 'http://localhost:3000/api/trpc'
+		}
+		if (process.env.VERCEL_URL) {
+			return `https://${process.env.VERCEL_URL}/api/trpc`
+		}
 		return 'https://localhost:3000/api/trpc'
 	}
 
@@ -24,6 +29,7 @@ export const trpc = createSWRProxyHooks<AppRouter>({
 			url: getUrl(),
 		}),
 	],
+	transformer: SuperJSON,
 })
 
 export const infinite = createSWRInfiniteProxy(trpc)
