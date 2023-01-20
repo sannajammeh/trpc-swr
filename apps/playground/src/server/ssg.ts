@@ -1,4 +1,4 @@
-import { createProxySSGHelpers } from '../../../src/next'
+import { createProxySSGHelpers } from 'trpc-swr/next'
 import { appRouter } from './router'
 
 export const createSSG = () => {

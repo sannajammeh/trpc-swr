@@ -1,113 +1,32 @@
 {
-	"name": "@chiefkoshi/trpc-swr",
-	"version": "1.0.0-rc.0",
-	"type": "module",
-	"private": false,
-	"description": "tRPC-ified SWR hooks",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/sachinraja/trpc-swr.git"
-	},
-	"homepage": "https://github.com/sachinraja/trpc-swr#readme",
-	"bugs": {
-		"url": "https://github.com/sachinraja/trpc-swr/issues"
-	},
-	"author": "Sachin Raja <sachinraja2349@gmail.com>, Sanna Jammeh <hello@sannajammeh.com>",
-	"license": "MIT",
-	"main": "dist/index.cjs",
-	"module": "dist/index.js",
-	"types": "dist/index.d.ts",
-	"exports": {
-		"./package.json": "./package.json",
-		".": {
-			"import": "./dist/index.js",
-			"require": "./dist/index.cjs"
-		},
-		"./infinite": {
-			"import": "./dist/infinite.js",
-			"require": "./dist/infinite.cjs"
-		},
-		"./next": {
-			"import": "./dist/next.js",
-			"require": "./dist/next.cjs"
-		},
-		"./ssg": {
-			"import": "./dist/ssg.js",
-			"require": "./dist/ssg.cjs"
-		}
-	},
-	"files": [
-		"dist"
-	],
-	"scripts": {
-		"build": "tsup",
-		"format": "dprint fmt",
-		"lint": "run-p lint:*",
-		"lint:format": "dprint check",
-		"lint:types": "tsc",
-		"lint:js": "eslint .",
-		"prepare": "husky install",
-		"prepublishOnly": "pnpm build",
-		"test": "vitest",
-		"test:ui": "vitest --ui"
-	},
-	"peerDependencies": {
-		"@trpc/client": ">=10.5.0",
-		"@trpc/server": ">=10.5.0",
-		"react": ">=17 || >=18",
-		"swr": ">=2.0.0"
+	"name": "trpc-swr-mono",
+	"version": "1.0.0",
+	"description": "Monorepo of trpc-swr",
+	"dependencies": {
+		"turbo": "^1.7.0"
 	},
 	"devDependencies": {
-		"@faker-js/faker": "^7.6.0",
-		"@sachinraja/eslint-config": "0.1.1",
-		"@testing-library/dom": "8.18.1",
-		"@testing-library/jest-dom": "5.16.5",
-		"@testing-library/react": "13.4.0",
-		"@testing-library/user-event": "14.4.3",
-		"@trpc/client": "10.5.0",
-		"@trpc/server": "10.5.0",
-		"@types/node": "18.8.2",
-		"@types/react": "18.0.21",
-		"@vitejs/plugin-react": "2.1.0",
-		"@vitest/ui": "^0.23.4",
-		"c8": "^7.12.0",
-		"cross-fetch": "^3.1.5",
-		"dprint": "0.32.1",
-		"eslint": "8.24.0",
-		"get-port": "6.1.2",
-		"husky": "8.0.1",
-		"jsdom": "20.0.1",
-		"nano-staged": "0.8.0",
-		"npm-run-all": "4.1.5",
-		"react": "18.2.0",
-		"react-dom": "18.2.0",
-		"swr": "2.0.0",
-		"tsup": "6.2.3",
-		"typescript": "^4.8.4",
-		"undici": "5.11.0",
-		"vite": "3.0.4",
-		"vitest": "0.20.2",
-		"zod": "3.17.10"
+		"husky": "8.0.3",
+		"nano-staged": "0.8.0"
 	},
-	"sideEffects": false,
 	"nano-staged": {
 		"*.{js,ts,md,json,yaml}": "dprint fmt"
 	},
-	"tsup": {
-		"entry": [
-			"src/index.ts",
-			"src/infinite/index.ts",
-			"src/next/index.ts",
-			"src/ssg/index.ts"
-		],
-		"format": [
-			"esm",
-			"cjs"
-		],
-		"dts": {
-			"resolve": true
-		},
-		"splitting": true,
-		"clean": true
-	}
+	"scripts": {
+		"prepare": "husky install",
+		"dev": "turbo run dev",
+		"build": "turbo run build",
+		"prepublishOnly": "turbo run build --filter=packages*"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/sachinraja/trpc-swr.git"
+	},
+	"keywords": [],
+	"author": "Sanna Jammeh",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/sachinraja/trpc-swr/issues"
+	},
+	"homepage": "https://github.com/sachinraja/trpc-swr#readme"
 }

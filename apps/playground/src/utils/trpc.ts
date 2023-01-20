@@ -1,7 +1,7 @@
 import { httpBatchLink, loggerLink } from '@trpc/client'
 import SuperJSON from 'superjson'
-import { createSWRProxyHooks } from '../../../src'
-import { createSWRInfiniteProxy } from '../../../src/infinite'
+import { createSWRProxyHooks } from 'trpc-swr'
+import { createSWRInfiniteProxy } from 'trpc-swr/infinite'
 import type { AppRouter } from '../server/router'
 
 const getUrl = () => {

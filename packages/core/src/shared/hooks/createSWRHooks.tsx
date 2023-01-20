@@ -136,7 +136,7 @@ export function createSWRHooks<TRouter extends AnyRouter>(
 		const fallback = (value as any)?.fallback
 		const transformedFallback = useTransformFallback(
 			fallback,
-			config?.transformer,
+			config?.transformer as any,
 		)
 
 		const finalValue = {

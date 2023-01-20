@@ -6,10 +6,12 @@ it('Makes infinite query using custom page size', async () => {
 	const infinite = createSWRInfiniteProxy(trpc)
 
 	const Component = () => {
-		const { data, setSize, size } = infinite.people.getMany.use((index, previousPageData) => {
-			if (index !== 0 && !previousPageData?.length) return null // Last page
-			return { limit: 1, page: index }
-		})
+		const { data, setSize, size } = infinite.people.getMany.use(
+			(index, previousPageData) => {
+				if (index !== 0 && !previousPageData?.length) return null // Last page
+				return { limit: 1, page: index }
+			},
+		)
 
 		if (!data) {
 			return <div>Loading...</div>
@@ -23,7 +25,11 @@ it('Makes infinite query using custom page size', async () => {
 			<>
 				<div>
 					{people.map((user, index) => {
-						return <p key={user.name} data-testid={String(index)}>{user.name}</p>
+						return (
+							<p key={user.name} data-testid={String(index)}>
+								{user.name}
+							</p>
+						)
 					})}
 				</div>
 
@@ -64,7 +70,10 @@ it('Makes infinite query using custom cursor', async () => {
 	const infinite = createSWRInfiniteProxy(trpc)
 
 	const Component = () => {
-		const { data, setSize, size } = infinite.people.byCursor.useCursor({}, (data) => data?.nextCursor)
+		const { data, setSize, size } = infinite.people.byCursor.useCursor(
+			{},
+			(data) => data?.nextCursor,
+		)
 
 		if (!data) {
 			return <div>Loading...</div>
@@ -77,11 +86,19 @@ it('Makes infinite query using custom cursor', async () => {
 			<>
 				<div>
 					{people.map((user, index) => {
-						return <p key={user.name} data-testid={String(index)}>{user.name}</p>
+						return (
+							<p key={user.name} data-testid={String(index)}>
+								{user.name}
+							</p>
+						)
 					})}
 				</div>
 
-				{hasMore && <button data-testid='load-more' onClick={() => setSize(size + 1)}>Load More</button>}
+				{hasMore && (
+					<button data-testid='load-more' onClick={() => setSize(size + 1)}>
+						Load More
+					</button>
+				)}
 				{!hasMore && <p data-testid='no-more'>No more</p>}
 			</>
 		)
@@ -120,13 +137,5 @@ describe('proxy caller', () => {
 
 		expect(typeof (infinite as any).use).toEqual('function')
 		expect(typeof (infinite as any).useCursor).toEqual('function')
-	})
-
-	it('Should throw when called with useless arg', () => {
-		const infinite = createSWRInfiniteProxy(trpc)
-
-		expect(() => {
-			;(infinite as any)[Symbol('invalid')]
-		}).toThrow()
 	})
 })

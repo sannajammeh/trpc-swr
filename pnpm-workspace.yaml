@@ -1,4 +1,5 @@
 packages:
-  - '.'
-  - 'playground'
-  - 'docs'
+  - 'packages/*'
+  - 'apps/*'
+
+link-workspace-packages: 'deep'
