@@ -1,16 +1,15 @@
 import { render } from '@testing-library/react'
 import { httpBatchLink, TRPCClient } from '@trpc/client'
-import { describe } from 'vitest'
-import { screen, trpc, waitFor } from './utils'
 import getPort from 'get-port'
+import { describe } from 'vitest'
 import { AppRouter } from './router'
+import { screen, trpc, waitFor } from './utils'
 
-
-let client: TRPCClient<AppRouter>;
+let client: TRPCClient<AppRouter>
 
 beforeEach(async () => {
 	const url = `http://localhost:${await getPort()}`
-	 client = trpc.createClient({
+	client = trpc.createClient({
 		links: [
 			httpBatchLink({
 				url: url,
@@ -33,9 +32,6 @@ describe('tRPC.createClient()', () => {
 	})
 
 	it('Should create the client from the custom config', async () => {
-        
-		
-
 		expect(client).toBeDefined()
 
 		expect(client.query).toBeDefined()
@@ -43,8 +39,8 @@ describe('tRPC.createClient()', () => {
 
 		const Page = () => {
 			const { data, isLoading, error } = trpc.xTest.useSWR()
-			console.log("🚀 ~ file: createClient.spec.tsx ~ line 35 ~ Page ~ error", error)
-			console.log("🚀 ~ file: createClient.spec.tsx ~ line 35 ~ Page ~ data", data)
+			console.log('🚀 ~ file: createClient.spec.tsx ~ line 35 ~ Page ~ error', error)
+			console.log('🚀 ~ file: createClient.spec.tsx ~ line 35 ~ Page ~ data', data)
 
 			return (
 				<div>
@@ -68,9 +64,9 @@ describe('tRPC.createClient()', () => {
 
 		expect(screen.getByText('Loading...')).toBeInTheDocument()
 
-        await waitFor(async () => {
-            await sleep(10);
-        })
+		await waitFor(async () => {
+			await sleep(10)
+		})
 		// await waitFor(() => {
 		// 	expect(screen.getByTestId('test')).toBeInTheDocument()
 		// })

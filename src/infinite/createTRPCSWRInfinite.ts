@@ -9,7 +9,7 @@ import {
 	inferProcedureOutput,
 	ProcedureRouterRecord,
 } from '@trpc/server'
-import { createRecursiveProxy } from '@trpc/server/shared'
+import { createFlatProxy, createRecursiveProxy } from '@trpc/server/shared'
 import { SWRConfiguration } from 'swr'
 import _useSWRInfinite, { SWRInfiniteConfiguration, SWRInfiniteResponse } from 'swr/infinite'
 import { getQueryKey } from '../shared/hooks/createSWRHooks'
@@ -82,31 +82,6 @@ function createInfiniteProxyDecoration<TRouter extends AnyRouter>(
 	})
 }
 
-export function createInfiniteProxyInternal<TRouter extends AnyRouter>(
-	trpc: CreateTRPCSWRProxy<TRouter>,
-	hooks: CreateSWRInfiniteHooks,
-) {
-	const proxy: unknown = new Proxy(
-		() => {
-			// noop
-		},
-		{
-			get(_object, name) {
-				if (name in hooks) {
-					return hooks[name as keyof typeof hooks]
-				}
-
-				if (typeof name === 'string') {
-					return createInfiniteProxyDecoration(name, hooks, trpc)
-				}
-
-				throw new Error('Not supported')
-			},
-		},
-	)
-	return proxy as CreateTRPCInfiniteProxy<TRouter>
-}
-
 export function createSWRInfiniteHooks<TRouter extends AnyRouter>(
 	trpc: CreateTRPCSWRProxy<TRouter>,
 ): CreateSWRInfiniteHooks {
@@ -177,6 +152,20 @@ export function createSWRInfiniteHooks<TRouter extends AnyRouter>(
 interface CreateSWRInfiniteHooks {
 	use: any
 	useCursor: any
+}
+
+export function createInfiniteProxyInternal<TRouter extends AnyRouter>(
+	trpc: CreateTRPCSWRProxy<TRouter>,
+	hooks: CreateSWRInfiniteHooks,
+) {
+	type CreateInfiniteInternalProxy = CreateTRPCInfiniteProxy<TRouter>
+
+	return createFlatProxy<CreateInfiniteInternalProxy>((key) => {
+		if (key in hooks) {
+			return hooks[key as keyof typeof hooks]
+		}
+		return createInfiniteProxyDecoration(key, hooks, trpc)
+	})
 }
 
 export function createSWRInfiniteProxy<TRouter extends AnyRouter>(trpc: CreateTRPCSWRProxy<TRouter>) {

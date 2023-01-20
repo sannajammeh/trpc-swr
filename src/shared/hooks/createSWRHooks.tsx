@@ -1,11 +1,25 @@
-import { createTRPCClient, CreateTRPCClientOptions, TRPCClient } from '@trpc/client'
-import { AnyRouter } from '@trpc/server'
-import { PropsWithChildren, useContext, useEffect } from 'react'
-import _useSWR, { preload as _preload, SWRConfiguration, unstable_serialize } from 'swr'
+import { createTRPCClient, CreateTRPCClientOptions, TRPCClient, TRPCClientErrorLike } from '@trpc/client'
+import {
+	AnyProcedure,
+	AnyRouter,
+	ClientDataTransformerOptions,
+	inferProcedureInput,
+	inferProcedureOutput,
+	ProcedureRouterRecord,
+} from '@trpc/server'
+import React, { PropsWithChildren, useContext, useEffect } from 'react'
+import _useSWR, {
+	preload as _preload,
+	SWRConfig as _SWRConfig,
+	SWRConfiguration,
+	SWRResponse,
+	unstable_serialize,
+} from 'swr'
 import { TRPCContext, TRPCContextType } from '../context'
 
-import _useSWRMutation, { SWRMutationConfiguration } from 'swr/mutation'
-import { CreateClient, GetQueryKey } from '../../types'
+import _useSWRMutation, { SWRMutationConfiguration, SWRMutationResponse } from 'swr/mutation'
+import { CreateClient, GetQueryKey, InferProcedure } from '../../types'
+import { useTransformFallback } from '../useTransformedFallback'
 
 /**
  * Creates a query key for use inside SWR (unserialized)
@@ -19,16 +33,16 @@ export const getQueryKey: GetQueryKey = (path: string, input: any) => {
 
 /**
  * @internal - use this to create custom hooks
+ * @deprecated - use `createSWRProxyHooks` instead
  */
 export function createSWRHooks<TRouter extends AnyRouter>(
 	config: CreateTRPCClientOptions<TRouter>,
 ): CreateTRPCSWRHooks<TRouter> {
 	// TODO - Infer types of useSWR
-	// type TQueries = TRouter['_def']['queries']
-	// type TSubscriptions = TRouter['_def']['subscriptions']
-	// type TMutations = TRouter['_def']['mutations']
 
-	const createClient = (configOverride?: CreateTRPCClientOptions<TRouter>) => {
+	const createClient: CreateClient<TRouter> = (
+		configOverride?: CreateTRPCClientOptions<TRouter>,
+	) => {
 		return createTRPCClient(configOverride || config)
 	}
 
@@ -115,15 +129,35 @@ export function createSWRHooks<TRouter extends AnyRouter>(
 		return unserialized ? pathAndInput : unstable_serialize(pathAndInput)
 	}
 
+	const SWRConfig: React.FC<React.ComponentProps<typeof _SWRConfig>> = ({
+		children,
+		value,
+	}) => {
+		const fallback = (value as any)?.fallback
+		const transformedFallback = useTransformFallback(
+			fallback,
+			config?.transformer,
+		)
+
+		const finalValue = {
+			...value,
+		}
+		if (transformedFallback) {
+			;(finalValue as any).fallback = transformedFallback
+		}
+		return <_SWRConfig value={finalValue}>{children}</_SWRConfig>
+	}
+
 	return {
 		Provider: TRPCProvider,
 		useContext: useTRPCContext,
+		SWRConfig: SWRConfig,
 		useSWR,
 		useSWRMutation,
 		preload: preload,
 		getKey: getKey,
 		createClient,
-	}
+	} as any
 }
 
 export type TRPCProvider<TRouter extends AnyRouter> = React.FC<
@@ -132,11 +166,47 @@ export type TRPCProvider<TRouter extends AnyRouter> = React.FC<
 	}>
 >
 
-export interface CreateTRPCSWRHooks<TRouter extends AnyRouter> {
+export type UseSWR<TProcedures extends ProcedureRouterRecord> = <
+	TPath extends string,
+	TProcedure extends AnyProcedure = InferProcedure<TProcedures, TPath>,
+>(
+	pathAndInput: [TPath, inferProcedureInput<TProcedure>],
+	config?: SWRConfiguration & {
+		isDisabled?: boolean
+	},
+) => SWRResponse<
+	inferProcedureOutput<TProcedure>,
+	TRPCClientErrorLike<TProcedure>
+>
+
+export type UseSWRMutation<TProcedures extends ProcedureRouterRecord> = <
+	TPath extends string,
+	TProcedure extends AnyProcedure = InferProcedure<TProcedures, TPath>,
+	TInput = inferProcedureInput<TProcedure>,
+	TOutput = inferProcedureOutput<TProcedure>,
+>(
+	path: TPath,
+	config: SWRMutationConfiguration<TInput, TOutput>,
+) => SWRMutationResponse<
+	TOutput,
+	TRPCClientErrorLike<TProcedure>,
+	TInput,
+	TPath
+>
+
+export interface CreateTRPCSWRHooks<
+	TRouter extends AnyRouter,
+	TProcedures extends ProcedureRouterRecord = TRouter['_def']['record'],
+> {
 	Provider: TRPCProvider<TRouter>
+	SWRConfig: React.FC<
+		React.ComponentProps<typeof _SWRConfig> & {
+			transformer?: ClientDataTransformerOptions
+		}
+	>
 	useContext: () => TRPCContextType<TRouter>
-	useSWR: any
-	useSWRMutation: any
+	useSWR: UseSWR<TProcedures>
+	useSWRMutation: UseSWRMutation<TProcedures>
 	getKey: <PreloadData extends readonly [string] | readonly [string, any]>(
 		pathAndInput: PreloadData,
 		unserialized?: boolean,

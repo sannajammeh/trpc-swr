@@ -1,5 +1,5 @@
 import { CreateTRPCClientOptions, TRPCClient, TRPCRequestOptions } from '@trpc/client'
-import { AnyProcedure, AnyRouter, inferProcedureInput } from '@trpc/server'
+import { AnyProcedure, AnyRouter, inferProcedureInput, ProcedureRouterRecord } from '@trpc/server'
 
 export type CreateClient<TRouter extends AnyRouter> = (config?: CreateTRPCClientOptions<TRouter>) => TRPCClient<TRouter>
 
@@ -24,3 +24,10 @@ export type GetQueryKey = (
 export type WithTRPCOptions<T> = T & {
 	trpc: TRPCRequestOptions
 }
+
+// Recursively infer procedure from TProcedures and TPath, also check if its a procedure
+export type InferProcedure<TProcedures extends ProcedureRouterRecord, TPath extends string> = TPath extends
+	`${infer TFirst}.${infer TRest}`
+	? TFirst extends keyof TProcedures ? InferProcedure<TProcedures[TFirst] & ProcedureRouterRecord, TRest> : never
+	: TPath extends keyof TProcedures ? TProcedures[TPath] extends AnyProcedure ? TProcedures[TPath] : never
+	: never

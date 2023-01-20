@@ -8,7 +8,7 @@ import {
 	inferProcedureOutput,
 	ProcedureRouterRecord,
 } from '@trpc/server'
-import { createRecursiveProxy } from '@trpc/server/shared'
+import { createFlatProxy, createRecursiveProxy } from '@trpc/server/shared'
 import { SWRConfiguration, SWRResponse } from 'swr'
 import type { SWRMutationConfiguration, SWRMutationResponse } from 'swr/mutation'
 import { CreateClient, GetKey } from '../../types'
@@ -60,6 +60,7 @@ export type CreateTRPCSWRProxy<TRouter extends AnyRouter> = {
 	createClient: CreateClient<TRouter>
 	useContext: CreateTRPCSWRHooks<TRouter>['useContext']
 	Provider: TRPCProvider<TRouter>
+	SWRConfig: CreateTRPCSWRHooks<TRouter>['SWRConfig']
 } & DecoratedProcedureRecord<TRouter['_def']['record']>
 
 /**
@@ -111,28 +112,15 @@ export function createSWRProxyDecoration<TRouter extends AnyRouter>(
 	})
 }
 
-/**
- * TODO - Refactor to createFlatProxy instead
- */
 export function createSWRProxyHooksInternal<TRouter extends AnyRouter>(
 	hooks: CreateTRPCSWRHooks<TRouter>,
 ) {
-	const proxy: unknown = new Proxy(
-		() => {
-			// noop
-		},
-		{
-			get(_obj, name) {
-				if (name in hooks) {
-					return hooks[name as keyof typeof hooks]
-				}
+	type CreateSWRInternalProxy = CreateTRPCSWRProxy<TRouter>
 
-				if (typeof name === 'string') {
-					return createSWRProxyDecoration(name, hooks)
-				}
-				throw new Error('Not supported')
-			},
-		},
-	)
-	return proxy as CreateTRPCSWRProxy<TRouter>
+	return createFlatProxy<CreateSWRInternalProxy>((key) => {
+		if (key in hooks) {
+			return hooks[key as keyof typeof hooks]
+		}
+		return createSWRProxyDecoration(key, hooks)
+	})
 }
