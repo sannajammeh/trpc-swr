@@ -1,0 +1,6 @@
+{
+	"module": "../dist/next.mjs",
+	"main": "../dist/next.cjs",
+	"import": "../dist/next.mjs",
+	"types": "../dist/next.d.ts"
+}

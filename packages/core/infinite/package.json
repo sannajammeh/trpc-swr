@@ -1,0 +1,6 @@
+{
+	"module": "../dist/infinite.mjs",
+	"main": "../dist/infinite.cjs",
+	"import": "../dist/infinite.mjs",
+	"types": "../dist/infinite.d.ts"
+}

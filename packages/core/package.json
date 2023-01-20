@@ -1,6 +1,6 @@
 {
 	"name": "trpc-swr",
-	"version": "1.0.0-SNAPSHOT.1",
+	"version": "1.0.0-rc.2",
 	"private": false,
 	"description": "tRPC-ified SWR hooks",
 	"repository": {
@@ -27,40 +27,46 @@
 	],
 	"author": "Sachin Raja <sachinraja2349@gmail.com>, Sanna Jammeh <hello@sannajammeh.com>",
 	"license": "MIT",
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
 			"import": "./dist/index.mjs",
-			"module": "./dist/index.esm.js",
+			"module": "./dist/index.mjs",
 			"require": "./dist/index.cjs",
 			"types": "./dist/index.d.ts"
 		},
 		"./infinite": {
-			"import": "./dist/infinite.mjs",
-			"module": "./dist/infinite.esm.js",
-			"require": "./dist/infinite.cjs",
-			"types": "./dist/infinite.d.ts"
+			"import": "./dist/infinite/index.mjs",
+			"module": "./dist/infinite/index.mjs",
+			"require": "./dist/infinite/index.cjs",
+			"types": "./dist/infinite/index.d.ts"
 		},
 		"./next": {
-			"import": "./dist/next.mjs",
-			"module": "./dist/next.esm.js",
-			"require": "./dist/next.cjs",
-			"types": "./dist/next.d.ts"
+			"import": "./dist/next/index.mjs",
+			"module": "./dist/next/index.mjs",
+			"require": "./dist/next/index.cjs",
+			"types": "./dist/next/index.d.ts"
 		},
 		"./ssg": {
-			"import": "./dist/ssg.mjs",
-			"module": "./dist/ssg.esm.js",
-			"require": "./dist/ssg.cjs",
-			"types": "./dist/ssg.d.ts"
+			"import": "./dist/ssg/index.mjs",
+			"module": "./dist/ssg/index.mjs",
+			"require": "./dist/ssg/index.cjs",
+			"types": "./dist/ssg/index.d.ts"
 		}
 	},
 	"files": [
 		"./dist/**/*.{js,d.ts,cjs,mjs}",
 		"./package.json",
+		"./infinite",
+		"./next",
+		"./ssg",
 		"./README.md"
 	],
 	"scripts": {
-		"build": "bunchee",
+		"build": "bunchee -f esm",
 		"dev": "bunchee -w",
 		"format": "dprint fmt",
 		"lint:format": "dprint check",

@@ -1,0 +1,6 @@
+{
+	"module": "../dist/ssg.mjs",
+	"main": "../dist/ssg.cjs",
+	"import": "../dist/ssg.mjs",
+	"types": "../dist/ssg.d.ts"
+}
