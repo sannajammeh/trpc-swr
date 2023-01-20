@@ -1,6 +1,6 @@
 {
 	"name": "trpc-swr",
-	"version": "1.0.0-rc.2",
+	"version": "1.0.0-rc.3",
 	"private": false,
 	"description": "tRPC-ified SWR hooks",
 	"repository": {
@@ -28,31 +28,27 @@
 	"author": "Sachin Raja <sachinraja2349@gmail.com>, Sanna Jammeh <hello@sannajammeh.com>",
 	"license": "MIT",
 	"main": "./dist/index.cjs",
-	"module": "./dist/index.mjs",
+	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
-			"import": "./dist/index.mjs",
-			"module": "./dist/index.mjs",
+			"module": "./dist/index.js",
 			"require": "./dist/index.cjs",
 			"types": "./dist/index.d.ts"
 		},
 		"./infinite": {
-			"import": "./dist/infinite/index.mjs",
-			"module": "./dist/infinite/index.mjs",
+			"module": "./dist/infinite/index.js",
 			"require": "./dist/infinite/index.cjs",
 			"types": "./dist/infinite/index.d.ts"
 		},
 		"./next": {
-			"import": "./dist/next/index.mjs",
-			"module": "./dist/next/index.mjs",
+			"module": "./dist/next/index.js",
 			"require": "./dist/next/index.cjs",
 			"types": "./dist/next/index.d.ts"
 		},
 		"./ssg": {
-			"import": "./dist/ssg/index.mjs",
-			"module": "./dist/ssg/index.mjs",
+			"module": "./dist/ssg/index.js",
 			"require": "./dist/ssg/index.cjs",
 			"types": "./dist/ssg/index.d.ts"
 		}
@@ -66,7 +62,7 @@
 		"./README.md"
 	],
 	"scripts": {
-		"build": "bunchee -f esm",
+		"build": "rimraf dist && tsup",
 		"dev": "bunchee -w",
 		"format": "dprint fmt",
 		"lint:format": "dprint check",
@@ -95,19 +91,38 @@
 		"@types/react": "18.0.27",
 		"@vitejs/plugin-react-swc": "^3.0.1",
 		"@vitest/ui": "^0.27.2",
-		"bunchee": "^2.2.0",
+		"bunchee": "2.1.7",
 		"c8": "^7.12.0",
 		"eslint": "8.32.0",
 		"get-port": "6.1.2",
 		"jsdom": "21.0.0",
 		"react": "18.2.0",
 		"react-dom": "18.2.0",
+		"rimraf": "^4.1.1",
 		"swr": "2.0.1",
+		"tsup": "^6.5.0",
 		"typescript": "^4.9.4",
 		"undici": "5.15.1",
 		"vite": "4.0.4",
 		"vitest": "0.27.2",
 		"zod": "3.20.2"
 	},
-	"sideEffects": false
+	"sideEffects": false,
+	"tsup": {
+		"entry": [
+			"src/index.ts",
+			"src/infinite/index.ts",
+			"src/next/index.ts",
+			"src/ssg/index.ts"
+		],
+		"format": [
+			"esm",
+			"cjs"
+		],
+		"dts": {
+			"resolve": true
+		},
+		"splitting": true,
+		"clean": true
+	}
 }

@@ -1,6 +1,5 @@
 {
-	"module": "../dist/next.mjs",
-	"main": "../dist/next.cjs",
-	"import": "../dist/next.mjs",
-	"types": "../dist/next.d.ts"
+	"module": "../dist/next/index.js",
+	"main": "../dist/next/index.cjs",
+	"types": "../dist/next/index.d.ts"
 }
