@@ -1,6 +1,6 @@
 {
 	"name": "trpc-swr",
-	"version": "1.0.0-rc.4",
+	"version": "1.0.0-rc.5",
 	"private": false,
 	"description": "tRPC-ified SWR hooks",
 	"repository": {
@@ -34,21 +34,25 @@
 		"./package.json": "./package.json",
 		".": {
 			"module": "./dist/index.js",
+			"import": "./dist/index.js",
 			"require": "./dist/index.cjs",
 			"types": "./dist/index.d.ts"
 		},
 		"./infinite": {
 			"module": "./dist/infinite/index.js",
+			"import": "./dist/infinite/index.js",
 			"require": "./dist/infinite/index.cjs",
 			"types": "./dist/infinite/index.d.ts"
 		},
 		"./next": {
 			"module": "./dist/next/index.js",
+			"import": "./dist/next/index.js",
 			"require": "./dist/next/index.cjs",
 			"types": "./dist/next/index.d.ts"
 		},
 		"./ssg": {
 			"module": "./dist/ssg/index.js",
+			"import": "./dist/ssg/index.js",
 			"require": "./dist/ssg/index.cjs",
 			"types": "./dist/ssg/index.d.ts"
 		}
