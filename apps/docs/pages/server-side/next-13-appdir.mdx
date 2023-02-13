@@ -139,7 +139,7 @@ export default async function Layout({ children }) {
   return (
     <SWRConfig
       value={{
-        fallback: getData(),
+        fallback: await getData(),
       }}
     >
       {children}
