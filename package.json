@@ -1,36 +1,33 @@
 {
-	"name": "trpc-swr-mono",
-	"version": "1.0.0",
-	"description": "Monorepo of trpc-swr",
-	"dependencies": {
-		"turbo": "^1.7.0"
-	},
-	"devDependencies": {
-		"dprint": "^0.34.4",
-		"husky": "8.0.3",
-		"nano-staged": "0.8.0"
-	},
-	"nano-staged": {
-		"*.{js,ts,md,json,yaml}": "dprint fmt"
-	},
-	"scripts": {
-		"prepare": "husky install",
-		"dev": "turbo run dev",
-		"build": "turbo run build",
-		"prepublishOnly": "turbo run build --filter=packages*"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/sachinraja/trpc-swr.git"
-	},
-	"keywords": [],
-	"author": "Sanna Jammeh",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/sachinraja/trpc-swr/issues"
-	},
-	"homepage": "https://github.com/sachinraja/trpc-swr#readme",
-	"engines": {
-		"node": ">=18"
-	}
+  "name": "trpc-swr-mono",
+  "version": "1.0.0",
+  "description": "Monorepo of trpc-swr",
+  "dependencies": {
+    "turbo": "^1.7.0"
+  },
+  "devDependencies": {
+    "dprint": "^0.34.4",
+    "husky": "8.0.3",
+    "nano-staged": "0.8.0"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "prepublishOnly": "turbo run build --filter=packages*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sachinraja/trpc-swr.git"
+  },
+  "keywords": [],
+  "author": "Sanna Jammeh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sachinraja/trpc-swr/issues"
+  },
+  "homepage": "https://github.com/sachinraja/trpc-swr#readme",
+  "engines": {
+    "node": ">=18"
+  }
 }
