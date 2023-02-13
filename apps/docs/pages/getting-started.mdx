@@ -1,0 +1,102 @@
+# Gettings Started
+
+## Installation
+
+Make sure to install trpc-swr along with the peer dependencies `swr` and `@trpc/client` and `@trpc/server`:
+
+```bash
+npm install trpc-swr@rc swr @trpc/client @trpc/server
+```
+
+## Usage
+
+### Setup `tRPC` hooks
+
+In your `utils/trpc.ts` file:
+
+```tsx
+import { createSWRProxyHooks } from "trpc-swr";
+import type { AppRouter } from "server/trpc";
+
+export const trpc = createSWRProxyHooks<AppRouter>({
+  links: [
+    httpBatchLink({
+      url: "https://localhost:3000/api/trpc",
+    }),
+  ],
+});
+```
+
+In your App component:
+
+```tsx
+const App = ({ Component, pageProps }: AppProps) => {
+  const [client] = useState(() => trpc.createClient());
+  return (
+    <trpc.Provider client={client}>
+      <Component {...pageProps} />
+    </trpc.Provider>
+  );
+};
+```
+
+### Use `tRPC` hooks
+
+#### Using `useSWR`;
+
+```tsx
+import { trpc } from "utils/trpc";
+
+trpc.user.byId.preload({ id: 1 }); // Preload data for faster initial load
+
+export default function Page() {
+  const { data, error } = trpc.user.byId.useSWR({ id: 1 });
+
+  if (error) {
+    return <div>error</div>;
+  }
+
+  if (!data) {
+    return <div>loading...</div>;
+  }
+
+  return <div>{data.name}</div>;
+}
+```
+
+#### Using `useSWRMutation`
+
+Leverage the power of `useSWRMutation` to create a fully typesafe mutation.
+
+```tsx
+export default function Page() {
+  const { trigger, data, error, isloading, reset } =
+    trpc.user.create.useSWRMutation();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await trigger({
+      name: "John Doe",
+    });
+  };
+
+  if (isloading) {
+    return <div>loading...</div>;
+  }
+
+  if (error) {
+    return (
+      <div>
+        {error.message}
+        <button onClick={reset}>Try again</button>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <button type="submit">Create user</button>
+    </form>
+  );
+}
+```

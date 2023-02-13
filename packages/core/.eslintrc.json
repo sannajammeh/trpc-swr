@@ -1,0 +1,10 @@
+{
+	"root": true,
+	"extends": "@sachinraja",
+	"ignorePatterns": ["/infinite", "next-env.d.ts"],
+	"rules": {
+		"@typescript-eslint/no-explicit-any": "off",
+		"@typescript-eslint/no-empty-function": "off",
+		"unicorn/no-null": "off"
+	}
+}

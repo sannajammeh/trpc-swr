@@ -1,9 +1,0 @@
-{
-	"root": true,
-	"extends": "@sachinraja",
-	"ignorePatterns": ["/infinite", "next-env.d.ts"],
-	"rules": {
-		"@typescript-eslint/no-explicit-any": "off",
-		"unicorn/no-null": "off"
-	}
-}

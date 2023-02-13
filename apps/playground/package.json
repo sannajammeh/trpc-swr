@@ -1,0 +1,26 @@
+{
+	"name": "playground",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
+		"lint": "next lint"
+	},
+	"dependencies": {
+		"@faker-js/faker": "^7.6.0",
+		"@trpc/client": "10.9.0",
+		"@trpc/server": "10.9.0",
+		"next": "13.1.3",
+		"react": "18.2.0",
+		"react-dom": "18.2.0",
+		"superjson": "^1.12.2",
+		"swr": "^2.0.1",
+		"trpc-swr": "workspace:*",
+		"zod": "3.20.2"
+	},
+	"devDependencies": {
+		"@types/node": "18.11.18",
+		"@types/react-dom": "18.0.10"
+	}
+}

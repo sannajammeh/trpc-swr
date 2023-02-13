@@ -1,5 +1,5 @@
 {
-	"editor.defaultFormatter": "dprint.dprint",
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"dprint.path": "node_modules/dprint/dprint",
 	"eslint.workingDirectories": ["./", "./playground"]
 }
