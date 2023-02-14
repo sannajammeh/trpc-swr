@@ -3,17 +3,19 @@
   "version": "1.0.0",
   "description": "Monorepo of trpc-swr",
   "dependencies": {
-    "turbo": "^1.7.0"
+    "turbo": "^1.7.4"
   },
   "devDependencies": {
-    "dprint": "^0.34.4",
+    "dprint": "^0.34.5",
     "husky": "8.0.3",
-    "nano-staged": "0.8.0"
+    "nano-staged": "0.8.0",
+    "prettier": "^2.8.4"
   },
   "scripts": {
     "prepare": "husky install",
     "dev": "turbo run dev",
     "build": "turbo run build",
+    "test": "turbo run test",
     "prepublishOnly": "turbo run build --filter=packages*"
   },
   "repository": {

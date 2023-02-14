@@ -1,10 +1,10 @@
 {
-	"index": "Introduction",
-	"getting-started": "Getting Started",
-	"infinite-queries": "Infinite Queries",
-	"server-side": "Server Side",
-	"about": {
-		"title": "About",
-		"type": "page"
-	}
+  "index": "Introduction",
+  "getting-started": "Getting Started",
+  "infinite-queries": "Infinite Queries",
+  "server-side": "Server Side",
+  "about": {
+    "title": "About",
+    "type": "page"
+  }
 }

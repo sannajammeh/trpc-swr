@@ -1,23 +1,26 @@
 {
-	"incremental": true,
-	"useTabs": true,
-	"typescript": {
-		"quoteStyle": "preferSingle",
-		"semiColons": "asi"
-	},
-	"prettier": {
-		"singleQuote": true,
-		"associations": [
-			"**/*.yaml",
-			"**/*.json5"
-		]
-	},
-	"includes": ["**/*.{ts,tsx,js,jsx,cjs,mjs,json,json5,md,yaml}"],
-	"excludes": ["**/node_modules", "pnpm-lock.yaml", "dist", ".next", "coverage"],
-	"plugins": [
-		"https://plugins.dprint.dev/typescript-0.71.1.wasm",
-		"https://plugins.dprint.dev/json-0.15.4.wasm",
-		"https://plugins.dprint.dev/markdown-0.13.3.wasm",
-		"https://plugins.dprint.dev/prettier-0.10.0.json@ca9a97de84cbb2cd60534eb72c0455f3ca8704743917569ace70499136cf5c9c"
-	]
+  "incremental": true,
+  "useTabs": true,
+  "typescript": {
+    "quoteStyle": "preferSingle",
+    "semiColons": "asi"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "associations": ["**/*.yaml", "**/*.json5"]
+  },
+  "includes": ["**/*.{ts,tsx,js,jsx,cjs,mjs,json,json5,md,yaml}"],
+  "excludes": [
+    "**/node_modules",
+    "pnpm-lock.yaml",
+    "dist",
+    ".next",
+    "coverage"
+  ],
+  "plugins": [
+    "https://plugins.dprint.dev/typescript-0.71.1.wasm",
+    "https://plugins.dprint.dev/json-0.15.4.wasm",
+    "https://plugins.dprint.dev/markdown-0.13.3.wasm",
+    "https://plugins.dprint.dev/prettier-0.10.0.json@ca9a97de84cbb2cd60534eb72c0455f3ca8704743917569ace70499136cf5c9c"
+  ]
 }

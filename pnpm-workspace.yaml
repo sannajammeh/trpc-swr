@@ -1,5 +1,5 @@
 packages:
-  - 'packages/*'
-  - 'apps/*'
+  - "packages/*"
+  - "apps/*"
 
-link-workspace-packages: 'deep'
+link-workspace-packages: "deep"

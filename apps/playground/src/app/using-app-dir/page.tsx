@@ -1,11 +1,11 @@
-import User from './User'
+import User from "./User";
 
 const UsingAppDir = async () => {
-	return (
-		<div>
-			<User />
-		</div>
-	)
-}
+  return (
+    <div>
+      <User />
+    </div>
+  );
+};
 
-export default UsingAppDir
+export default UsingAppDir;

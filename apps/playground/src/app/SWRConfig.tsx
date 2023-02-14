@@ -1,12 +1,12 @@
-'use client'
-import { ComponentProps, PropsWithChildren } from 'react'
-import { trpc } from '../utils/trpc'
+"use client";
+import { ComponentProps, PropsWithChildren } from "react";
+import { trpc } from "../utils/trpc";
 
 const SWRConfig = ({
-	children,
-	...rest
+  children,
+  ...rest
 }: PropsWithChildren<ComponentProps<typeof trpc.SWRConfig>>) => {
-	return <trpc.SWRConfig {...rest}>{children}</trpc.SWRConfig>
-}
+  return <trpc.SWRConfig {...rest}>{children}</trpc.SWRConfig>;
+};
 
-export default SWRConfig
+export default SWRConfig;

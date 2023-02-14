@@ -1,1 +1,1 @@
-export * from './createProxySSGHelpers'
+export * from "./createProxySSGHelpers";

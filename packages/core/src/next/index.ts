@@ -1,2 +1,2 @@
-export * from '../ssg'
-export * from './provider'
+export * from "../ssg";
+export * from "./provider";
