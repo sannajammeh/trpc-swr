@@ -18,7 +18,10 @@ export const useTransformFallback = (
       ? ("output" in transformer ? transformer.output : transformer).deserialize
       : (object: unknown) => object;
     const deserializedValue = Object.fromEntries(
-      Object.entries(data).map(([key, value]) => [key, deserialize(value)])
+      Object.entries(data as Record<string, any>).map(([key, value]) => [
+        key,
+        deserialize(value),
+      ])
     );
     return deserializedValue;
   }, [data]);

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Monorepo of trpc-swr",
   "dependencies": {
-    "turbo": "^1.7.4"
+    "turbo": "^1.8.3"
   },
   "devDependencies": {
     "dprint": "^0.34.5",
