@@ -1,0 +1,14 @@
+{
+    "$schema": "https://unpkg.com/@changesets/config@2.2.0/schema.json",
+    "changelog": [
+      "@changesets/changelog-github",
+      { "repo": "sannajammeh/trpc-swr" }
+    ],
+  
+    "commit": false,
+    "fixed": [],
+    "access": "public",
+    "baseBranch": "main",
+    "updateInternalDependencies": "patch",
+    "ignore": ["benchmark"]
+  }
