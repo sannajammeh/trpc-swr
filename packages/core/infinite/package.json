@@ -1,5 +1,0 @@
-{
-  "module": "../dist/infinite/index.js",
-  "main": "../dist/infinite/index.cjs",
-  "types": "../dist/infinite/index.d.ts"
-}

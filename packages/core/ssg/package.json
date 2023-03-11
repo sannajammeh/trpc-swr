@@ -1,5 +1,0 @@
-{
-  "module": "../dist/ssg/index.js",
-  "main": "../dist/ssg/index.cjs",
-  "types": "../dist/ssg/index.d.ts"
-}

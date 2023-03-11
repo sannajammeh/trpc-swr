@@ -1,5 +1,10 @@
 packages:
-  - "packages/*"
   - "apps/*"
+  - "packages/core"
+  - "packages/core/core"
+  - "packages/core/next"
+  - "packages/core/ssg"
+  - "packages/core/infinite"
+  - "packages/core/_internal"
 
 link-workspace-packages: "deep"

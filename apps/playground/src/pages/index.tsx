@@ -6,7 +6,8 @@ trpc.user.byId.preload({ id: 1 });
 const Home: NextPage = () => {
   const { data, mutate, isValidating } = trpc.user.byId.useSWR({ id: 2 });
   const { data: user1, isLoading } = trpc.user.byId.useSWR({ id: 1 });
-  const { client } = trpc.useContext();
+  const ctx = trpc.useContext();
+  console.log("🚀 ~ file: index.tsx:10 ~ ctx:", ctx);
 
   const { data: userData } = trpc.user.get.useSWR();
   return (

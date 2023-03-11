@@ -1,0 +1,145 @@
+{
+  "name": "trpc-swr",
+  "version": "1.0.0-rc.6",
+  "private": false,
+  "description": "tRPC-ified SWR hooks",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sachinraja/trpc-swr.git"
+  },
+  "homepage": "https://github.com/sachinraja/trpc-swr#readme",
+  "bugs": {
+    "url": "https://github.com/sachinraja/trpc-swr/issues"
+  },
+  "keywords": [
+    "trpc",
+    "swr",
+    "react",
+    "hooks",
+    "typescript",
+    "api",
+    "rpc",
+    "rest",
+    "http",
+    "fetch",
+    "query",
+    "mutation"
+  ],
+  "author": "Sachin Raja <sachinraja2349@gmail.com>, Sanna Jammeh <hello@sannajammeh.com>",
+  "license": "MIT",
+  "main": "./core/dist/index.js",
+  "module": "./core/dist/index.esm.js",
+  "types": "./core/dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./core/dist/index.d.ts",
+      "import": "./core/dist/index.mjs",
+      "module": "./core/dist/index.esm.js",
+      "require": "./core/dist/index.js"
+    },
+    "./infinite": {
+      "types": "./infinite/dist/index.d.ts",
+      "import": "./infinite/dist/index.mjs",
+      "module": "./infinite/dist/index.esm.js",
+      "require": "./infinite/dist/index.js"
+    },
+    "./next": {
+      "types": "./next/dist/index.d.ts",
+      "import": "./next/dist/index.mjs",
+      "module": "./next/dist/index.esm.js",
+      "require": "./next/dist/index.js"
+    },
+    "./ssg": {
+      "types": "./ssg/dist/index.d.ts",
+      "import": "./ssg/dist/index.mjs",
+      "module": "./ssg/dist/index.esm.js",
+      "require": "./ssg/dist/index.js"
+    },
+    "./_internal": {
+      "types": "./_internal/dist/index.d.ts",
+      "import": "./_internal/dist/index.mjs",
+      "module": "./_internal/dist/index.esm.js",
+      "require": "./_internal/dist/index.js"
+    }
+  },
+  "files": [
+    "./dist/**/*.{js,d.ts,mjs}",
+    "infinite/dist/**/*.{js,d.ts,mjs}",
+    "next/dist/**/*.{js,d.ts,mjs}",
+    "ssg/dist/**/*.{js,d.ts,mjs}",
+    "_internal/dist/**/*.{js,d.ts,mjs}",
+    "infinite/package.json",
+    "next/package.json",
+    "ssg/package.json",
+    "_internal/package.json"
+  ],
+  "scripts": {
+    "build": "pnpm build:package _internal && pnpm build:package core && pnpm build:package infinite && pnpm build:package ssg && pnpm build:package next",
+    "watch": "bunchee -w",
+    "dev": "bunchee -w",
+    "build:package": "bunchee index.ts --cwd",
+    "format": "dprint fmt",
+    "lint:format": "dprint check",
+    "lint:types": "tsc",
+    "lint:js": "eslint .",
+    "prepublishOnly": "pnpm build",
+    "test": "vitest run",
+    "test:ui": "vitest --ui"
+  },
+  "peerDependencies": {
+    "@trpc/client": ">=10.11.1",
+    "@trpc/server": ">=10.11.1",
+    "react": ">=17 || >=18",
+    "swr": ">=2"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "@sachinraja/eslint-config": "0.1.1",
+    "@testing-library/dom": "9.0.0",
+    "@testing-library/jest-dom": "5.16.5",
+    "@testing-library/react": "14.0.0",
+    "@testing-library/user-event": "14.4.3",
+    "@trpc/client": "10.14.0",
+    "@trpc/server": "10.14.0",
+    "@types/node": "18.14.5",
+    "@types/react": "18.0.28",
+    "@vitejs/plugin-react-swc": "^3.2.0",
+    "@vitest/ui": "^0.29.2",
+    "bunchee": "2.2.0",
+    "c8": "^7.13.0",
+    "eslint": "8.35.0",
+    "get-port": "6.1.2",
+    "isomorphic-unfetch": "^4.0.2",
+    "jsdom": "21.1.0",
+    "node-fetch": "^3.3.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "rimraf": "^4.2.0",
+    "swr": "2.0.4",
+    "tsup": "^6.6.3",
+    "typescript": "^4.9.5",
+    "undici": "5.20.0",
+    "vite": "4.1.4",
+    "vitest": "0.29.2",
+    "zod": "3.20.6"
+  },
+  "sideEffects": false,
+  "tsup": {
+    "entry": [
+      "src/index.ts",
+      "src/infinite/index.ts",
+      "src/next/index.ts",
+      "src/ssg/index.ts"
+    ],
+    "format": [
+      "esm",
+      "cjs"
+    ],
+    "dts": {
+      "resolve": true
+    },
+    "splitting": true,
+    "clean": true
+  }
+}
