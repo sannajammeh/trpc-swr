@@ -1,5 +1,4 @@
 {
-  "name": "_internal",
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
@@ -10,7 +9,6 @@
     "build": "bunchee index.ts"
   },
   "peerDependencies": {
-    "trpc-swr": "*",
     "react": ">=18.2.0",
     "@trpc/client": ">=10",
     "@trpc/server": ">=10",

@@ -1,5 +1,5 @@
 import { it } from "vitest";
-import { createSWRInfiniteProxy } from "../infinite";
+import { createSWRInfiniteProxy } from "../infinite/index";
 import { render, screen, trpc, userEvent, waitFor } from "./utils";
 
 it("Makes infinite query using custom page size", async () => {

@@ -28,14 +28,17 @@ export const createTRPC = async () =>
 	});
 
 let server: Server;
+export let port: number;
 
 beforeEach(async () => {
-	const port = await getPort();
+	const internalPort = await getPort();
 	server = getServer().server;
-	server.listen(port);
+	server.listen(internalPort);
 	trpc = createAppRouterSWRHooks({
-		links: [httpLink({ url: `http://localhost:${port}` })],
+		links: [httpLink({ url: `http://localhost:${internalPort}` })],
 	});
+
+	port = internalPort;
 });
 
 afterEach(() => {

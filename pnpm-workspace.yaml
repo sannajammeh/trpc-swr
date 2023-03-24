@@ -1,6 +1,6 @@
 packages:
   - "apps/*"
-  - "packages/core"
+  - "packages/trpc-swr"
   - "packages/core/core"
   - "packages/core/next"
   - "packages/core/ssg"

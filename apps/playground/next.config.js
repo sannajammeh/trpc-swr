@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false,
-  experimental: {
-    externalDir: true,
-    appDir: true,
-  },
+	reactStrictMode: false,
+	experimental: {
+		externalDir: false,
+		appDir: true,
+	},
 };
 
 // eslint-disable-next-line no-undef

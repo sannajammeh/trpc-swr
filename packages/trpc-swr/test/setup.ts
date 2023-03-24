@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { vi } from "vitest";
 import EventEmitter from "node:events";
-import fetch from "isomorphic-unfetch";
+import fetch from "node-fetch";
 
 beforeAll(() => {
 	if (!globalThis.fetch) {

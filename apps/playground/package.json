@@ -9,18 +9,18 @@
   },
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
-    "@trpc/client": "10.14.0",
-    "@trpc/server": "10.14.0",
-    "next": "13.2.3",
+    "@trpc/client": "10.15.0",
+    "@trpc/server": "10.15.0",
+    "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "superjson": "^1.12.2",
-    "swr": "^2.0.4",
+    "swr": "^2.1.0",
     "trpc-swr": "workspace:*",
-    "zod": "3.20.6"
+    "zod": "3.21.4"
   },
   "devDependencies": {
-    "@types/node": "18.14.5",
+    "@types/node": "18.15.0",
     "@types/react-dom": "18.0.11"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "trpc-swr",
-  "version": "1.0.0-rc.6",
+  "version": "1.0.0-SNAPSHOT.1000",
   "private": false,
   "description": "tRPC-ified SWR hooks",
   "repository": {
@@ -64,11 +64,12 @@
     }
   },
   "files": [
-    "./dist/**/*.{js,d.ts,mjs}",
+    "core/dist/**/*.{js,d.ts,mjs}",
     "infinite/dist/**/*.{js,d.ts,mjs}",
     "next/dist/**/*.{js,d.ts,mjs}",
     "ssg/dist/**/*.{js,d.ts,mjs}",
     "_internal/dist/**/*.{js,d.ts,mjs}",
+    "core/package.json",
     "infinite/package.json",
     "next/package.json",
     "ssg/package.json",
@@ -88,8 +89,8 @@
     "test:ui": "vitest --ui"
   },
   "peerDependencies": {
-    "@trpc/client": ">=10.11.1",
-    "@trpc/server": ">=10.11.1",
+    "@trpc/client": ">=10.15.0",
+    "@trpc/server": ">=10.15.0",
     "react": ">=17 || >=18",
     "swr": ">=2"
   },
@@ -100,29 +101,30 @@
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
-    "@trpc/client": "10.14.0",
-    "@trpc/server": "10.14.0",
-    "@types/node": "18.14.5",
+    "@trpc/client": "10.15.0",
+    "@trpc/server": "10.15.0",
+    "@types/node": "18.15.0",
     "@types/react": "18.0.28",
     "@vitejs/plugin-react-swc": "^3.2.0",
     "@vitest/ui": "^0.29.2",
     "bunchee": "2.2.0",
     "c8": "^7.13.0",
-    "eslint": "8.35.0",
+    "eslint": "8.36.0",
     "get-port": "6.1.2",
     "isomorphic-unfetch": "^4.0.2",
     "jsdom": "21.1.0",
     "node-fetch": "^3.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "rimraf": "^4.2.0",
-    "swr": "2.0.4",
+    "rimraf": "^4.4.0",
+    "swr": "2.1.0",
     "tsup": "^6.6.3",
     "typescript": "^4.9.5",
     "undici": "5.20.0",
     "vite": "4.1.4",
+    "vite-tsconfig-paths": "^4.0.5",
     "vitest": "0.29.2",
-    "zod": "3.20.6"
+    "zod": "3.21.4"
   },
   "sideEffects": false,
   "tsup": {
