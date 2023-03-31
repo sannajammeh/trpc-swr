@@ -15,6 +15,7 @@
     "jsx": "preserve",
     "incremental": true,
     "downlevelIteration": true,
+    "baseUrl": ".",
     "plugins": [
       {
         "name": "next"

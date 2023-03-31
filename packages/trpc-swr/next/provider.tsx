@@ -1,6 +1,6 @@
 import { CreateTRPCClientOptions } from "@trpc/client";
 import type { AnyRouter, ClientDataTransformerOptions } from "@trpc/server";
-import React, { memo, useState } from "react";
+import { memo, useState } from "react";
 import { SWRConfig } from "swr";
 import { CreateTRPCSWRProxy } from "trpc-swr";
 import { useTransformFallback } from "trpc-swr/_internal";

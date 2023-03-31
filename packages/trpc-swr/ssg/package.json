@@ -15,8 +15,5 @@
     "@trpc/client": ">=10",
     "@trpc/server": ">=10",
     "swr": ">=2"
-  },
-  "devDependencies": {
-    "bunchee": "2.2.0"
   }
 }

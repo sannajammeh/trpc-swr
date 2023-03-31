@@ -1,10 +1,10 @@
 packages:
   - "apps/*"
   - "packages/trpc-swr"
-  - "packages/core/core"
-  - "packages/core/next"
-  - "packages/core/ssg"
-  - "packages/core/infinite"
-  - "packages/core/_internal"
+  - "packages/trpc-swr/core"
+  - "packages/trpc-swr/next"
+  - "packages/trpc-swr/ssg"
+  - "packages/trpc-swr/infinite"
+  - "packages/trpc-swr/_internal"
 
 link-workspace-packages: "deep"
