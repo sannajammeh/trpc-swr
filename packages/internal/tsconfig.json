@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "lib": ["esnext", "dom"],
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictBindCallApply": true,
+    "outDir": "./dist",
+    "strict": true,
+    "target": "ES2018",
+    "baseUrl": ".",
+    "noEmitOnError": true,
+    "incremental": true
+  },
+  "types": ["node"],
+  "exclude": ["./**/dist", "examples"]
+}
