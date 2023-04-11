@@ -149,6 +149,11 @@ importers:
       bunchee:
         specifier: 3.0.1
         version: 3.0.1(typescript@5.0.4)
+      config:
+        specifier: workspace:*
+        version: link:../config
+
+  packages/config: {}
 
   packages/infinite:
     dependencies:
@@ -168,6 +173,9 @@ importers:
       bunchee:
         specifier: 3.0.1
         version: 3.0.1(typescript@5.0.4)
+      config:
+        specifier: workspace:*
+        version: link:../config
 
   packages/internal:
     devDependencies:
@@ -183,6 +191,9 @@ importers:
       bunchee:
         specifier: 3.0.1
         version: 3.0.1(typescript@5.0.4)
+      config:
+        specifier: workspace:*
+        version: link:../config
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -211,6 +222,9 @@ importers:
       bunchee:
         specifier: 3.0.1
         version: 3.0.1(typescript@5.0.4)
+      config:
+        specifier: workspace:*
+        version: link:../config
 
   packages/ssg:
     dependencies:
@@ -227,6 +241,9 @@ importers:
       bunchee:
         specifier: 3.0.1
         version: 3.0.1(typescript@5.0.4)
+      config:
+        specifier: workspace:*
+        version: link:../config
 
   test/e2e:
     dependencies:

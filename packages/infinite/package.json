@@ -12,11 +12,12 @@
 	},
 	"keywords": [],
 	"author": "Sanna Jammeh",
-	"license": "ISC",
+	"license": "MIT",
 	"dependencies": {
 		"@trpc-swr/internal": "workspace:*"
 	},
 	"devDependencies": {
+		"config": "workspace:*",
 		"@trpc-swr/client": "workspace:*",
 		"@trpc/client": "^10.19.1",
 		"@trpc/server": "^10.19.1",

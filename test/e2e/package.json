@@ -11,7 +11,7 @@
 	},
 	"keywords": [],
 	"author": "Sanna Jammeh",
-	"license": "ISC",
+	"license": "MIT",
 	"dependencies": {
 		"demo": "workspace:*"
 	},

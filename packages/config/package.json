@@ -1,0 +1,10 @@
+{
+	"name": "config",
+	"version": "1.0.0",
+	"description": "Configuration files for the project",
+	"private": true,
+	"files": ["tsconfig.base.json"],
+	"keywords": [],
+	"author": "Sanna Jammeh",
+	"license": "MIT"
+}
