@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+main {
+  background-image: linear-gradient(rgba(37, 37, 37, 0.7) .1em, transparent .1em), linear-gradient(90deg, rgba(23, 23, 23, 0.7) .1em, transparent .1em);
+  background-size: 2em 2em;
+  background-position: fixed;
+}
+.border-gradient {
+  border: 1px solid;
+  border-image-slice: 1;
+  border-width: 1px;
+  border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
+}
+
+.rounded-gradient-border {
+  border: double 1px transparent;
+  border-radius: 14px;
+  background-image: linear-gradient(#010101, #010101), radial-gradient(circle at top left, #743ad5,#d53a9d);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.right-only {
+  border-left: 0;
+  border-top: 0;
+  border-bottom: 0;
+}
+.bottom-only {
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
+}

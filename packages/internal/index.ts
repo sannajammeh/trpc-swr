@@ -12,3 +12,5 @@ export {
 	getQueryKey,
 } from "./hooks/createSWRHooks";
 export * from "./useTransformedFallback";
+
+export type { CreateClient, GetKey, GetQueryKey } from "./types";

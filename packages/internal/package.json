@@ -14,17 +14,17 @@
 	"author": "Sanna Jammeh",
 	"license": "ISC",
 	"devDependencies": {
-		"@trpc/client": ">=10.18.0",
-		"@trpc/server": ">=10.18.0",
-		"@types/react": "18.0.31",
-		"bunchee": "2.2.1",
+		"@trpc/client": "^10.19.1",
+		"@trpc/server": "^10.19.1",
+		"@types/react": "18.0.34",
+		"bunchee": "3.0.1",
 		"react": "^18.2.0",
 		"swr": ">=2.1.1",
 		"typescript": "^5.0.3"
 	},
 	"peerDependencies": {
-		"@trpc/client": "^10.18.0",
-		"@trpc/server": "^10.18.0",
+		"@trpc/client": "^10.19.1",
+		"@trpc/server": "^10.19.1",
 		"react": "^18.2.0",
 		"swr": "^2.1.1"
 	}

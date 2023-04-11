@@ -1,0 +1,18 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1681173797362,
+      "tag": "0000_special_kat_farrell"
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1681178546303,
+      "tag": "0001_late_caretaker"
+    }
+  ]
+}

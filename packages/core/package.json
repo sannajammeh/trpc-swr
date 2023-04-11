@@ -1,12 +1,28 @@
 {
-	"name": "@trpc-swr/react",
+	"name": "@trpc-swr/core",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.js",
+	"main": "./dist/index.js",
+	"module": "./dist/index.esm.js",
+	"types": "./dist/index.d.ts",
+	"exports": "./dist/index.mjs",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"watch": "bunchee index.ts -w",
+		"build": "bunchee index.ts"
+	},
+	"dependencies": {
+		"@trpc-swr/internal": "workspace:*"
 	},
 	"keywords": [],
 	"author": "Sanna Jammeh",
-	"license": "ISC"
+	"license": "ISC",
+	"devDependencies": {
+		"@trpc/client": "^10.19.1",
+		"@trpc/server": "^10.19.1",
+		"bunchee": "3.0.1"
+	},
+	"peerDependencies": {
+		"@trpc/client": "^10.19.1",
+		"@trpc/server": "^10.19.1"
+	}
 }

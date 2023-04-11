@@ -1,0 +1,64 @@
+name: E2E
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+env:
+  CI: true
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      # ENV AND CACHE SETUP
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --filter {packages/**}... --filter {test/**}... --filter "apps/demo..." --filter .
+
+      # RUN TESTS
+      - name: Install Playwright Browsers
+        working-directory: ./test/e2e
+        run: pnpm exec playwright install --with-deps
+
+      - name: Run Playwright tests
+        working-directory: ./
+        run: pnpm run test:e2e
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: tests/e2e/playwright-report/
+          retention-days: 30

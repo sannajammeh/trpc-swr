@@ -27,7 +27,7 @@ import _useSWRMutation, {
 	SWRMutationConfiguration,
 	SWRMutationResponse,
 } from "swr/mutation";
-import { CreateClient, GetQueryKey, InferProcedure } from "../../core/types";
+import { CreateClient, GetQueryKey, InferProcedure } from "../types";
 import { useTransformFallback } from "../useTransformedFallback";
 
 /**

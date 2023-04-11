@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/shuding/nextra-docs-template#readme",
   "dependencies": {
-    "next": "^13.2.4",
+    "next": "^13.3.0",
     "nextra": "^2.3.0",
     "nextra-theme-docs": "^2.3.0",
     "react": "^18.2.0",
@@ -26,6 +26,6 @@
   },
   "devDependencies": {
     "@types/node": "18.15.11",
-    "typescript": "^5.0.3"
+    "typescript": "^5.0.4"
   }
 }
