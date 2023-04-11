@@ -41,9 +41,9 @@ importers:
       '@radix-ui/react-icons':
         specifier: ^1.3.0
         version: 1.3.0(react@18.2.0)
-      '@trpc-swr/core':
+      '@trpc-swr/client':
         specifier: workspace:*
-        version: link:../../packages/core
+        version: link:../../packages/client
       '@trpc/client':
         specifier: ^10.19.1
         version: 10.19.1(@trpc/server@10.19.1)
@@ -134,7 +134,7 @@ importers:
         specifier: ^5.0.4
         version: 5.0.4
 
-  packages/core:
+  packages/client:
     dependencies:
       '@trpc-swr/internal':
         specifier: workspace:*
@@ -150,7 +150,24 @@ importers:
         specifier: 3.0.1
         version: 3.0.1(typescript@5.0.4)
 
-  packages/infinite: {}
+  packages/infinite:
+    dependencies:
+      '@trpc-swr/internal':
+        specifier: workspace:*
+        version: link:../internal
+    devDependencies:
+      '@trpc-swr/client':
+        specifier: workspace:*
+        version: link:../client
+      '@trpc/client':
+        specifier: ^10.19.1
+        version: 10.19.1(@trpc/server@10.19.1)
+      '@trpc/server':
+        specifier: ^10.19.1
+        version: 10.19.1
+      bunchee:
+        specifier: 3.0.1
+        version: 3.0.1(typescript@5.0.4)
 
   packages/internal:
     devDependencies:
@@ -176,9 +193,40 @@ importers:
         specifier: ^5.0.3
         version: 5.0.4
 
-  packages/next: {}
+  packages/next:
+    dependencies:
+      '@trpc-swr/internal':
+        specifier: workspace:*
+        version: link:../internal
+    devDependencies:
+      '@trpc-swr/client':
+        specifier: workspace:*
+        version: link:../client
+      '@trpc/client':
+        specifier: ^10.19.1
+        version: 10.19.1(@trpc/server@10.19.1)
+      '@trpc/server':
+        specifier: ^10.19.1
+        version: 10.19.1
+      bunchee:
+        specifier: 3.0.1
+        version: 3.0.1(typescript@5.0.4)
 
-  packages/ssg: {}
+  packages/ssg:
+    dependencies:
+      '@trpc-swr/internal':
+        specifier: workspace:*
+        version: link:../internal
+    devDependencies:
+      '@trpc/client':
+        specifier: ^10.19.1
+        version: 10.19.1(@trpc/server@10.19.1)
+      '@trpc/server':
+        specifier: ^10.19.1
+        version: 10.19.1
+      bunchee:
+        specifier: 3.0.1
+        version: 3.0.1(typescript@5.0.4)
 
   test/e2e:
     dependencies:

@@ -7,10 +7,24 @@
 	"types": "./dist/index.d.ts",
 	"exports": "./dist/index.mjs",
 	"scripts": {
-		"watch": "bunchee index.ts -w",
+		"dev": "bunchee index.ts -w",
 		"build": "bunchee index.ts"
 	},
 	"keywords": [],
 	"author": "Sanna Jammeh",
-	"license": "ISC"
+	"license": "ISC",
+	"dependencies": {
+		"@trpc-swr/internal": "workspace:*"
+	},
+	"devDependencies": {
+		"@trpc-swr/client": "workspace:*",
+		"@trpc/client": "^10.19.1",
+		"@trpc/server": "^10.19.1",
+		"bunchee": "3.0.1"
+	},
+	"peerDependencies": {
+		"@trpc-swr/client": "workspace:*",
+		"@trpc/client": "^10.19.1",
+		"@trpc/server": "^10.19.1"
+	}
 }

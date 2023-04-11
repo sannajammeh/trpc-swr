@@ -15,9 +15,9 @@ import _useSWRInfinite, {
 	SWRInfiniteConfiguration,
 	SWRInfiniteResponse,
 } from "swr/infinite";
-import { getQueryKey } from "trpc-swr/_internal";
-import type { CreateTRPCSWRProxy } from "trpc-swr";
-import { GetKey } from "trpc-swr";
+import { getQueryKey } from "@trpc-swr/internal";
+import type { CreateTRPCSWRProxy } from "@trpc-swr/client";
+import type { GetKey } from "@trpc-swr/internal";
 
 type DecorateProcedure<
 	TProcedure extends AnyProcedure,
@@ -76,6 +76,7 @@ function createInfiniteProxyDecoration(
 
 		// The last arg is for instance `.use` or `.useCursor()`
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+		// rome-ignore lint/style/noNonNullAssertion: <explanation>
 		const lastArg = pathCopy.pop()!;
 		const path = pathCopy.join(".");
 

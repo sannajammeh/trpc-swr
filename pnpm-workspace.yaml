@@ -1,10 +1,6 @@
 packages:
   - "apps/*"
-  - "packages/internal"
-  - "packages/core"
-  - "packages/infinite"
-  - "packages/next"
-  - "packages/ssg"
+  - "packages/*"
   - "test/*"
 
 link-workspace-packages: "deep"

@@ -1,10 +1,8 @@
 import { CreateTRPCClientOptions } from "@trpc/client";
 import { AnyRouter } from "@trpc/server";
 import { createFlatProxy } from "@trpc/server/shared";
-import { createSWRProxyHooks, CreateTRPCSWRProxy } from "trpc-swr";
+import { createSWRProxyHooks, CreateTRPCSWRProxy } from "@trpc-swr/client";
 import { withTRPCNext } from "./provider";
-
-export * from "trpc-swr/ssg";
 
 type CreateTRPCSWRNextProxy<TRouter extends AnyRouter> = {
 	withTRPC: (

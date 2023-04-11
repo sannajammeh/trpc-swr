@@ -1,5 +1,5 @@
 {
-	"name": "@trpc-swr/core",
+	"name": "@trpc-swr/client",
 	"version": "1.0.0",
 	"description": "",
 	"main": "./dist/index.js",
@@ -7,15 +7,15 @@
 	"types": "./dist/index.d.ts",
 	"exports": "./dist/index.mjs",
 	"scripts": {
-		"watch": "bunchee index.ts -w",
+		"dev": "bunchee index.ts -w",
 		"build": "bunchee index.ts"
-	},
-	"dependencies": {
-		"@trpc-swr/internal": "workspace:*"
 	},
 	"keywords": [],
 	"author": "Sanna Jammeh",
 	"license": "ISC",
+	"dependencies": {
+		"@trpc-swr/internal": "workspace:*"
+	},
 	"devDependencies": {
 		"@trpc/client": "^10.19.1",
 		"@trpc/server": "^10.19.1",

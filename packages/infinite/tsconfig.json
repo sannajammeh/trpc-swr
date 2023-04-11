@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
+    "declaration": true,
     "esModuleInterop": true,
     "jsx": "react-jsx",
-    "lib": ["ESNext", "DOM"],
-    "module": "NodeNext",
+    "lib": ["esnext", "dom"],
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": false,
@@ -11,20 +11,12 @@
     "noUnusedParameters": true,
     "strictBindCallApply": true,
     "outDir": "./dist",
-    "rootDir": "./",
     "strict": true,
     "target": "ES2018",
     "baseUrl": ".",
     "noEmitOnError": true,
-    "paths": {
-      "trpc-swr": ["./core/index.ts"],
-      "trpc-swr/infinite": ["./infinite/index.ts"],
-      "trpc-swr/next": ["./next/index.ts"],
-      "trpc-swr/ssg": ["./ssg/index.ts"],
-      "trpc-swr/_internal": ["./_internal/index.ts"],
-    },
     "incremental": true
   },
-  "types": ["node", "vite/client", "vitest/globals"],
+  "types": ["node"],
   "exclude": ["./**/dist", "examples"]
 }

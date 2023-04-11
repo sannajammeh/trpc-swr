@@ -10,7 +10,7 @@ import {
 } from "@trpc/server";
 import { createFlatProxy, createRecursiveProxy } from "@trpc/server/shared";
 
-import type { GetKey, GetQueryKey } from "trpc-swr";
+import type { GetKey, GetQueryKey } from "@trpc-swr/internal";
 import { unstable_serialize } from "./serialize";
 
 /**

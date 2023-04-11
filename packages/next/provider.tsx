@@ -2,8 +2,8 @@ import { CreateTRPCClientOptions } from "@trpc/client";
 import type { AnyRouter, ClientDataTransformerOptions } from "@trpc/server";
 import { memo, useState } from "react";
 import { SWRConfig } from "swr";
-import { CreateTRPCSWRProxy } from "trpc-swr";
-import { useTransformFallback } from "trpc-swr/_internal";
+import { CreateTRPCSWRProxy } from "@trpc-swr/client";
+import { useTransformFallback } from "@trpc-swr/internal";
 
 interface SWRProviderProps {
 	children: React.ReactNode;
