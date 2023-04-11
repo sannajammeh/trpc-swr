@@ -1,9 +1,0 @@
-{
-  "mode": "pre",
-  "tag": "rc",
-  "initialVersions": {
-    "docs": "0.0.1",
-    "trpc-swr": "1.0.0-rc.6"
-  },
-  "changesets": []
-}

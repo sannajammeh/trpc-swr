@@ -7,7 +7,9 @@
 ## Installation
 
 ```sh
-npm install trpc-swr @trpc/client @trpc/server
+npm install @trpc-swr/client
+# Peer deps
+npm install swr @trpc/client @trpc/server
 ```
 
 ## Usage
@@ -16,7 +18,7 @@ First, create your fully typed hooks using your router type:
 
 ```ts
 // trpc.ts
-import { createSWRProxyHooks } from "trpc-swr";
+import { createSWRProxyHooks } from "@trpc-swr/client";
 // `import type` ensures this import is fully erased at runtime
 import type { AppRouter } from "./server/router";
 
@@ -164,7 +166,22 @@ const UserList = () => {
 
 To prefetch data on the server, you must provide a serializable key.
 
+In `server/ssg.ts`
+
 ```tsx
+import { createProxySSGHelpers } from "@trpc-swr/ssg";
+
+export const createSSG = () => {
+  return createProxySSGHelpers({
+    router: appRouter,
+    ctx: {},
+  });
+};
+```
+
+```tsx
+import { createSSG } from "server/ssg";
+
 const HomePage: NextPage = ({ fallback }) => {
   return (
     <SWRConfig value={{ fallback }}>
@@ -176,34 +193,28 @@ const HomePage: NextPage = ({ fallback }) => {
 
 const Profile = (props: { userId: string }) => {
   // The data is already available in the UI
-  const { data, isLoading } = trpc.user.get.useSWR({
+  const { data } = trpc.user.get.useSWR({
     id: props.userId,
   });
 
   return (
     <div>
-      Name:{" "}
-      {!data && isLoading
-        ? "loading..."
-        : data
-        ? data.name
-        : "User does not exist"}
+      Name: {data!.name}
     </div>
   );
 };
 
-export const getServerSideProps = () => {
-  const client = trpc.createClient();
-  // Manually fetch the data using the native trpc client
-  const { data } = await client.query("user.get", { id: "1" });
+export const getServerSideProps = async () => {
+  const ssg = createSSG();
+
+  ssg.user.get.fetch({ id: "1" }); // prefetch data
 
   return {
     props: {
-      fallback: {
-        // Get a serialized key to the data
-        [trpc.user.get.getKey({ id: "1" })]: data,
-      },
+      fallback: await ssg.dehydrate(), // Dehydrate the data into SWR cache
     },
   };
 };
+
+export defualt HomePage;
 ```

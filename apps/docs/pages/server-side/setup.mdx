@@ -9,7 +9,7 @@ If you're using trpc-swr in a framework other than Next.js, this is how you can 
 Export a reusable function that creates a `createProxySSGHelpers` function.
 
 ```tsx
-import { createProxySSGHelpers } from "trpc-swr/ssg";
+import { createProxySSGHelpers } from "@trpc-swr/ssg";
 
 export const createSSG = () => {
   return createProxySSGHelpers({
@@ -64,7 +64,7 @@ If you're using Next.js, you can use the `withTRPCSWR` helper function. Then in 
 In `pages/_app.tsx`
 
 ```tsx
-import { withTRPCSWR } from "trpc-swr/next";
+import { withTRPCSWR } from "@trpc-swr/next";
 
 const MyApp = ({ Component, pageProps }) => {
   return <Component {...pageProps} />;

@@ -53,12 +53,12 @@ In your `trpc` folder, create a new file called `trpc-ssg.ts` and add the follow
 
 ```tsx
 import { appRouter } from "<router-location>";
-import { createProxySSGHelpers } from "trpc-swr/ssg";
+import { createProxySSGHelpers } from "@trpc-swr/ssg";
 
 export const createSSG = () => {
   return createProxySSGHelpers({
     router: appRouter,
-    ctx: {},
+    ctx: {}, // Insert any context trpc needs here.
   });
 };
 ```
@@ -105,7 +105,7 @@ In order to do this, we must create a `client component` which acts as a context
 1. In `app/SWRConfig.tsx` export this component:
 
 ```tsx
-"use client"; // This is the reason we're faking the export.
+"use client";
 import { trpc } from "../utils/trpc"; // trpc client library
 
 const SWRConfig = ({

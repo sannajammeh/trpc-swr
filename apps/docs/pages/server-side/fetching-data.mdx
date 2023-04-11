@@ -1,4 +1,4 @@
-# Fetching data on the server
+# Fetching data on the server in Next.js
 
 ## The `<endpoint>.fetch()` method
 
@@ -10,7 +10,7 @@ import { createSSG } from "server/ssg";
 const getUser = (id: number) => {
   const trpc = createSSG();
 
-  return trpc.users.byId({ id });
+  return trpc.users.byId.fetch({ id });
 };
 
 await getUser(1); // {id: 1, name: "john"}
@@ -47,8 +47,8 @@ import { createSSG } from "server/ssg";
 export const getStaticProps = async () => {
   const trpc = createSSG();
 
-  trpc.users.byId({ id: 1 });
-  trpc.posts.byUser({ id: 1 });
+  trpc.users.byId.fetch({ id: 1 });
+  trpc.posts.byUser.fetch({ id: 1 });
 
   return {
     props: {
@@ -66,7 +66,7 @@ If you wanted to opt out of parallel fetching, you can use the `await` keyword o
 export const getServerSideProps = async () => {
   const trpc = createSSG();
 
-  const user = await trpc.users.byId({ id: 1 });
+  const user = await trpc.users.byId.fetch({ id: 1 });
   // Do something with the user:
   if (user.isBanned) {
     return {
