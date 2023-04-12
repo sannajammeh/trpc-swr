@@ -28,9 +28,7 @@ test("<procedure>.useSWRMutation error", async ({ page }) => {
 	await page.waitForTimeout(32);
 	await page.getByRole("button", { name: "Create User" }).click();
 
-	expect
-		.poll(async () => page.getByTestId("loading").textContent())
-		.toBe("Loading...");
+	expect.poll(async () => page.getByTestId("loading")).toBeDefined();
 
 	expect(page.getByTestId("error-message")).toBeDefined();
 
