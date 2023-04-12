@@ -52,7 +52,7 @@ const Mutation = () => {
 								...data,
 								{
 									name,
-									id: Math.random() * 1000,
+									id: data[0].id + 1,
 									createdAt: new Date(),
 								},
 						  ]
@@ -60,9 +60,8 @@ const Mutation = () => {
 
 					return orderByFunc(
 						insert,
-						["createdAt"],
-						(p1: Date, p2: Date) =>
-							new Date(p2).getTime() - new Date(p1).getTime(),
+						["id"],
+						(p1: number, p2: number) => p2 - p1,
 					);
 				},
 			});
@@ -138,6 +137,7 @@ const Mutation = () => {
 								<p className="text-lg font-medium">Created user</p>
 								<Spacer />
 								<User
+									data-testid={`created-user-${user.id}`}
 									src={`https://api.dicebear.com/6.x/initials/svg?seed=${user.name}`}
 									name={user.name}
 									description={`ID: ${user.id}`}
@@ -184,12 +184,13 @@ const UsersCard = () => {
 			<div className="flex gap-4 mt-2 items-center">
 				<h1 className="text-2xl font-medium">All users</h1>
 			</div>
-			<div className="grid grid-cols-1 gap-6">
+			<div className="grid grid-cols-1 gap-6" data-testid="users-list">
 				{users?.map((user) => (
 					<User
+						data-testid="list-user"
 						key={user.id}
 						src={`https://api.dicebear.com/6.x/initials/svg?seed=${user.name}`}
-						name={user.name}
+						name={<span data-testid="user-name">{user.name}</span>}
 						description={`ID: ${user.id}`}
 						squared
 						size="md"

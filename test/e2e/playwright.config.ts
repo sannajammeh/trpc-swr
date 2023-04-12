@@ -73,6 +73,6 @@ export default defineConfig({
 		command: "pnpm run start --port 3232",
 		cwd: "../../apps/demo",
 		url: "http://127.0.0.1:3232",
-		reuseExistingServer: false,
+		reuseExistingServer: !process.env.CI,
 	},
 });

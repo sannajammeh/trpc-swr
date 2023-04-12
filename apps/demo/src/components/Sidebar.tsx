@@ -9,6 +9,7 @@ const Sidebar = () => {
 			<nav className="gap-1 flex flex-col">
 				<NavLink href="/">Fetching</NavLink>
 				<NavLink href="/mutation">Mutations</NavLink>
+				<NavLink href="/simple-mutation">Simple Mutation</NavLink>
 			</nav>
 		</aside>
 	);
