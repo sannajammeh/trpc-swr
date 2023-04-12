@@ -1,4 +1,4 @@
-name: E2E
+name: CI
 on:
   push:
     branches: [main, master]
@@ -18,7 +18,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 19
 
       - uses: pnpm/action-setup@v2
         name: Install pnpm
@@ -52,9 +52,9 @@ jobs:
         working-directory: ./test/e2e
         run: pnpm exec playwright install --with-deps
 
-      - name: Run Playwright tests
+      - name: Run tests
         working-directory: ./
-        run: pnpm run test:e2e
+        run: turbo run test test:e2e
 
       - uses: actions/upload-artifact@v3
         if: always()
