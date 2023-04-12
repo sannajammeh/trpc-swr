@@ -54,7 +54,9 @@ test("<procedure>.useSWRMutation reset", async ({ page }) => {
 
 	await page.getByRole("button", { name: "Reset" }).click();
 
-	expect(page.locator("[data-test-state='empty']").first()).toBeDefined();
+	expect
+		.poll(async () => page.locator("[data-test-state='empty']").first())
+		.toBeDefined();
 });
 
 test("<procedure>.useSWRMutation and revalidation", async ({ page }) => {
