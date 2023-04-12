@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"description": "Configuration files for the project",
 	"private": true,
-	"files": ["tsconfig.base.json"],
+	"files": ["tsconfig.base.json", "tsconfig.esm.json"],
 	"keywords": [],
 	"author": "Sanna Jammeh",
 	"license": "MIT"

@@ -8,7 +8,7 @@
 		"lint": {},
 		"test": {
 			"dependsOn": ["^build"],
-			"outputs": ["coverage/**"]
+			"outputs": ["test-results"]
 		},
 		"test:e2e": {
 			"dependsOn": ["^build"],

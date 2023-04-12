@@ -1,0 +1,6 @@
+{
+  "extends": "config/tsconfig.esm.json",
+  "compilerOptions": {
+    "allowJs": true,
+  }
+}

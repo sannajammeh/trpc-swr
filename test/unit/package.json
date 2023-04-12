@@ -1,0 +1,33 @@
+{
+	"name": "unit",
+	"type": "module",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"test": "mkdir -p ./test-results && pnpm test-unreported 2>&1 | tee ./test-results/tap.txt",
+		"test-unreported": "node --loader @swc-node/register/esm --test ./tests/*.mts",
+		"test:watch": "npm-watch"
+	},
+	"watch": {
+		"test-unreported": {
+			"patterns": ["tests"],
+			"extensions": "mts",
+			"quiet": true
+		}
+	},
+	"keywords": [],
+	"dependencies": {
+		"@trpc-swr/ssg": "workspace:*"
+	},
+	"author": "Sanna Jammeh",
+	"license": "ISC",
+	"devDependencies": {
+		"@swc-node/register": "^1.6.4",
+		"@trpc/client": "^10.19.1",
+		"@trpc/server": "^10.19.1",
+		"config": "workspace:*",
+		"npm-watch": "^0.11.0",
+		"swr": ">=2.1.1"
+	}
+}

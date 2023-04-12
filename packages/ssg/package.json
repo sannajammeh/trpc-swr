@@ -5,11 +5,18 @@
 	"main": "./dist/index.js",
 	"module": "./dist/index.esm.js",
 	"types": "./dist/index.d.ts",
-	"exports": "./dist/index.mjs",
+	"exports": {
+		"types": "./dist/index.d.ts",
+		"import": "./dist/index.mjs",
+		"module": "./dist/index.esm.js",
+		"require": "./dist/index.js"
+	},
 	"scripts": {
 		"dev": "bunchee index.ts -w",
-		"build": "bunchee index.ts"
+		"build": "bunchee index.ts",
+		"run:test": "node --loader @swc-node/register/esm --test test/*.mts"
 	},
+	"files": ["dist", "package.json"],
 	"keywords": [],
 	"author": "Sanna Jammeh",
 	"license": "MIT",
@@ -17,10 +24,11 @@
 		"@trpc-swr/internal": "workspace:*"
 	},
 	"devDependencies": {
-		"config": "workspace:*",
+		"@swc-node/register": "^1.6.4",
 		"@trpc/client": "^10.19.1",
 		"@trpc/server": "^10.19.1",
-		"bunchee": "3.0.1"
+		"bunchee": "3.0.1",
+		"config": "workspace:*"
 	},
 	"peerDependencies": {
 		"@trpc/client": "^10.19.1",
