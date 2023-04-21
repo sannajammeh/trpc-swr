@@ -17,10 +17,10 @@
 		"@trpc-swr/internal": "workspace:*"
 	},
 	"devDependencies": {
-		"config": "workspace:*",
 		"@trpc/client": "^10.19.1",
 		"@trpc/server": "^10.19.1",
-		"bunchee": "3.0.1"
+		"bunchee": "3.1.0",
+		"config": "workspace:*"
 	},
 	"peerDependencies": {
 		"@trpc/client": "^10.19.1",

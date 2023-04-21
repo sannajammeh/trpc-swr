@@ -11,7 +11,9 @@
 	},
 	"watch": {
 		"test-unreported": {
-			"patterns": ["tests"],
+			"patterns": [
+				"tests"
+			],
 			"extensions": "mts",
 			"quiet": true
 		}
@@ -28,6 +30,6 @@
 		"@trpc/server": "^10.19.1",
 		"config": "workspace:*",
 		"npm-watch": "^0.11.0",
-		"swr": ">=2.1.1"
+		"swr": "^2.1.3"
 	}
 }
