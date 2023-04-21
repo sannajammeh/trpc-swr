@@ -1,5 +1,14 @@
 import { test, expect } from "@playwright/test";
 
+test.beforeAll(async ({request}) => {
+	const res = await request.post("http://localhost:3232/api/trpc/users.reset");
+	expect(res.ok()).toBeTruthy();
+});
+test.afterEach(async ({request}) => {
+	const res = await request.post("http://localhost:3232/api/trpc/users.reset");
+	expect(res.ok()).toBeTruthy();
+});
+
 test("<procedure>.useSWRMutation mutation", async ({ page }) => {
 	await page.goto(
 		`http://localhost:3232/simple-mutation?name=${encodeURIComponent(
@@ -95,4 +104,31 @@ test("<procedure>.useSWRMutation and revalidation", async ({ page }) => {
 		.textContent();
 
 	expect(t2).toBe("Testing-2");
+});
+
+test("<procedure>.useSWRMutation() with optimisticData", async ({ page }) => {
+	await page.goto("http://localhost:3232/mutation?delay=1000");
+
+	await page.getByText("Optimistically update").click();
+
+	await page.getByPlaceholder("Enter name...").fill("Optimistic");
+	await page.getByRole("button", { name: "Submit" }).click();
+
+	expect(page.getByTestId("created-user-1").isVisible()).toBeTruthy();
+
+	const firstUser = page.getByTestId("list-user").first();
+
+	await firstUser.waitFor();
+
+	expect(
+		await firstUser.getAttribute("data-user", {
+			timeout: 100,
+		}),
+	).toEqual("0");
+
+	expect
+		.poll(async () => await firstUser.getAttribute("data-user"), {
+			timeout: 1000,
+		})
+		.toEqual("1");
 });

@@ -10,6 +10,7 @@ const Sidebar = () => {
 				<NavLink href="/">Fetching</NavLink>
 				<NavLink href="/mutation">Mutations</NavLink>
 				<NavLink href="/simple-mutation">Simple Mutation</NavLink>
+				<NavLink href="/ssr">Server side rendering</NavLink>
 			</nav>
 		</aside>
 	);

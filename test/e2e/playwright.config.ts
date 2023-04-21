@@ -20,7 +20,15 @@ export default defineConfig({
 	/* Opt out of parallel tests on CI. */
 	workers: process.env.CI ? 1 : undefined,
 	/* Reporter to use. See https://playwright.dev/docs/test-reporters */
-	reporter: "html",
+	reporter: [
+		["list"],
+		[
+			"html",
+			{
+				open: process.env.CI ? "never" : "always",
+			},
+		],
+	],
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
 	use: {
 		/* Base URL to use in actions like `await page.goto('/')`. */
@@ -72,7 +80,7 @@ export default defineConfig({
 	webServer: {
 		command: "pnpm run start --port 3232",
 		cwd: "../../apps/demo",
-		url: "http://127.0.0.1:3232",
+		url: "http://localhost:3232",
 		reuseExistingServer: !process.env.CI,
 	},
 });

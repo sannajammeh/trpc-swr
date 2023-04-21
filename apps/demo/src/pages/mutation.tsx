@@ -14,8 +14,11 @@ import Code from "@/components/Code";
 import { Tabs } from "@/components/Tabs";
 import { CodeIcon } from "@radix-ui/react-icons";
 import { orderByFunc } from "@deepakvishwakarma/ts-util";
+import { useRouter } from "next/router";
 
 const Mutation = () => {
+	const { delay } = useRouter().query;
+
 	const [optimisticallyUpdate, setOptimisticallyUpdate] = useState(false);
 	const [name, setName] = useState("");
 	const {
@@ -35,6 +38,7 @@ const Mutation = () => {
 		const updatePromise = trigger(
 			{
 				name,
+				delayMs: Number(delay) || 0,
 			},
 			{
 				optimisticData: {
@@ -47,7 +51,7 @@ const Mutation = () => {
 			await mutate(updatePromise as any, {
 				populateCache: false,
 				optimisticData: (data) => {
-					const insert = data
+					const insert = data?.length
 						? [
 								...data,
 								{
@@ -188,6 +192,7 @@ const UsersCard = () => {
 				{users?.map((user) => (
 					<User
 						data-testid="list-user"
+						data-user={user.id}
 						key={user.id}
 						src={`https://api.dicebear.com/6.x/initials/svg?seed=${user.name}`}
 						name={<span data-testid="user-name">{user.name}</span>}
