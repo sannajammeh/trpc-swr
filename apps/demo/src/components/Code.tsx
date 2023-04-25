@@ -1,5 +1,4 @@
 import { stableHash } from "@/utils/stableHash";
-import { Loading } from "@nextui-org/react";
 import { memo } from "react";
 import useSWRImmutable from "swr/immutable";
 
@@ -25,7 +24,7 @@ const Code = ({
 	if (isLoading)
 		return (
 			<div className="aspect-video grid place-content-center">
-				<Loading>Generating preview...</Loading>
+				<>Generating preview...</>
 			</div>
 		);
 	if (!html) return null;

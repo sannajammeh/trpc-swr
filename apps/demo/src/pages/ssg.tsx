@@ -17,7 +17,9 @@ const SSG = ({ status: initialStatus, fallback }: Props) => {
 
 	return (
 		<Card>
-			<h1 className="text-2xl font-medium mb-2">Static Site Generation</h1>
+			<h1 className="scroll-m-20 text-2xl font-semibold tracking-tight mb-2">
+				Static Site Generation
+			</h1>
 			<p>Purely static generated using trpc-swr</p>
 			<div>
 				<p data-testid="initial-status">{initialStatus.status}</p>

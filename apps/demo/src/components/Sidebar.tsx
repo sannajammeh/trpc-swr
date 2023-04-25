@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 
 const Sidebar = () => {
 	return (
-		<aside className="w-full py-8 p-4 h-full bg-[#010101] border-gradient right-only">
+		<aside className="w-full py-8 p-4 h-full border-r">
 			<h2 className="font-medium text-2xl mb-4">TRPC-SWR Demo</h2>
 			<nav className="gap-1 flex flex-col">
 				<NavLink href="/">Fetching</NavLink>
@@ -19,10 +19,10 @@ const Sidebar = () => {
 export default Sidebar;
 
 const NavLinkA = classed(Link, {
-	base: "block rounded-md px-3 py-2 text-sm font-medium hover:text-violet-300 hover:bg-gray-800 text-white",
+	base: "block rounded-md px-3 py-2 text-sm font-medium hover:bg-black/10 hover:-translate-y-[2px] transition-all",
 	variants: {
 		active: {
-			true: "bg-gray-900 text-white",
+			true: "!bg-gray-900 text-white",
 		},
 	},
 });

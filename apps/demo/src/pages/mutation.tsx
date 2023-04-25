@@ -1,20 +1,23 @@
 import { Card } from "@/components/Card";
 import { api } from "@/lib/trpc";
 import { memo, useState } from "react";
-import {
-	Button,
-	Collapse,
-	Input,
-	Loading,
-	Spacer,
-	User,
-} from "@nextui-org/react";
-import { Checkbox } from "@nextui-org/react";
 import Code from "@/components/Code";
 import { Tabs } from "@/components/Tabs";
 import { CodeIcon } from "@radix-ui/react-icons";
 import { orderByFunc } from "@deepakvishwakarma/ts-util";
 import { useRouter } from "next/router";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
+import { User } from "@/components/ui/user";
+import {
+	Accordion,
+	AccordionContent,
+	AccordionItem,
+	AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Label } from "@/components/ui/label";
 
 const Mutation = () => {
 	const { delay } = useRouter().query;
@@ -96,16 +99,20 @@ const Mutation = () => {
 		<>
 			<Card>
 				<div className="flex gap-4 items-center">
-					<h1 className="text-2xl font-medium">Create user</h1>
-					<Button color="secondary" size="xs" onClick={resetAll}>
+					<h1 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+						Create user
+					</h1>
+					<Button size="sm" onClick={resetAll}>
 						Reset
 					</Button>
-					<Checkbox
-						isSelected={optimisticallyUpdate}
-						onChange={setOptimisticallyUpdate}
-					>
-						Optimistically update
-					</Checkbox>
+					<div className="flex items-center gap-2">
+						<Checkbox
+							id="optimistic"
+							onCheckedChange={setOptimisticallyUpdate as any}
+							checked={optimisticallyUpdate}
+						/>
+						<Label htmlFor="optimistic">Optimistically update</Label>
+					</div>
 				</div>
 				<p className="text-gray-500">
 					All requests have a delay of 400ms to simulate a real API.
@@ -114,7 +121,6 @@ const Mutation = () => {
 				<div className="grid grid-cols-2 gap-6 mt-4 border-solid border-0 border-t pt-4 border-gray-600">
 					<form onSubmit={handleSubmit}>
 						<Input
-							label="User's name"
 							type="text"
 							name="name"
 							value={name}
@@ -122,9 +128,8 @@ const Mutation = () => {
 							placeholder="Enter name..."
 							required
 						/>
-						<Spacer />
 
-						<Button type="submit" size="sm" color="primary" shadow>
+						<Button className="mt-4" type="submit" size="sm" color="primary">
 							Submit
 						</Button>
 					</form>
@@ -132,30 +137,29 @@ const Mutation = () => {
 					<div className="relative">
 						{isMutating && (
 							<div className="top-0 left-0 bottom-0 right-0 absolute flex place-items-center">
-								<Loading />
+								<Skeleton />
 							</div>
 						)}
 
 						{!isMutating && user && (
 							<>
 								<p className="text-lg font-medium">Created user</p>
-								<Spacer />
+
 								<User
 									data-testid={`created-user-${user.id}`}
 									src={`https://api.dicebear.com/6.x/initials/svg?seed=${user.name}`}
 									name={user.name}
 									description={`ID: ${user.id}`}
 									squared
-									size="xl"
 								/>
 							</>
 						)}
 					</div>
 				</div>
 			</Card>
-			<Spacer y={2} />
+			{/* <Spacer y={2} /> */}
 
-			<Spacer y={2} />
+			{/* <Spacer y={2} /> */}
 			<Card>
 				<Tabs>
 					<Tabs.List>
@@ -198,7 +202,6 @@ const UsersCard = () => {
 						name={<span data-testid="user-name">{user.name}</span>}
 						description={`ID: ${user.id}`}
 						squared
-						size="md"
 					/>
 				))}
 			</div>
@@ -212,16 +215,22 @@ const Codes = memo<{ optimisticEnabled?: boolean }>(
 	({ optimisticEnabled = false }) => {
 		return (
 			<div>
-				<Collapse.Group>
-					<Collapse title="Mutating">
-						<Code lang="ts">
-							{optimisticEnabled ? createUserOptimistic : createUser}
-						</Code>
-					</Collapse>
-					<Collapse title="Loading state">
-						<Code lang="tsx">{loadingState}</Code>
-					</Collapse>
-				</Collapse.Group>
+				<Accordion type="single" collapsible>
+					<AccordionItem value="mutating">
+						<AccordionTrigger>Mutating</AccordionTrigger>
+						<AccordionContent>
+							<Code lang="ts">
+								{optimisticEnabled ? createUserOptimistic : createUser}
+							</Code>
+						</AccordionContent>
+					</AccordionItem>
+					<AccordionItem value="loading">
+						<AccordionTrigger>Loading state</AccordionTrigger>
+						<AccordionContent>
+							<Code lang="tsx">{loadingState}</Code>
+						</AccordionContent>
+					</AccordionItem>
+				</Accordion>
 			</div>
 		);
 	},

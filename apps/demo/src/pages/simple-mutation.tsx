@@ -1,7 +1,10 @@
 import { Card } from "@/components/Card";
 import Code from "@/components/Code";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
+import { User } from "@/components/ui/user";
 import { api } from "@/lib/trpc";
-import { Button, Checkbox, Loading, Spacer, User } from "@nextui-org/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import useSWRImmutable from "swr/immutable";
@@ -39,7 +42,7 @@ const MutationCard = ({
 		return (
 			<Card>
 				<div>
-					<Loading data-testid="loading">Loading...</Loading>
+					<span data-testid="loading">Loading...</span>
 				</div>
 			</Card>
 		);
@@ -50,10 +53,12 @@ const MutationCard = ({
 				data-testid="mutation-card"
 				data-test-state={user ? "user-created" : error ? "user-error" : "empty"}
 			>
-				<h3>Create user</h3>
-				<div className="flex items-center gap-4">
+				<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+					Create user
+				</h3>
+				<div className="flex items-center gap-4 mt-4">
 					<Button
-						size="xs"
+						size="sm"
 						onClick={() =>
 							hasReset &&
 							trigger({
@@ -64,23 +69,23 @@ const MutationCard = ({
 					>
 						Create User
 					</Button>
-					<Button onClick={handleReset} size="xs" color="secondary">
+					<Button onClick={handleReset} size="sm" color="secondary">
 						Reset
 					</Button>
 
-					<Checkbox
-						isSelected={throwError}
-						onChange={setThrowError}
-						color="error"
-						label="Throw error?"
-						size="lg"
-						name="throwError"
-					/>
+					<div className="flex items-center gap-1">
+						<Checkbox
+							id="throw-error"
+							checked={throwError}
+							onCheckedChange={setThrowError}
+							name="throwError"
+						/>
+						<Label htmlFor="throw-error">Throw error?</Label>
+					</div>
 				</div>
 			</Card>
 			{user && (
 				<>
-					<Spacer />
 					<Card>
 						<User
 							data-testid="user"
@@ -89,7 +94,6 @@ const MutationCard = ({
 							name={<span data-testid="user-name">{user.name}</span>}
 							description={`ID: ${user.id}`}
 							squared
-							size="lg"
 						/>
 					</Card>
 				</>
@@ -97,7 +101,6 @@ const MutationCard = ({
 
 			{error && (
 				<>
-					<Spacer />
 					<Card>
 						<h4>Error</h4>
 						<pre data-testid="error-message">{error.message}</pre>
@@ -114,7 +117,6 @@ const SimpleMutation = () => {
 	return (
 		<>
 			<MutationCard {...{ throwError, setThrowError }} />
-			<Spacer />
 			<Card>
 				<h4>Code</h4>
 				<Code lang="tsx">{throwError ? handleErrorsCode : codePreview}</Code>

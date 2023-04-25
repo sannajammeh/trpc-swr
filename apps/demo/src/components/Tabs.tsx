@@ -40,12 +40,12 @@ const TabList = ({ children }: React.PropsWithChildren<{}>) => {
 };
 
 const TabItemContainer = classed.div(
-	"w-max px-4 py-2 hover:bg-gray-800 transition-all",
+	"w-max px-4 py-2 hover:bg-black/10 dark:hover:bg-gray-800 transition-all",
 	{
 		variants: {
 			active: {
 				// Border using box-shadow to avoid the border from being cut off
-				true: "border-gradient bottom-only !border-b-2",
+				true: "border-blue-300 bottom-only !border-b-2",
 			},
 		},
 	},
