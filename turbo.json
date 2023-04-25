@@ -8,7 +8,7 @@
 		"lint": {},
 		"test": {
 			"dependsOn": ["^build"],
-			"outputs": ["test-results"]
+			"outputs": ["tap.txt"]
 		},
 		"test:e2e": {
 			"dependsOn": ["^build"],

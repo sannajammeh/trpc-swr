@@ -7,7 +7,7 @@
 	"private": true,
 	"scripts": {
 		"run-test": "vitest run",
-		"test": "CI=true vitest run | tap-html --out ./index.html",
+		"test": "vitest run 2>&1 | tee tap.txt",
 		"test:ui": "vitest --ui"
 	},
 	"keywords": [],

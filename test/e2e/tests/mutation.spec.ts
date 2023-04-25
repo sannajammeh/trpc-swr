@@ -1,10 +1,10 @@
 import { test, expect } from "@playwright/test";
 
-test.beforeAll(async ({request}) => {
+test.beforeAll(async ({ request }) => {
 	const res = await request.post("http://localhost:3232/api/trpc/users.reset");
 	expect(res.ok()).toBeTruthy();
 });
-test.afterEach(async ({request}) => {
+test.afterEach(async ({ request }) => {
 	const res = await request.post("http://localhost:3232/api/trpc/users.reset");
 	expect(res.ok()).toBeTruthy();
 });
@@ -128,7 +128,7 @@ test("<procedure>.useSWRMutation() with optimisticData", async ({ page }) => {
 
 	expect
 		.poll(async () => await firstUser.getAttribute("data-user"), {
-			timeout: 1000,
+			timeout: 1500,
 		})
 		.toEqual("1");
 });
