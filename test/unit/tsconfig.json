@@ -1,6 +1,7 @@
 {
-  "extends": "config/tsconfig.esm.json",
+  "extends": "config/tsconfig.base",
   "compilerOptions": {
     "allowJs": true,
+    "types": ["vite/client"]
   }
 }

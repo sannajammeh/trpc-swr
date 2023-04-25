@@ -4,32 +4,39 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
+	"private": true,
 	"scripts": {
-		"test": "mkdir -p ./test-results && pnpm test-unreported 2>&1 | tee ./test-results/tap.txt",
-		"test-unreported": "node --loader @swc-node/register/esm --test ./tests/*.mts",
-		"test:watch": "npm-watch"
-	},
-	"watch": {
-		"test-unreported": {
-			"patterns": [
-				"tests"
-			],
-			"extensions": "mts",
-			"quiet": true
-		}
+		"run-test": "vitest run",
+		"test": "CI=true vitest run | tap-html --out ./index.html",
+		"test:ui": "vitest --ui"
 	},
 	"keywords": [],
-	"dependencies": {
-		"@trpc-swr/ssg": "workspace:*"
-	},
 	"author": "Sanna Jammeh",
 	"license": "ISC",
 	"devDependencies": {
-		"@swc-node/register": "^1.6.4",
+		"@faker-js/faker": "^7.6.0",
+		"@testing-library/dom": "^9.2.0",
+		"@testing-library/jest-dom": "^5.16.5",
+		"@testing-library/react": "^14.0.0",
+		"@testing-library/user-event": "^14.4.3",
+		"@vitejs/plugin-react-swc": "^3.3.0",
+		"@vitest/ui": "^0.30.1",
+		"config": "workspace:*",
+		"get-port": "^6.1.2",
+		"jsdom": "^21.1.1",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"tap-html": "^1.1.0",
+		"vite": "^4.3.1",
+		"vitest": "^0.30.1",
+		"zod": "^3.21.4"
+	},
+	"dependencies": {
+		"@trpc-swr/client": "workspace:^",
+		"@trpc-swr/infinite": "workspace:^",
+		"@trpc-swr/ssg": "workspace:*",
 		"@trpc/client": "^10.19.1",
 		"@trpc/server": "^10.19.1",
-		"config": "workspace:*",
-		"npm-watch": "^0.11.0",
-		"swr": "^2.1.3"
+		"swr": "^2.1.4"
 	}
 }

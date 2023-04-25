@@ -2,9 +2,11 @@
     "compilerOptions": {
       "declaration": true,
       "esModuleInterop": true,
+      "isolatedModules": true,
       "jsx": "react-jsx",
       "lib": ["esnext", "dom"],
       "moduleResolution": "node",
+      "module": "es2022",
       "noFallthroughCasesInSwitch": true,
       "noImplicitReturns": false,
       "noUnusedLocals": true,

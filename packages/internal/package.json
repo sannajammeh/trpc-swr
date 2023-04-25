@@ -16,11 +16,11 @@
 	"devDependencies": {
 		"@trpc/client": "^10.19.1",
 		"@trpc/server": "^10.19.1",
-		"@types/react": "18.0.37",
+		"@types/react": "18.0.38",
 		"bunchee": "3.1.0",
 		"config": "workspace:*",
 		"react": "^18.2.0",
-		"swr": "^2.1.3",
+		"swr": "^2.1.4",
 		"typescript": "^5.0.3"
 	},
 	"peerDependencies": {

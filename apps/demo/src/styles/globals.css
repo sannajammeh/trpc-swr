@@ -1,55 +1,81 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-:root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
-  color-scheme: dark;
+ 
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+ 
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+ 
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+ 
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+ 
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+ 
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+ 
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --ring: 215 20.2% 65.1%;
+ 
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+ 
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+ 
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+ 
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+ 
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+ 
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+ 
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+ 
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+ 
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+ 
+    --ring: 216 34% 17%;
+ 
+    --radius: 0.5rem;
+  }
 }
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-main {
-  background-image: linear-gradient(rgba(37, 37, 37, 0.7) .1em, transparent .1em), linear-gradient(90deg, rgba(23, 23, 23, 0.7) .1em, transparent .1em);
-  background-size: 2em 2em;
-  background-position: fixed;
-}
-.border-gradient {
-  border: 1px solid;
-  border-image-slice: 1;
-  border-width: 1px;
-  border-image-source: linear-gradient(to left, #743ad5, #d53a9d);
-}
-
-.rounded-gradient-border {
-  border: double 1px transparent;
-  border-radius: 14px;
-  background-image: linear-gradient(#010101, #010101), radial-gradient(circle at top left, #743ad5,#d53a9d);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-}
-
-.right-only {
-  border-left: 0;
-  border-top: 0;
-  border-bottom: 0;
-}
-.bottom-only {
-  border-left: 0;
-  border-top: 0;
-  border-right: 0;
-}
-
-.nextui-checkbox-text {
-  font-size: inherit !important;
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
 }

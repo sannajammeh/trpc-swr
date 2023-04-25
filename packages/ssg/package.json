@@ -27,7 +27,7 @@
 		"@trpc-swr/internal": "workspace:*"
 	},
 	"devDependencies": {
-		"@swc-node/register": "^1.6.4",
+		"@swc-node/register": "^1.6.5",
 		"@trpc/client": "^10.19.1",
 		"@trpc/server": "^10.19.1",
 		"bunchee": "3.1.0",
