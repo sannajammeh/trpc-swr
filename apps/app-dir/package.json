@@ -1,14 +1,12 @@
 {
-	"name": "demo",
+	"name": "app-dir",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
-		"dev": "next dev",
+		"dev": "next dev -p 3001 --turbo",
 		"build": "next build",
-		"start": "next start",
-		"lint": "next lint",
-		"migrate:db": "node -r @swc-node/register ./scripts/migrate.ts",
-		"postinstall": "rm -rf ./sqlite.db && pnpm run migrate:db"
+		"start": "next start -p 3001",
+		"lint": "next lint"
 	},
 	"dependencies": {
 		"@deepakvishwakarma/ts-util": "^1.1.0",

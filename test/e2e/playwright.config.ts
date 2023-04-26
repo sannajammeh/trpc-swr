@@ -67,10 +67,18 @@ export default defineConfig({
 	],
 
 	/* Run your local dev server before starting the tests */
-	webServer: {
-		command: "pnpm run start --port 3232",
-		cwd: "../../apps/demo",
-		url: "http://localhost:3232",
-		reuseExistingServer: !process.env.CI,
-	},
+	webServer: [
+		{
+			command: "pnpm run start --port 3232",
+			cwd: "../../apps/demo",
+			url: "http://localhost:3232",
+			reuseExistingServer: !process.env.CI,
+		},
+		{
+			command: "pnpm run start --port 3231",
+			cwd: "../../apps/app-dir",
+			url: "http://localhost:3231",
+			reuseExistingServer: !process.env.CI,
+		},
+	],
 });

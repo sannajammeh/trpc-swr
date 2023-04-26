@@ -5,7 +5,12 @@
 	"main": "./dist/index.js",
 	"module": "./dist/index.esm.js",
 	"types": "./dist/index.d.ts",
-	"exports": "./dist/index.mjs",
+	"exports": {
+		"types": "./dist/index.d.ts",
+		"import": "./dist/index.mjs",
+		"module": "./dist/index.esm.js",
+		"require": "./dist/index.js"
+	},
 	"scripts": {
 		"dev": "bunchee index.ts -w",
 		"build": "bunchee index.ts"
@@ -19,7 +24,7 @@
 	"devDependencies": {
 		"@trpc/client": "^10.19.1",
 		"@trpc/server": "^10.19.1",
-		"bunchee": "3.1.0",
+		"bunchee": "3.1.1",
 		"config": "workspace:*"
 	},
 	"peerDependencies": {

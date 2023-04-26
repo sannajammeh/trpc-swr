@@ -1,4 +1,5 @@
 "use client";
+import Code from "@/components/Code";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,7 +15,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
 import { api } from "@/lib/trpc";
-import { mutate } from "swr";
 import { z } from "zod";
 
 const notificationSchema = z.object({
@@ -99,6 +99,7 @@ const AddNotification = () => {
 					</TabsContent>
 					<TabsContent value="code">
 						<div>Code</div>
+						<Code lang="ts">{addCode}</Code>
 					</TabsContent>
 				</Tabs>
 			</CardContent>
@@ -107,3 +108,15 @@ const AddNotification = () => {
 };
 
 export default AddNotification;
+
+const addCode = `
+const { trigger, isMutating } = api.notifications.add.useSWRMutation();
+const { mutate: reloadNotifications } = api.notifications.all.useSWR();
+
+const handleSubmit = async () => {
+	// ...
+
+	await trigger(notification);
+	await reloadNotifications();
+}
+`;
