@@ -1,3 +1,5 @@
+[![CI](https://github.com/sannajammeh/trpc-swr/actions/workflows/ci.yml/badge.svg)](https://github.com/sannajammeh/trpc-swr/actions/workflows/ci.yml)
+
 ![trpc-swr](assets/banner.png)
 
 # trpc-swr
