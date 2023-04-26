@@ -2,11 +2,13 @@ import { createProxySSGHelpers } from "@trpc-swr/ssg";
 import { publicProcedure, router } from "./server";
 import { userRouter } from "./users";
 import { z } from "zod";
+import { notificationsRouter } from "./notification";
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const appRouter = router({
 	users: userRouter,
+	notifications: notificationsRouter,
 	status: publicProcedure
 		.input(z.number().optional())
 		.query(async ({ input: delay = 0 }) => {

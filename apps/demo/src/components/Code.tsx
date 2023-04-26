@@ -1,3 +1,5 @@
+"use client";
+import { cn } from "@/lib/utils";
 import { stableHash } from "@/utils/stableHash";
 import { memo } from "react";
 import useSWRImmutable from "swr/immutable";
@@ -5,7 +7,8 @@ import useSWRImmutable from "swr/immutable";
 const Code = ({
 	children,
 	lang,
-}: { children: string; lang: "ts" | "tsx" | "json" }) => {
+	video,
+}: { children: string; lang: "ts" | "tsx" | "json"; video?: boolean }) => {
 	const { data: html, isLoading } = useSWRImmutable(
 		`/api/code-preview?hash=${String(stableHash(children))}&lang=${lang}`,
 		(url: string) => {
@@ -23,7 +26,7 @@ const Code = ({
 
 	if (isLoading)
 		return (
-			<div className="aspect-video grid place-content-center">
+			<div className={cn("grid place-content-center", video && "aspect-video")}>
 				<>Generating preview...</>
 			</div>
 		);
