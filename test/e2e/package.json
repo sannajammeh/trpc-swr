@@ -13,7 +13,8 @@
 	"author": "Sanna Jammeh",
 	"license": "MIT",
 	"dependencies": {
-		"demo": "workspace:*"
+		"demo": "workspace:*",
+		"app-dir": "workspace:*"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.32.3",

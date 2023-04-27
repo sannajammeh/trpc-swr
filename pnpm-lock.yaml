@@ -413,6 +413,9 @@ importers:
 
   test/e2e:
     dependencies:
+      app-dir:
+        specifier: workspace:*
+        version: link:../../apps/app-dir
       demo:
         specifier: workspace:*
         version: link:../../apps/demo
