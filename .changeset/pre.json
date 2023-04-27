@@ -1,0 +1,18 @@
+{
+  "mode": "pre",
+  "tag": "rc",
+  "initialVersions": {
+    "app-dir": "0.1.0",
+    "demo": "0.1.0",
+    "docs": "0.0.1",
+    "@trpc-swr/client": "0.1.0",
+    "config": "0.1.0",
+    "@trpc-swr/infinite": "0.1.0",
+    "@trpc-swr/internal": "0.1.0",
+    "@trpc-swr/next": "0.1.0",
+    "@trpc-swr/ssg": "0.1.0",
+    "e2e": "1.0.0",
+    "unit": "1.0.0"
+  },
+  "changesets": []
+}
