@@ -10,5 +10,5 @@
 	"access": "public",
 	"baseBranch": "main",
 	"updateInternalDependencies": "patch",
-	"ignore": ["demo", "docs"]
+	"ignore": ["demo", "docs", "e2e", "unit", "app-dir"]
 }
