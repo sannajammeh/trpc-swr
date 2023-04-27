@@ -9,7 +9,7 @@ If you're using trpc-swr in a framework other than Next.js, this is how you can 
 Export a reusable function that creates a `createProxySSGHelpers` function.
 
 ```tsx
-import { createProxySSGHelpers } from "@trpc-swr/ssg";
+import { createProxySSGHelpers } from "@trpc-swr/ssr";
 
 export const createSSG = () => {
   return createProxySSGHelpers({

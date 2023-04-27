@@ -53,7 +53,7 @@ In your `trpc` folder, create a new file called `trpc-ssg.ts` and add the follow
 
 ```tsx
 import { appRouter } from "<router-location>";
-import { createProxySSGHelpers } from "@trpc-swr/ssg";
+import { createProxySSGHelpers } from "@trpc-swr/ssr";
 
 export const createSSG = () => {
   return createProxySSGHelpers({

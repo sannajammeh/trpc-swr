@@ -1,4 +1,4 @@
-import { createProxySSGHelpers } from "@trpc-swr/ssg";
+import { createProxySSGHelpers } from "@trpc-swr/ssr";
 import { publicProcedure, router } from "./server";
 import { userRouter } from "./users";
 import { z } from "zod";

@@ -169,7 +169,7 @@ To prefetch data on the server, you must provide a serializable key.
 In `server/ssg.ts`
 
 ```tsx
-import { createProxySSGHelpers } from "@trpc-swr/ssg";
+import { createProxySSGHelpers } from "@trpc-swr/ssr";
 
 export const createSSG = () => {
   return createProxySSGHelpers({

@@ -34,7 +34,7 @@
 	"dependencies": {
 		"@trpc-swr/client": "workspace:^",
 		"@trpc-swr/infinite": "workspace:^",
-		"@trpc-swr/ssg": "workspace:*",
+		"@trpc-swr/ssr": "workspace:*",
 		"@trpc/client": "^10.19.1",
 		"@trpc/server": "^10.19.1",
 		"swr": "^2.1.5"

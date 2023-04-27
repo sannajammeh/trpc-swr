@@ -1,5 +1,5 @@
 import assert from "node:assert";
-import { unstable_serialize, createProxySSGHelpers } from "@trpc-swr/ssg";
+import { unstable_serialize, createProxySSGHelpers } from "@trpc-swr/ssr";
 import { unstable_serialize as swr_unstable_serialize } from "swr";
 import { appRouter } from "../utils";
 import { test, describe } from "vitest";

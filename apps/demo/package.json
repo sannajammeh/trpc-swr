@@ -22,7 +22,7 @@
 		"@radix-ui/react-toast": "^1.1.3",
 		"@swc/helpers": "^0.4.14",
 		"@trpc-swr/client": "workspace:*",
-		"@trpc-swr/ssg": "workspace:^",
+		"@trpc-swr/ssr": "workspace:^",
 		"@trpc/client": "^10.19.1",
 		"@trpc/server": "^10.19.1",
 		"@tw-classed/react": "^1.4.4",
