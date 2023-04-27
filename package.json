@@ -17,6 +17,7 @@
 		"prepare": "husky install",
 		"dev": "turbo run dev",
 		"build": "turbo run build",
+		"start": "turbo run start",
 		"test": "turbo run test --filter={test/**}",
 		"test:e2e": "turbo run test:e2e",
 		"prepublishOnly": "turbo run build --filter=packages*"
