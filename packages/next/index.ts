@@ -4,7 +4,9 @@ import { createFlatProxy } from "@trpc/server/shared";
 import { createSWRProxyHooks, CreateTRPCSWRProxy } from "@trpc-swr/client";
 import { withTRPCNext } from "./provider";
 
-type CreateTRPCSWRNextProxy<TRouter extends AnyRouter> = {
+export { withTRPCNext };
+
+export type CreateTRPCSWRNextProxy<TRouter extends AnyRouter> = {
 	withTRPC: (
 		App: React.ComponentType<any>,
 		// eslint-disable-next-line unicorn/prevent-abbreviations
@@ -29,5 +31,3 @@ export function createTRPCSWRNext<TRouter extends AnyRouter>(
 		return proxyHooks;
 	});
 }
-
-export { withTRPCSWR } from "./provider";

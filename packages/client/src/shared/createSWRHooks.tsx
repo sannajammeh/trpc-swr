@@ -21,24 +21,14 @@ import _useSWR, {
 	SWRResponse,
 	unstable_serialize,
 } from "swr";
-import { TRPCContext, TRPCContextType } from "../context/index";
+import { TRPCContext, TRPCContextType } from "./context";
 
 import _useSWRMutation, {
 	SWRMutationConfiguration,
 	SWRMutationResponse,
 } from "swr/mutation";
-import { CreateClient, GetQueryKey, InferProcedure } from "../types";
-import { useTransformFallback } from "../useTransformedFallback";
-
-/**
- * Creates a query key for use inside SWR (unserialized)
- * @internal - Used internally to create a query key
- */
-export const getQueryKey: GetQueryKey = (path: string, input: any) => {
-	return typeof input === "undefined"
-		? ([path] as const)
-		: ([path, input] as const);
-};
+import { CreateClient, GetQueryKey } from "./types";
+import { useTransformFallback } from "./useTransformedFallback";
 
 /**
  * @internal - use this to create custom hooks
@@ -180,9 +170,9 @@ export type TRPCProvider<TRouter extends AnyRouter> = React.FC<
 	}>
 >;
 
-export type UseSWR<TProcedures extends ProcedureRouterRecord> = <
+export type UseSWR<_ extends ProcedureRouterRecord> = <
 	TPath extends string,
-	TProcedure extends AnyProcedure = InferProcedure<TProcedures, TPath>,
+	TProcedure extends AnyProcedure,
 >(
 	pathAndInput: [TPath, inferProcedureInput<TProcedure>],
 	config?: SWRConfiguration & {
@@ -193,9 +183,9 @@ export type UseSWR<TProcedures extends ProcedureRouterRecord> = <
 	TRPCClientErrorLike<TProcedure>
 >;
 
-export type UseSWRMutation<TProcedures extends ProcedureRouterRecord> = <
+export type UseSWRMutation<_ extends ProcedureRouterRecord> = <
 	TPath extends string,
-	TProcedure extends AnyProcedure = InferProcedure<TProcedures, TPath>,
+	TProcedure extends AnyProcedure,
 	TInput = inferProcedureInput<TProcedure>,
 	TOutput = inferProcedureOutput<TProcedure>,
 >(

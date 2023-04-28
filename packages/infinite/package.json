@@ -18,9 +18,6 @@
 	"keywords": [],
 	"author": "Sanna Jammeh",
 	"license": "MIT",
-	"dependencies": {
-		"@trpc-swr/internal": "workspace:*"
-	},
 	"devDependencies": {
 		"@trpc-swr/client": "workspace:*",
 		"@trpc/client": "^10.19.1",

@@ -1,11 +1,12 @@
 /* eslint-disable unicorn/filename-case */
 import { CreateTRPCClientOptions } from "@trpc/client";
 import { AnyRouter } from "@trpc/server";
-import { createSWRHooks } from "@trpc-swr/internal";
+
 import {
 	createSWRProxyHooksInternal,
 	CreateTRPCSWRProxy,
 } from "./createSWRProxyHooks";
+import { createSWRHooks } from "./shared/createSWRHooks";
 
 export function createSWRProxyHooks<TRouter extends AnyRouter>(
 	config: CreateTRPCClientOptions<TRouter>,

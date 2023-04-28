@@ -8,6 +8,7 @@ export interface TRPCContextType<TRouter extends AnyRouter> {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+// rome-ignore lint/style/noNonNullAssertion: <explanation>
 export const TRPCContext = createContext(null!);
 
 export const useTRPCSWRContext = () => useContext(TRPCContext);

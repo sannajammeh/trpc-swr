@@ -16,17 +16,12 @@
 		"build": "bunchee index.ts",
 		"run:test": "node --loader @swc-node/register/esm --test test/*.mts"
 	},
-	"files": [
-		"dist",
-		"package.json"
-	],
+	"files": ["dist", "package.json"],
 	"keywords": [],
 	"author": "Sanna Jammeh",
 	"license": "MIT",
-	"dependencies": {
-		"@trpc-swr/internal": "workspace:*"
-	},
 	"devDependencies": {
+		"@trpc-swr/client": "workspace:*",
 		"@swc-node/register": "^1.6.5",
 		"@trpc/client": "^10.19.1",
 		"@trpc/server": "^10.19.1",
@@ -34,6 +29,7 @@
 		"config": "workspace:*"
 	},
 	"peerDependencies": {
+		"@trpc-swr/client": "workspace:*",
 		"@trpc/client": "^10.19.1",
 		"@trpc/server": "^10.19.1"
 	}

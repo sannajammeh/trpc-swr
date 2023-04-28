@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/no-nested-ternary */
-import type { Key } from "swr";
+type Key = any;
 /**
  * @internal - Current SWR helper RIP. This is a temporary solution to bypass Next.js RSC auto compilation error.
  * @source https://github.com/vercel/swr/blob/main/_internal/utils/helper.ts

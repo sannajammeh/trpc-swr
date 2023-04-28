@@ -1,9 +1,9 @@
 import { CreateTRPCClientOptions } from "@trpc/client";
-import type { AnyRouter, ClientDataTransformerOptions } from "@trpc/server";
+import type { AnyRouter } from "@trpc/server";
 import { memo, useState } from "react";
 import { SWRConfig } from "swr";
 import { CreateTRPCSWRProxy } from "@trpc-swr/client";
-import { useTransformFallback } from "@trpc-swr/internal";
+import { useTransformFallback } from "@trpc-swr/client/shared";
 
 interface SWRProviderProps {
 	children: React.ReactNode;
@@ -23,26 +23,6 @@ const _SWRProvider = ({ children, fallback = {} }: SWRProviderProps) => {
 };
 
 export const SWRProvider = memo(_SWRProvider);
-
-type Config = {
-	transformer?: ClientDataTransformerOptions;
-};
-
-export const withTRPCSWR =
-	({ transformer }: Config = {}) =>
-	<T extends Record<any, any>>(Component: React.ComponentType<any>) => {
-		return (props: T) => {
-			const { pageProps } = props;
-			const { swr } = pageProps || {};
-			const transformedFallback = useTransformFallback(swr, transformer);
-
-			return (
-				<SWRProvider fallback={transformedFallback}>
-					<Component {...props} />
-				</SWRProvider>
-			);
-		};
-	};
 
 export const withTRPCNext =
 	<TRouter extends AnyRouter>(

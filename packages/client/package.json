@@ -6,29 +6,38 @@
 	"module": "./dist/index.esm.js",
 	"types": "./dist/index.d.ts",
 	"exports": {
-		"types": "./dist/index.d.ts",
-		"import": "./dist/index.mjs",
-		"module": "./dist/index.esm.js",
-		"require": "./dist/index.js"
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.esm.js",
+			"require": "./dist/index.js"
+		},
+		"./shared": {
+			"types": "./dist/shared.d.ts",
+			"import": "./dist/shared/index.esm.js",
+			"require": "./dist/shared/index.js"
+		}
 	},
 	"scripts": {
-		"dev": "bunchee index.ts -w",
-		"build": "bunchee index.ts"
+		"dev": "bunchee -w",
+		"build": "bunchee"
 	},
+	"files": ["dist", "./package.json"],
 	"keywords": [],
 	"author": "Sanna Jammeh",
 	"license": "MIT",
-	"dependencies": {
-		"@trpc-swr/internal": "workspace:*"
-	},
 	"devDependencies": {
+		"@rspack/cli": "^0.1.9",
 		"@trpc/client": "^10.19.1",
 		"@trpc/server": "^10.19.1",
 		"bunchee": "3.1.1",
-		"config": "workspace:*"
+		"config": "workspace:*",
+		"react": "^18.2.0",
+		"swr": "^2.1.5"
 	},
 	"peerDependencies": {
 		"@trpc/client": "^10.19.1",
-		"@trpc/server": "^10.19.1"
+		"@trpc/server": "^10.19.1",
+		"react": "^18.2.0",
+		"swr": "^2.1.5"
 	}
 }

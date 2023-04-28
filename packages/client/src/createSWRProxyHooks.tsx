@@ -14,12 +14,10 @@ import type {
 	SWRMutationConfiguration,
 	SWRMutationResponse,
 } from "swr/mutation";
-import type {
-	CreateClient,
-	GetKey,
-	CreateTRPCSWRHooks,
-} from "@trpc-swr/internal";
-import { getQueryKey, TRPCProvider } from "@trpc-swr/internal";
+
+import { getQueryKey } from "./shared/utils";
+import type { CreateTRPCSWRHooks, TRPCProvider } from "./shared/createSWRHooks";
+import type { CreateClient, GetKey } from "./shared/types";
 
 type DecorateProcedure<
 	TProcedure extends AnyProcedure,

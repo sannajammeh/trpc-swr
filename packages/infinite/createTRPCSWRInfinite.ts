@@ -15,9 +15,8 @@ import _useSWRInfinite, {
 	SWRInfiniteConfiguration,
 	SWRInfiniteResponse,
 } from "swr/infinite";
-import { getQueryKey } from "@trpc-swr/internal";
+import { GetKey, getQueryKey } from "@trpc-swr/client/shared";
 import type { CreateTRPCSWRProxy } from "@trpc-swr/client";
-import type { GetKey } from "@trpc-swr/internal";
 
 type DecorateProcedure<
 	TProcedure extends AnyProcedure,
