@@ -1,6 +1,6 @@
 {
 	"name": "@trpc-swr/ssr",
-	"version": "1.0.0-rc.0",
+	"version": "1.0.0-rc.1",
 	"description": "",
 	"main": "./dist/index.js",
 	"module": "./dist/index.esm.js",
@@ -16,7 +16,10 @@
 		"build": "bunchee index.ts",
 		"run:test": "node --loader @swc-node/register/esm --test test/*.mts"
 	},
-	"files": ["dist", "package.json"],
+	"files": [
+		"dist",
+		"package.json"
+	],
 	"keywords": [],
 	"author": "Sanna Jammeh",
 	"license": "MIT",

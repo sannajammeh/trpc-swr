@@ -1,5 +1,14 @@
 # @trpc-swr/ssr
 
+## 1.0.0-rc.1
+
+### Patch Changes
+
+- Removes @trpc-swr/internal in favor of exports sugar pointing to "@trpc-swr/client/shared", this isan internal dependency so no breaking change
+
+- Updated dependencies []:
+  - @trpc-swr/client@1.0.0-rc.1
+
 ## 1.0.0-rc.0
 
 ### Major Changes
