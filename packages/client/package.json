@@ -21,10 +21,7 @@
 		"dev": "bunchee -w",
 		"build": "bunchee"
 	},
-	"files": [
-		"dist",
-		"./package.json"
-	],
+	"files": ["dist", "shared", "./package.json"],
 	"keywords": [],
 	"author": "Sanna Jammeh",
 	"license": "MIT",
