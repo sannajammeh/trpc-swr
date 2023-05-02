@@ -1,5 +1,14 @@
 # @trpc-swr/next
 
+## 1.0.0-rc.2
+
+### Patch Changes
+
+- [#40](https://github.com/sannajammeh/trpc-swr/pull/40) [`57aa58f`](https://github.com/sannajammeh/trpc-swr/commit/57aa58f90363f3c48de6936b20338b8c36a2a2e4) Thanks [@sannajammeh](https://github.com/sannajammeh)! - Add "shared" folder to @trpc-swr/client
+
+- Updated dependencies [[`57aa58f`](https://github.com/sannajammeh/trpc-swr/commit/57aa58f90363f3c48de6936b20338b8c36a2a2e4)]:
+  - @trpc-swr/client@1.0.0-rc.2
+
 ## 1.0.0-rc.1
 
 ### Patch Changes
