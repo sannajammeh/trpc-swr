@@ -6,6 +6,10 @@
 			"outputs": ["dist/**", ".next/**"]
 		},
 		"lint": {},
+		"migrate:db": {
+			"outputs": [],
+			"cache": false
+		},
 		"test": {
 			"dependsOn": ["^build"],
 			"outputs": ["tap.txt"]
