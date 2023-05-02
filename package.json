@@ -20,7 +20,9 @@
 		"start": "turbo run start",
 		"test": "turbo run test --filter={test/**}",
 		"test:e2e": "turbo run test:e2e",
-		"prepublishOnly": "turbo run build --filter=packages*"
+		"prepublishOnly": "turbo run build --filter=packages*",
+		"prerelease": "turbo run build --filter=./packages/*",
+		"ci:publish": "pnpm run prerelease && changeset publish"
 	},
 	"pnpm": {
 		"overrides": {

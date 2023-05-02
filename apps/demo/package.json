@@ -7,8 +7,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"migrate:db": "node -r @swc-node/register ./scripts/migrate.ts",
-		"postinstall": "rm -rf ./sqlite.db && pnpm run migrate:db"
+		"migrate:db": "rm -rf ./sqlite.db && node -r @swc-node/register ./scripts/migrate.ts"
 	},
 	"dependencies": {
 		"@deepakvishwakarma/ts-util": "^1.1.0",

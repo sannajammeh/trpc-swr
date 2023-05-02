@@ -30,8 +30,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
-      - name: Install dependencies
-        run: pnpm install
 
       - name: Install dependencies
         run: pnpm install --filter {packages/**}... --filter {test/**}... --filter "apps/demo..." --filter .
