@@ -11,7 +11,7 @@
 			"outputs": ["tap.txt"]
 		},
 		"test:e2e": {
-			"dependsOn": ["^build", "^migrade:db"],
+			"dependsOn": ["^build", "^migrate:db"],
 			"outputs": ["playwright-report/**"]
 		},
 		"dev": {
