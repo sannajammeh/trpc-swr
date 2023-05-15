@@ -14,7 +14,7 @@
 	"scripts": {
 		"dev": "bunchee index.ts -w",
 		"build": "bunchee index.ts",
-		"run:test": "node --loader @swc-node/register/esm --test test/*.mts"
+		"typecheck": "tsc --noEmit"
 	},
 	"files": [
 		"dist",

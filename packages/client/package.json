@@ -19,7 +19,8 @@
 	},
 	"scripts": {
 		"dev": "bunchee -w",
-		"build": "bunchee"
+		"build": "bunchee",
+		"typecheck": "tsc --noEmit"
 	},
 	"files": [
 		"dist",

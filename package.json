@@ -16,6 +16,7 @@
 		"dev": "turbo run dev",
 		"build": "turbo run build",
 		"start": "turbo run start",
+		"typecheck": "turbo run typecheck",
 		"test": "turbo run test --filter={test/**}",
 		"test:e2e": "turbo run test:e2e",
 		"prepublishOnly": "turbo run build --filter=packages*",

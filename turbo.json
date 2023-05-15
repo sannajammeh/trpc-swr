@@ -18,6 +18,10 @@
 			"dependsOn": ["^build", "^migrate:db"],
 			"outputs": ["playwright-report/**"]
 		},
+		"typecheck": {
+			"dependsOn": ["^build"],
+			"outputs": []
+		},
 		"dev": {
 			"cache": false,
 			"persistent": true
