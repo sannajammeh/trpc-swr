@@ -14,11 +14,11 @@
 	"author": "Sanna Jammeh",
 	"license": "MIT",
 	"dependencies": {
-		"demo": "workspace:*",
-		"app-dir": "workspace:*"
+		"app-dir": "workspace:*",
+		"demo": "workspace:*"
 	},
 	"devDependencies": {
-		"@playwright/test": "^1.32.3",
+		"@playwright/test": "^1.33.0",
 		"start-server-and-test": "^2.0.0"
 	}
 }

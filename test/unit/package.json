@@ -15,28 +15,28 @@
 	"license": "ISC",
 	"devDependencies": {
 		"@faker-js/faker": "^7.6.0",
-		"@testing-library/dom": "^9.2.0",
+		"@testing-library/dom": "^9.3.0",
 		"@testing-library/jest-dom": "^5.16.5",
 		"@testing-library/react": "^14.0.0",
 		"@testing-library/user-event": "^14.4.3",
-		"@vitejs/plugin-react-swc": "^3.3.0",
-		"@vitest/ui": "^0.30.1",
+		"@vitejs/plugin-react-swc": "^3.3.1",
+		"@vitest/ui": "^0.31.0",
 		"config": "workspace:*",
 		"get-port": "^6.1.2",
-		"jsdom": "^21.1.1",
+		"jsdom": "^22.0.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
 		"tap-html": "^1.1.0",
-		"vite": "^4.3.3",
-		"vitest": "^0.30.1",
+		"vite": "^4.3.6",
+		"vitest": "^0.31.0",
 		"zod": "^3.21.4"
 	},
 	"dependencies": {
 		"@trpc-swr/client": "workspace:^",
 		"@trpc-swr/infinite": "workspace:^",
 		"@trpc-swr/ssr": "workspace:*",
-		"@trpc/client": "^10.19.1",
-		"@trpc/server": "^10.19.1",
+		"@trpc/client": "^10.26.0",
+		"@trpc/server": "^10.26.0",
 		"swr": "^2.1.5"
 	}
 }

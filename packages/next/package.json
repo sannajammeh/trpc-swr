@@ -20,16 +20,16 @@
 	"license": "MIT",
 	"devDependencies": {
 		"@trpc-swr/client": "workspace:*",
-		"@trpc/client": "^10.19.1",
-		"@trpc/server": "^10.19.1",
+		"@trpc/client": "^10.26.0",
+		"@trpc/server": "^10.26.0",
 		"bunchee": "3.1.1",
 		"config": "workspace:*",
 		"swr": "^2.1.5"
 	},
 	"peerDependencies": {
 		"@trpc-swr/client": "workspace:*",
-		"@trpc/client": "^10.19.1",
-		"@trpc/server": "^10.19.1",
+		"@trpc/client": "^10.26.0",
+		"@trpc/server": "^10.26.0",
 		"swr": "^2.1.4"
 	}
 }
