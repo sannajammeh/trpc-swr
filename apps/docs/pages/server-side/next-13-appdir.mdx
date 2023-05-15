@@ -192,12 +192,13 @@ const getData = (id: number) => {
 };
 
 async function DashboardPage() {
-  const { users, fallback } = await getData();
+  const id = 1; // From your router or similar
+  const { user, fallback } = await getData(id);
 
   return (
     <SWRConfig value={{ fallback }}>
       <User user={user} />
-      <UpdateUserForm /> {/* <-- is a client component since its a form */}
+      <UpdateUserForm id={id} /> {/* <-- is a client component since its a form */}
     </SWRConfig>
   );
 }
@@ -213,7 +214,7 @@ Use the prefetched data in your client component:
 import { trpc } from "utils/trpc";
 
 const UpdateUserForm = ({ id }: { id: number }) => {
-  const { data } = trpc.users.byId.useSWR({ id: 1 });
+  const { data } = trpc.users.byId.useSWR({ id });
 
   console.assert(data !== undefined, "data should be available"); // Will not fire since data is available.
 
