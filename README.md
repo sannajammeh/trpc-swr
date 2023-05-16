@@ -6,10 +6,6 @@
 
 [tRPC](https://trpc.io/)-ified [SWR](https://swr.vercel.app/) hooks
 
-UNDER ACTIVE DEVELOPMENT
-
-[Live E2E Status](https://sannajammeh.github.io/trpc-swr/playwright-report/) 
-
 ## Installation
 
 ```sh
@@ -224,3 +220,7 @@ export const getServerSideProps = async () => {
 
 export defualt HomePage;
 ```
+
+## Status
+
+[Live E2E Status](https://sannajammeh.github.io/trpc-swr/playwright-report/) 
