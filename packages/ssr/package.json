@@ -1,0 +1,39 @@
+{
+	"name": "@trpc-swr/ssr",
+	"version": "1.0.0-rc.2",
+	"description": "",
+	"main": "./dist/index.js",
+	"module": "./dist/index.esm.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		"types": "./dist/index.d.ts",
+		"import": "./dist/index.mjs",
+		"module": "./dist/index.esm.js",
+		"require": "./dist/index.js"
+	},
+	"scripts": {
+		"dev": "bunchee index.ts -w",
+		"build": "bunchee index.ts",
+		"typecheck": "tsc --noEmit"
+	},
+	"files": [
+		"dist",
+		"package.json"
+	],
+	"keywords": [],
+	"author": "Sanna Jammeh",
+	"license": "MIT",
+	"devDependencies": {
+		"@trpc-swr/client": "workspace:*",
+		"@swc-node/register": "^1.6.5",
+		"@trpc/client": "^10.26.0",
+		"@trpc/server": "^10.26.0",
+		"bunchee": "3.1.1",
+		"config": "workspace:*"
+	},
+	"peerDependencies": {
+		"@trpc-swr/client": "workspace:*",
+		"@trpc/client": "^10.26.0",
+		"@trpc/server": "^10.26.0"
+	}
+}

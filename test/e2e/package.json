@@ -1,0 +1,24 @@
+{
+	"name": "e2e",
+	"version": "1.0.0",
+	"description": "",
+	"private": true,
+	"main": "index.js",
+	"scripts": {
+		"run-test": "pnpm exec playwright test",
+		"run-devserver": "cd ../../apps/demo && pnpm run start --port 3232",
+		"test:e2e-old": "start-server-and-test run-devserver http://localhost:3232 run-test",
+		"test:e2e": "pnpm run run-test"
+	},
+	"keywords": [],
+	"author": "Sanna Jammeh",
+	"license": "MIT",
+	"dependencies": {
+		"app-dir": "workspace:*",
+		"demo": "workspace:*"
+	},
+	"devDependencies": {
+		"@playwright/test": "^1.33.0",
+		"start-server-and-test": "^2.0.0"
+	}
+}

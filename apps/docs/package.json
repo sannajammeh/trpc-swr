@@ -1,31 +1,32 @@
 {
-  "name": "docs",
-  "version": "0.0.1",
-  "description": "Nextra docs template",
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/shuding/nextra-docs-template.git"
-  },
-  "author": "Shu Ding <g@shud.in>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/shuding/nextra-docs-template/issues"
-  },
-  "homepage": "https://github.com/shuding/nextra-docs-template#readme",
-  "dependencies": {
-    "next": "^13.2.4",
-    "nextra": "^2.3.0",
-    "nextra-theme-docs": "^2.3.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "@types/node": "18.15.11",
-    "typescript": "^5.0.3"
-  }
+	"name": "docs",
+	"version": "0.0.1",
+	"private": true,
+	"description": "Nextra docs template",
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/shuding/nextra-docs-template.git"
+	},
+	"author": "Shu Ding <g@shud.in>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/shuding/nextra-docs-template/issues"
+	},
+	"homepage": "https://github.com/shuding/nextra-docs-template#readme",
+	"dependencies": {
+		"next": "^13.4.2",
+		"nextra": "^2.5.2",
+		"nextra-theme-docs": "^2.5.2",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"devDependencies": {
+		"@types/node": "20.1.4",
+		"typescript": "^5.0.4"
+	}
 }

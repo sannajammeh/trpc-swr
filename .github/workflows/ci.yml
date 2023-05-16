@@ -1,0 +1,72 @@
+name: CI
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+env:
+  CI: true
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+jobs:
+  test:
+    name: "Test"
+    timeout-minutes: 60
+    runs-on: buildjet-4vcpu-ubuntu-2204
+    strategy:
+      matrix:
+        node-version: [19]
+    steps:
+      # ENV AND CACHE SETUP
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --filter {packages/**}... --filter {test/**}... --filter "apps/demo..." --filter .
+
+      # RUN TESTS
+      - name: Install Playwright Browsers
+        working-directory: ./test/e2e
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run tests
+        working-directory: ./
+        run: pnpm turbo run test test:e2e
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: test/e2e/playwright-report/
+  publishTestResult:
+    name: "Publish Test Results to GH Pages"
+    needs: [test]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    if: always()
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        id: download
+
+      - name: Publish HTML report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v3.9.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{steps.download.outputs.download-path}} # This is where index.html will be output
+          keep_files: true # Set this to true to make sure we don't wipe out the other content in GitHub Pages
+          user_name: "github-actions[bot]" # This will be the username that gets stamped in the repo commit
+          user_email: "github-actions[bot]@users.noreply.github.com" # This will be the user email that gets stamped in the repo commit

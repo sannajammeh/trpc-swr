@@ -1,0 +1,7 @@
+{
+  "extends": "config/tsconfig.base",
+  "compilerOptions": {
+    "allowJs": true,
+    "types": ["vite/client"]
+  }
+}

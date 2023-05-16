@@ -1,43 +1,51 @@
 {
-  "name": "trpc-swr-mono",
-  "version": "1.0.0",
-  "description": "Monorepo of trpc-swr",
-  "dependencies": {
-    "turbo": "^1.8.8"
-  },
-  "devDependencies": {
-    "@changesets/changelog-github": "^0.4.8",
-    "@changesets/cli": "^2.26.1",
-    "cz-conventional-changelog": "^3.3.0",
-    "dprint": "^0.35.3",
-    "husky": "8.0.3",
-    "nano-staged": "0.8.0",
-    "prettier": "^2.8.7"
-  },
-  "scripts": {
-    "prepare": "husky install",
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "test": "turbo run test",
-    "prepublishOnly": "turbo run build --filter=packages*"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sachinraja/trpc-swr.git"
-  },
-  "keywords": [],
-  "author": "Sanna Jammeh",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/sachinraja/trpc-swr/issues"
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  },
-  "homepage": "https://github.com/sachinraja/trpc-swr#readme",
-  "engines": {
-    "node": ">=18"
-  }
+	"name": "trpc-swr-mono",
+	"version": "1.0.0",
+	"description": "Monorepo of trpc-swr",
+	"devDependencies": {
+		"@changesets/changelog-github": "^0.4.8",
+		"@changesets/cli": "^2.26.1",
+		"cz-conventional-changelog": "^3.3.0",
+		"husky": "8.0.3",
+		"nano-staged": "0.8.0",
+		"prettier": "^2.8.8",
+		"turbo": "^1.9.5"
+	},
+	"scripts": {
+		"prepare": "husky install",
+		"dev": "turbo run dev",
+		"build": "turbo run build",
+		"start": "turbo run start",
+		"typecheck": "turbo run typecheck",
+		"test": "turbo run test --filter={test/**}",
+		"test:e2e": "turbo run test:e2e",
+		"prepublishOnly": "turbo run build --filter=packages*",
+		"prerelease": "turbo run build --filter=./packages/*",
+		"ci:version": "pnpm changeset version",
+		"ci:publish": "pnpm run prerelease && changeset publish"
+	},
+	"pnpm": {
+		"overrides": {
+			"@swc/helpers": "latest"
+		}
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/sachinraja/trpc-swr.git"
+	},
+	"keywords": [],
+	"author": "Sanna Jammeh",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/sachinraja/trpc-swr/issues"
+	},
+	"config": {
+		"commitizen": {
+			"path": "cz-conventional-changelog"
+		}
+	},
+	"homepage": "https://github.com/sachinraja/trpc-swr#readme",
+	"engines": {
+		"node": ">=18"
+	}
 }

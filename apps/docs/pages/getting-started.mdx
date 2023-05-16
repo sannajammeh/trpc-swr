@@ -1,12 +1,29 @@
+import { Tabs, Tab } from "nextra-theme-docs";
+
 # Gettings Started
 
 ## Installation
 
-Make sure to install trpc-swr along with the peer dependencies `swr` and `@trpc/client` and `@trpc/server`:
+Make sure to install `@trpc-swr/client` along with the peer dependencies `swr` and `@trpc/client` and `@trpc/server`:
 
-```bash
-npm install trpc-swr@rc swr @trpc/client @trpc/server
-```
+{/* prettier-ignore */}
+<Tabs items={["pnpm", "npm", "yarn"]}>
+  <Tab>
+    ```bash 
+    pnpm add @trpc-swr/client swr @trpc/client @trpc/server 
+    ```
+  </Tab>
+  <Tab>
+    ```bash 
+    npm i @trpc-swr/client swr @trpc/client @trpc/server 
+    ```
+  </Tab>
+  <Tab>
+    ```bash 
+    yarn add @trpc-swr/client swr @trpc/client @trpc/server
+    ```
+  </Tab>
+</Tabs>
 
 ## Usage
 
@@ -15,10 +32,10 @@ npm install trpc-swr@rc swr @trpc/client @trpc/server
 In your `utils/trpc.ts` file:
 
 ```tsx
-import { createSWRProxyHooks } from "trpc-swr";
+import { createSWRProxyHooks } from "@trpc-swr/client";
 import type { AppRouter } from "server/trpc";
 
-export const trpc = createSWRProxyHooks<AppRouter>({
+export const api = createSWRProxyHooks<AppRouter>({
   links: [
     httpBatchLink({
       url: "https://localhost:3000/api/trpc",
@@ -31,11 +48,11 @@ In your App component:
 
 ```tsx
 const App = ({ Component, pageProps }: AppProps) => {
-  const [client] = useState(() => trpc.createClient());
+  const [client] = useState(() => api.createClient());
   return (
-    <trpc.Provider client={client}>
+    <api.Provider client={client}>
       <Component {...pageProps} />
-    </trpc.Provider>
+    </api.Provider>
   );
 };
 ```
@@ -50,13 +67,13 @@ import { trpc } from "utils/trpc";
 trpc.user.byId.preload({ id: 1 }); // Preload data for faster initial load
 
 export default function Page() {
-  const { data, error } = trpc.user.byId.useSWR({ id: 1 });
+  const { data, error, isLoading } = trpc.user.byId.useSWR({ id: 1 });
 
   if (error) {
     return <div>error</div>;
   }
 
-  if (!data) {
+  if (!isLoading) {
     return <div>loading...</div>;
   }
 
@@ -70,7 +87,7 @@ Leverage the power of `useSWRMutation` to create a fully typesafe mutation.
 
 ```tsx
 export default function Page() {
-  const { trigger, data, error, isloading, reset } =
+  const { trigger, data, error, isMutating, reset } =
     trpc.user.create.useSWRMutation();
 
   const handleSubmit = async (e) => {
@@ -80,7 +97,7 @@ export default function Page() {
     });
   };
 
-  if (isloading) {
+  if (isMutating) {
     return <div>loading...</div>;
   }
 

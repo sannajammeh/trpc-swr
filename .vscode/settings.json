@@ -1,5 +1,13 @@
 {
-  "editor.defaultFormatter": "rome.rome",
-  "dprint.path": "node_modules/dprint/dprint",
-  "eslint.workingDirectories": ["./", "./playground"]
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.workingDirectories": [
+    "./",
+    "./playground"
+  ],
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[mdx]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
