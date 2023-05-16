@@ -10,6 +10,7 @@ env:
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
 jobs:
   test:
+    name: "Test"
     timeout-minutes: 60
     runs-on: buildjet-4vcpu-ubuntu-2204
     strategy:
