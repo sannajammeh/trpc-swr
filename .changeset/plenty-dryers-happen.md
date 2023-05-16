@@ -1,6 +1,5 @@
 ---
 "@trpc-swr/infinite": major
-"@trpc-swr/internal": major
 "@trpc-swr/client": major
 "config": major
 "@trpc-swr/next": major
@@ -27,4 +26,3 @@
 
 - Adds e2e tests for all packages
 - Adds unit tests for all packages
-
