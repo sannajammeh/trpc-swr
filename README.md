@@ -6,6 +6,18 @@
 
 [tRPC](https://trpc.io/)-ified [SWR](https://swr.vercel.app/) hooks
 
+This is a monorepo for tRPC-SWR.
+
+## Links
+
+| Description            | Link                                                                |
+|------------------------|---------------------------------------------------------------------|
+| client                 | https://github.com/sannajammeh/trpc-swr/tree/main/packages/client   |
+| next                   | https://github.com/sannajammeh/trpc-swr/tree/main/packages/next     |
+| ssr                    | https://github.com/sannajammeh/trpc-swr/tree/main/packages/ssr      |
+| infinite               | https://github.com/sannajammeh/trpc-swr/tree/main/packages/infinite |
+| Production E2E Results | https://sannajammeh.github.io/trpc-swr/playwright-report/           |
+
 ## Installation
 
 ```sh
