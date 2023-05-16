@@ -3,6 +3,7 @@ name: Publish package
 on:
   workflow_run:
     workflows: ["CI"]
+    types: [completed]
     branches: [main]
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
