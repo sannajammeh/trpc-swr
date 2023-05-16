@@ -1,48 +1,54 @@
 {
-	"name": "@trpc-swr/client",
-	"version": "1.0.0",
-	"description": "",
-	"main": "./dist/index.js",
-	"module": "./dist/index.esm.js",
-	"types": "./dist/index.d.ts",
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.esm.js",
-			"require": "./dist/index.js"
-		},
-		"./shared": {
-			"types": "./dist/shared.d.ts",
-			"import": "./dist/shared/index.esm.js",
-			"require": "./dist/shared/index.js"
-		}
-	},
-	"scripts": {
-		"dev": "bunchee -w",
-		"build": "bunchee",
-		"typecheck": "tsc --noEmit"
-	},
-	"files": [
-		"dist",
-		"shared",
-		"./package.json"
-	],
-	"keywords": [],
-	"author": "Sanna Jammeh",
-	"license": "MIT",
-	"devDependencies": {
-		"@rspack/cli": "^0.1.10",
-		"@trpc/client": "^10.26.0",
-		"@trpc/server": "^10.26.0",
-		"bunchee": "3.1.1",
-		"config": "workspace:*",
-		"react": "^18.2.0",
-		"swr": "^2.1.5"
-	},
-	"peerDependencies": {
-		"@trpc/client": "^10.26.0",
-		"@trpc/server": "^10.26.0",
-		"react": "^18.2.0",
-		"swr": "^2.1.5"
-	}
+  "name": "@trpc-swr/client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
+  "homepage": "https://trpc-swr.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sannajammeh/trpc-swr.git",
+    "directory": "packages/client"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js"
+    },
+    "./shared": {
+      "types": "./dist/shared.d.ts",
+      "import": "./dist/shared/index.esm.js",
+      "require": "./dist/shared/index.js"
+    }
+  },
+  "scripts": {
+    "dev": "bunchee -w",
+    "build": "bunchee",
+    "typecheck": "tsc --noEmit"
+  },
+  "files": [
+    "dist",
+    "shared",
+    "./package.json"
+  ],
+  "keywords": [],
+  "author": "Sanna Jammeh",
+  "license": "MIT",
+  "devDependencies": {
+    "@rspack/cli": "^0.1.10",
+    "@trpc/client": "^10.26.0",
+    "@trpc/server": "^10.26.0",
+    "bunchee": "3.1.1",
+    "config": "workspace:*",
+    "react": "^18.2.0",
+    "swr": "^2.1.5"
+  },
+  "peerDependencies": {
+    "@trpc/client": "^10.26.0",
+    "@trpc/server": "^10.26.0",
+    "react": "^18.2.0",
+    "swr": "^2.1.5"
+  }
 }
