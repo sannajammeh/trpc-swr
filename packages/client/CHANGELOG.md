@@ -1,5 +1,11 @@
 # @trpc-swr/client
 
+## 1.0.1
+
+### Patch Changes
+
+- [#43](https://github.com/sannajammeh/trpc-swr/pull/43) [`3874d98`](https://github.com/sannajammeh/trpc-swr/commit/3874d98e23f31453832ba0b474712885f9f8266a) Thanks [@sannajammeh](https://github.com/sannajammeh)! - Adds README.md files and package.json link entries for all packages
+
 ## 1.0.0
 
 ### Major Changes
