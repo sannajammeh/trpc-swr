@@ -1,36 +1,42 @@
 {
-	"name": "@trpc-swr/infinite",
-	"version": "1.0.0",
-	"description": "",
-	"main": "./dist/index.js",
-	"module": "./dist/index.esm.js",
-	"types": "./dist/index.d.ts",
-	"exports": {
-		"types": "./dist/index.d.ts",
-		"import": "./dist/index.mjs",
-		"module": "./dist/index.esm.js",
-		"require": "./dist/index.js"
-	},
-	"scripts": {
-		"dev": "bunchee index.ts -w",
-		"build": "bunchee index.ts",
-		"typecheck": "tsc --noEmit"
-	},
-	"keywords": [],
-	"author": "Sanna Jammeh",
-	"license": "MIT",
-	"devDependencies": {
-		"@trpc-swr/client": "workspace:*",
-		"@trpc/client": "^10.26.0",
-		"@trpc/server": "^10.26.0",
-		"bunchee": "3.1.1",
-		"config": "workspace:*",
-		"swr": "^2.1.5"
-	},
-	"peerDependencies": {
-		"@trpc-swr/client": "workspace:*",
-		"@trpc/client": "^10.26.0",
-		"@trpc/server": "^10.26.0",
-		"swr": "^2.1.4"
-	}
+  "name": "@trpc-swr/infinite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
+  "homepage": "https://trpc-swr.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sannajammeh/trpc-swr.git",
+    "directory": "packages/infinite"
+  },
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "import": "./dist/index.mjs",
+    "module": "./dist/index.esm.js",
+    "require": "./dist/index.js"
+  },
+  "scripts": {
+    "dev": "bunchee index.ts -w",
+    "build": "bunchee index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "Sanna Jammeh",
+  "license": "MIT",
+  "devDependencies": {
+    "@trpc-swr/client": "workspace:*",
+    "@trpc/client": "^10.26.0",
+    "@trpc/server": "^10.26.0",
+    "bunchee": "3.1.1",
+    "config": "workspace:*",
+    "swr": "^2.1.5"
+  },
+  "peerDependencies": {
+    "@trpc-swr/client": "workspace:*",
+    "@trpc/client": "^10.26.0",
+    "@trpc/server": "^10.26.0",
+    "swr": "^2.1.4"
+  }
 }
