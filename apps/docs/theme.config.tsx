@@ -6,23 +6,21 @@ const config: DocsThemeConfig = {
   useNextSeoProps() {
     const { asPath } = useRouter();
 
-    if (asPath !== "/") {
-      return {
-        openGraph: {
-          type: "website",
-          locale: "en_US",
-          url: "https://trpc-swr.vercel.app",
-          site_name: "tRPC SWR",
-          images: [
-            {
-              url: "https://trpc-swr.vercel.app/social.png",
-              alt: "tRPC SWR",
-            },
-          ],
-        },
-        titleTemplate: "%s - tRPC SWR",
-      };
-    }
+    return {
+      titleTemplate: asPath !== "/" ?  "%s - tRPC SWR" : 'tRPC SWR',
+      openGraph: {
+        type: "website",
+        locale: "en_US",
+        url: "https://trpc-swr.vercel.app",
+        site_name: "tRPC SWR",
+        images: [
+          {
+            url: "https://trpc-swr.vercel.app/social.png",
+            alt: "tRPC SWR",
+          },
+        ],
+      },
+    };
   },
   head: () => (
     <>
