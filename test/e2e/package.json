@@ -18,7 +18,7 @@
 		"demo": "workspace:*"
 	},
 	"devDependencies": {
-		"@playwright/test": "^1.33.0",
+		"@playwright/test": "^1.35.1",
 		"start-server-and-test": "^2.0.0"
 	}
 }

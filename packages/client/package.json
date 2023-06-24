@@ -37,18 +37,18 @@
   "author": "Sanna Jammeh",
   "license": "MIT",
   "devDependencies": {
-    "@rspack/cli": "^0.1.10",
-    "@trpc/client": "^10.26.0",
-    "@trpc/server": "^10.26.0",
-    "bunchee": "3.1.1",
+    "@rspack/cli": "^0.2.3",
+    "@trpc/client": "^10.32.0",
+    "@trpc/server": "^10.32.0",
+    "bunchee": "3.4.1",
     "config": "workspace:*",
     "react": "^18.2.0",
-    "swr": "^2.1.5"
+    "swr": "^2.2.0"
   },
   "peerDependencies": {
-    "@trpc/client": "^10.26.0",
-    "@trpc/server": "^10.26.0",
+    "@trpc/client": "^10.32.0",
+    "@trpc/server": "^10.32.0",
     "react": "^18.2.0",
-    "swr": "^2.1.5"
+    "swr": "^2.2.0"
   }
 }

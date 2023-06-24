@@ -30,16 +30,16 @@
   "author": "Sanna Jammeh",
   "license": "MIT",
   "devDependencies": {
+    "@swc-node/register": "^1.6.6",
     "@trpc-swr/client": "workspace:*",
-    "@swc-node/register": "^1.6.5",
-    "@trpc/client": "^10.26.0",
-    "@trpc/server": "^10.26.0",
-    "bunchee": "3.1.1",
+    "@trpc/client": "^10.32.0",
+    "@trpc/server": "^10.32.0",
+    "bunchee": "3.4.1",
     "config": "workspace:*"
   },
   "peerDependencies": {
     "@trpc-swr/client": "workspace:*",
-    "@trpc/client": "^10.26.0",
-    "@trpc/server": "^10.26.0"
+    "@trpc/client": "^10.32.0",
+    "@trpc/server": "^10.32.0"
   }
 }
