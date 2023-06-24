@@ -1,5 +1,14 @@
 # @trpc-swr/next
 
+## 1.0.2
+
+### Patch Changes
+
+- [`f066444`](https://github.com/sannajammeh/trpc-swr/commit/f066444f86d679e8e64ea5f814471118f6c01167) Thanks [@sannajammeh](https://github.com/sannajammeh)! - Reorders the typescript generic arguments passed to `useSWRMutation` on latest SWR version `2.2.0` to ensure input of `trigger` fn is correct.
+
+- Updated dependencies [[`f066444`](https://github.com/sannajammeh/trpc-swr/commit/f066444f86d679e8e64ea5f814471118f6c01167)]:
+  - @trpc-swr/client@1.0.2
+
 ## 1.0.1
 
 ### Patch Changes
