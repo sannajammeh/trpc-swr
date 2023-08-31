@@ -24,12 +24,15 @@ type DecorateProcedure<
   TPath extends string
 > = TProcedure extends AnyQueryProcedure
   ? {
-      useSWR: <TData = inferProcedureOutput<TProcedure>>(
+      useSWR: <
+        TData = inferProcedureOutput<TProcedure>,
+        TConfig extends SWRConfiguration<TData> = {}
+      >(
         input: inferProcedureInput<TProcedure>,
-        opts?: SWRConfiguration<TData> & {
+        opts?: TConfig & {
           isDisabled?: boolean;
         }
-      ) => SWRResponse<TData, TRPCClientErrorLike<TProcedure>>;
+      ) => SWRResponse<TData, TRPCClientErrorLike<TProcedure>, TConfig>;
 
       preload: (input: inferProcedureInput<TProcedure>) => Promise<void>;
       getKey: GetKey<TProcedure, TPath>;
