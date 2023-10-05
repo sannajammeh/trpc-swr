@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { act } from "react-dom/test-utils";
-import { expect, it } from "vitest";
+import { expect, expectTypeOf, it } from "vitest";
 import { render, screen, trpc, waitFor } from "../utils";
 
 it("makes query without args", async () => {
@@ -65,3 +65,13 @@ it("makes conditional query", async () => {
 		expect(screen.getByText("disabled")).toBeInTheDocument();
 	});
 });
+
+it("Allows correct types during suspense", async () => {
+	() => {
+		const { data } = trpc.hello.useSWR(void 0, { suspense: true});
+
+		expectTypeOf(data).toBeString();
+
+		return <p>{data}</p>;
+	};
+})
