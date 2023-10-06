@@ -4,7 +4,7 @@
 
 ### Minor Changes
 
-- [`413ca6d`](https://github.com/sannajammeh/trpc-swr/commit/413ca6d7e9347c5ebb2f23e15caf2f779a9d7128) Thanks [@sannajammeh](https://github.com/sannajammeh)! - Enable support for correct suspense type inference
+- [`413ca6d`](https://github.com/sannajammeh/trpc-swr/commit/413ca6d7e9347c5ebb2f23e15caf2f779a9d7128) Thanks [@sskmy1024y](https://github.com/sskmy1024y)! - Enable support for correct suspense type inference
 
 ## 1.0.2
 
