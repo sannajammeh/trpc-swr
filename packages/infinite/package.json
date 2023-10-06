@@ -1,6 +1,6 @@
 {
   "name": "@trpc-swr/infinite",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "",
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",
