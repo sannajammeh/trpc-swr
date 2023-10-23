@@ -1,5 +1,14 @@
 # @trpc-swr/infinite
 
+## 2.0.1
+
+### Patch Changes
+
+- [`#51`](https://github.com/sannajammeh/trpc-swr/pull/51) Thanks [@group900-3](https://github.com/group900-3)! - Fix Infinite types
+
+- Updated dependencies [[`2fcbcef`](https://github.com/sannajammeh/trpc-swr/commit/2fcbcef7c17a9cb526b6cf3f1bf6346781ad58c3), [`08e5def`](https://github.com/sannajammeh/trpc-swr/commit/08e5def0fee01714f4a8dbc3c7a28b2d76153ef7)]:
+  - @trpc-swr/client@2.0.1
+
 ## 2.0.0
 
 ### Patch Changes
