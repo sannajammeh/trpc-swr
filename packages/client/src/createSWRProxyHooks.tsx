@@ -26,7 +26,7 @@ type DecorateProcedure<
   ? {
       useSWR: <
         TData = inferProcedureOutput<TProcedure>,
-        TConfig extends SWRConfiguration<TData> = {}
+        TConfig extends SWRConfiguration<TData> = SWRConfiguration<TData>
       >(
         input: inferProcedureInput<TProcedure>,
         opts?: TConfig & {
