@@ -10,7 +10,6 @@ import {
 	ProcedureRouterRecord,
 } from "@trpc/server";
 import { createFlatProxy, createRecursiveProxy } from "@trpc/server/shared";
-import { SWRConfiguration } from "swr";
 import _useSWRInfinite, {
 	SWRInfiniteConfiguration,
 	SWRInfiniteResponse,
@@ -28,14 +27,14 @@ type DecorateProcedure<
 					pageIndex: number,
 					previousPageData: TData | null,
 				) => inferProcedureInput<TProcedure> | null,
-				opts?: SWRConfiguration<TData> & {
+				opts?: SWRInfiniteConfiguration<TData> & {
 					isDisabled?: boolean;
 				},
 			) => SWRInfiniteResponse<TData, TRPCClientErrorLike<TProcedure>>;
 			useCursor: <TData = inferProcedureOutput<TProcedure>>(
 				input: inferProcedureInput<TProcedure>,
 				getCursor: (previousPageData: TData | null) => any,
-				opts?: SWRConfiguration<TData> & {
+				opts?: SWRInfiniteConfiguration<TData> & {
 					isDisabled?: boolean;
 				},
 			) => SWRInfiniteResponse<TData, TRPCClientErrorLike<TProcedure>>;
