@@ -8,6 +8,8 @@
 
 This is a monorepo for tRPC-SWR.
 
+[Docs](https://trpc-swr.vercel.app/)
+
 ## Links
 
 | Description            | Link                                                                |
