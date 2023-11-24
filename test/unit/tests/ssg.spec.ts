@@ -1,5 +1,5 @@
 import assert from "node:assert";
-import { unstable_serialize, createProxySSGHelpers } from "@trpc-swr/ssr";
+import { unstable_serialize, createSSRHelpers } from "@trpc-swr/ssr";
 import { unstable_serialize as swr_unstable_serialize } from "swr";
 import { appRouter } from "../utils";
 import { test, describe } from "vitest";
@@ -55,16 +55,24 @@ describe("unstable_serialize", async () => {
       swr_unstable_serialize([1, { id: 1 }, "test"])
     );
   });
+
+  test("Should match SWR serialization behavior for same keys", () => {
+    const ourKey = unstable_serialize([1, { id: 1 }, "test"]);
+    const swrKey = unstable_serialize([1, { id: 1 }, "test"]);
+
+    assert.equal(ourKey, swrKey);
+    assert.equal(unstable_serialize(ourKey), unstable_serialize(swrKey));
+  });
 });
 
 const createSSG = () => {
-  return createProxySSGHelpers({
+  return createSSRHelpers({
     router: appRouter,
     ctx: {} as any,
   });
 };
 
-describe("createProxySSGHelpers", async () => {
+describe("createSSRHelpers", async () => {
   await test("Should return a proxy object", () => {
     const ssg = createSSG();
 
@@ -82,7 +90,7 @@ describe("createProxySSGHelpers", async () => {
   await test("Should fetch from procedure", async () => {
     const ssg = createSSG();
 
-    const result = await ssg.hello.fetch();
+    const result = await ssg.hello();
 
     assert.equal(result, "world");
   });
@@ -90,7 +98,7 @@ describe("createProxySSGHelpers", async () => {
   await test("Should dehydrate from procedure when paralell fetch", async () => {
     const ssg = createSSG();
 
-    ssg.hello.fetch();
+    ssg.hello();
 
     const result = await ssg.dehydrate();
 
@@ -100,7 +108,7 @@ describe("createProxySSGHelpers", async () => {
   await test("Should dehydrate from procedure", async () => {
     const ssg = createSSG();
 
-    const fetchResult = await ssg.hello.fetch();
+    const fetchResult = await ssg.hello();
 
     assert.equal(fetchResult, "world");
 

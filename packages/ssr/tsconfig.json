@@ -1,4 +1,23 @@
 {
-  "extends": "config/tsconfig.base.json",
-  "exclude": ["./test/**"]
+  "compilerOptions": {
+    "strict": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "lib": ["esnext", "dom"],
+    "moduleResolution": "node",
+    "module": "es2022",
+    "target": "ES2018",
+    "types": ["node"],
+    /* Linting */
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictBindCallApply": true,
+    "noEmitOnError": true,
+    "incremental": true
+  },
+  "exclude": ["dist", "**/dist", "node_modules", "test/**"]
 }

@@ -1,0 +1,17 @@
+{
+  "mode": "pre",
+  "tag": "canary",
+  "initialVersions": {
+    "app-dir": "0.1.0",
+    "demo": "0.1.0",
+    "docs": "0.0.1",
+    "@trpc-swr/client": "2.0.1",
+    "config": "1.0.0",
+    "@trpc-swr/infinite": "2.0.1",
+    "@trpc-swr/next": "2.0.1",
+    "@trpc-swr/ssr": "2.0.1",
+    "e2e": "1.0.0",
+    "unit": "1.0.0"
+  },
+  "changesets": []
+}

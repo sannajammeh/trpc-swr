@@ -1,7 +1,9 @@
 name: Publish package
 on:
-  push:
-    branches: [new-arch]
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+    branches: [canary]
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
