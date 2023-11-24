@@ -32,7 +32,7 @@ export default Page;
 export const getStaticProps: GetStaticProps = async () => {
   const ssg = await createSSG();
 
-  await ssg.hello.fetch({ name: "with-next" });
+  await ssg.hello({ name: "with-next" });
 
   return {
     props: {
