@@ -30,11 +30,11 @@
   "author": "Sanna Jammeh",
   "license": "MIT",
   "devDependencies": {
-    "@swc-node/register": "^1.6.6",
+    "@swc-node/register": "^1.6.8",
     "@trpc-swr/client": "workspace:*",
-    "@trpc/client": "^10.32.0",
-    "@trpc/server": "^10.32.0",
-    "bunchee": "3.4.1",
+    "@trpc/client": "^10.44.1",
+    "@trpc/server": "^10.44.1",
+    "bunchee": "3.9.2",
     "config": "workspace:*"
   },
   "peerDependencies": {
