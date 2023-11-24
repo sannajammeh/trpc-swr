@@ -11,7 +11,7 @@ This is a monorepo for tRPC-SWR.
 ## Links
 
 | Description            | Link                                                                |
-|------------------------|---------------------------------------------------------------------|
+| ---------------------- | ------------------------------------------------------------------- |
 | client                 | https://github.com/sannajammeh/trpc-swr/tree/main/packages/client   |
 | next                   | https://github.com/sannajammeh/trpc-swr/tree/main/packages/next     |
 | ssr                    | https://github.com/sannajammeh/trpc-swr/tree/main/packages/ssr      |
@@ -85,8 +85,8 @@ const Profile = (props: { userId: string }) => {
       {!data && isLoading
         ? "loading..."
         : data
-        ? data.name
-        : "User does not exist"}
+          ? data.name
+          : "User does not exist"}
     </div>
   );
 };
@@ -118,8 +118,8 @@ const Profile = (props: { userId: string }) => {
         {!data && isLoading
           ? "loading..."
           : data
-          ? data.name
-          : "User does not exist"}
+            ? data.name
+            : "User does not exist"}
       </div>
 
       <button
@@ -183,10 +183,10 @@ To prefetch data on the server, you must provide a serializable key.
 In `server/ssg.ts`
 
 ```tsx
-import { createProxySSGHelpers } from "@trpc-swr/ssr";
+import { createSSRHelpers } from "@trpc-swr/ssr";
 
 export const createSSG = () => {
-  return createProxySSGHelpers({
+  return createSSRHelpers({
     router: appRouter,
     ctx: {},
   });
@@ -221,7 +221,7 @@ const Profile = (props: { userId: string }) => {
 export const getServerSideProps = async () => {
   const ssg = createSSG();
 
-  ssg.user.get.fetch({ id: "1" }); // prefetch data
+  ssg.user.get({ id: "1" }); // prefetch data
 
   return {
     props: {
@@ -235,4 +235,4 @@ export defualt HomePage;
 
 ## Status
 
-[Live E2E Status](https://sannajammeh.github.io/trpc-swr/playwright-report/) 
+[Live E2E Status](https://sannajammeh.github.io/trpc-swr/playwright-report/)
