@@ -37,7 +37,6 @@
   "author": "Sanna Jammeh",
   "license": "MIT",
   "devDependencies": {
-    "@rspack/cli": "^0.2.3",
     "@trpc/client": "^10.44.1",
     "@trpc/server": "^10.44.1",
     "bunchee": "3.9.2",
