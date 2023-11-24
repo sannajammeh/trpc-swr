@@ -25,15 +25,10 @@ type FetchOptions = {
   transform?: boolean;
 };
 
-type CallableProcedure<
-  TProcedure extends AnyProcedure,
-  Input = inferProcedureInput<TProcedure>,
-> = Input extends void
-  ? (
-      input?: void | undefined,
-      opts?: FetchOptions
-    ) => Promise<inferProcedureOutput<TProcedure>>
-  : (input: Input) => Promise<inferProcedureOutput<TProcedure>>;
+type CallableProcedure<TProcedure extends AnyProcedure> = (
+  input: inferProcedureInput<TProcedure>,
+  opts?: FetchOptions
+) => Promise<inferProcedureOutput<TProcedure>>;
 
 type DecorateProcedure<
   TProcedure extends AnyProcedure,
@@ -78,7 +73,16 @@ function createSSRProxyDecoration(
     const args = opts.args;
     const pathCopy = [name, ...opts.path];
 
-    const lastArg = pathCopy.pop();
+    const lastArg = pathCopy.at(-1);
+
+    if (lastArg === "getKey") {
+      // Here we have one extra argument in the path, so remove it.
+      pathCopy.pop();
+      const path = pathCopy.join(".");
+      const [input] = args;
+      const queryKey = getQueryKey(path, input);
+      return getKey(queryKey);
+    }
 
     const path = pathCopy.join(".");
 
@@ -87,10 +91,8 @@ function createSSRProxyDecoration(
 
     const serializedKey = getKey(queryKey);
 
-    if (lastArg === "getKey") return serializedKey;
-
     // No utilities called, return the caller wrapped in serializer state
-    const paths = [...pathCopy, lastArg];
+    const paths = [...pathCopy];
     //@ts-expect-error Can't narrow on an unknown path
     const callerTarget = paths.reduce<Caller>((acc, path) => acc[path], caller);
 
