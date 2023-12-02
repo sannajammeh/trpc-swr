@@ -1,7 +1,11 @@
-name: Publish canary - legacy
+name: Publish canary
+
 on:
-  push:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
     branches: [canary]
+  workflow_dispatch: {}
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
