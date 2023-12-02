@@ -5,13 +5,13 @@ on:
     workflows: ["CI"]
     types: [completed]
     branches: [canary]
+  workflow_dispatch: {}
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
 jobs:
   release:
     runs-on: buildjet-4vcpu-ubuntu-2204
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     strategy:
       matrix:
         node-version: [19]
