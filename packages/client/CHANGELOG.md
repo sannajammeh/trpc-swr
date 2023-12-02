@@ -1,5 +1,36 @@
 # @trpc-swr/client
 
+## 3.0.0-canary.0
+
+### Major Changes
+
+- [#54](https://github.com/sannajammeh/trpc-swr/pull/54) [`5b020a2`](https://github.com/sannajammeh/trpc-swr/commit/5b020a2a9d01e86d125eee33192f025ce7e35462) Thanks [@sannajammeh](https://github.com/sannajammeh)! - ## What:
+
+  `@trpc-swr/ssr` - `createProxySSGHelpers` renamed to `createSSRHelpers`
+
+  `@trpc-swr/ssr` - Calling `api.endpoint.fetch` is no longer support, use api.endpoint() directly. trpc-swr will now proxy all arguments directly into appRouter.createCaller() instead of calling `caller.query`.
+  This allows for both mutations and queries to endpoints in React Server Components and other SSR calls
+
+  #### Before
+
+  ```tsx
+  const data = await rsc.users.byId.fetch({ id: 1 });
+
+  const swrFallback = await rsc.dehydrate();
+  ```
+
+  #### After
+
+  ```tsx
+  const data = await rsc.users.byId({ id: 1 });
+
+  // Other supported methods:
+  const key = rsc.users.byId.getKey(); // Use to manually forward to SWRConfig.
+  const swrFallback = await rsc.dehydrate();
+  ```
+
+  As always both direct access and dehydration into SWR serializable fallback is supported.
+
 ## 2.0.1
 
 ### Patch Changes

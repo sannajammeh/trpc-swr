@@ -13,5 +13,7 @@
     "e2e": "1.0.0",
     "unit": "1.0.0"
   },
-  "changesets": []
+  "changesets": [
+    "tender-ducks-bow"
+  ]
 }
