@@ -1,7 +1,7 @@
-name: Publish package
+name: Publish canary - legacy
 on:
   push:
-    branches: [new-arch]
+    branches: [canary]
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
