@@ -7,7 +7,6 @@
 [tRPC](https://trpc.io/)-ified [SWR](https://swr.vercel.app/) hooks
 
 This is a monorepo for tRPC-SWR.
-
 [Docs](https://trpc-swr.vercel.app/)
 
 ## Links
