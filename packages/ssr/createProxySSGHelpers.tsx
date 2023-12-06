@@ -1,6 +1,5 @@
 import {
   AnyProcedure,
-  AnyQueryProcedure,
   AnyRouter,
   ClientDataTransformerOptions,
   inferProcedureInput,
@@ -33,7 +32,7 @@ type CallableProcedure<TProcedure extends AnyProcedure> = (
 type DecorateProcedure<
   TProcedure extends AnyProcedure,
   TPath extends string,
-> = TProcedure extends AnyQueryProcedure
+> = TProcedure extends AnyProcedure
   ? {
       getKey: GetKey<TProcedure, TPath>;
     } & CallableProcedure<TProcedure>
@@ -67,7 +66,7 @@ function createSSRProxyDecoration(
   state: Map<string, any>,
   caller: Caller,
   serialize: (obj: unknown) => unknown = (obj) => obj,
-  defaultTransform: boolean = false
+  defaultTransform = false
 ) {
   return createRecursiveProxy((opts) => {
     const args = opts.args;

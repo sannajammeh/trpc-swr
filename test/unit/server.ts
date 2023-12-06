@@ -143,6 +143,9 @@ export const appRouter = t.router({
   hello: t.procedure.query(() => {
     return "world";
   }),
+  testMutation: t.procedure.mutation(() => {
+    return "testMutation";
+  }),
   xTest: t.procedure.query(({ ctx }) => {
     const xTestHeader = ctx.req.headers["X-Test"];
 

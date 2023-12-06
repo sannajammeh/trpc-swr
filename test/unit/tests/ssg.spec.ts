@@ -2,7 +2,7 @@ import assert from "node:assert";
 import { unstable_serialize, createSSRHelpers } from "@trpc-swr/ssr";
 import { unstable_serialize as swr_unstable_serialize } from "swr";
 import { appRouter } from "../utils";
-import { test, describe } from "vitest";
+import { test, describe, expect } from "vitest";
 
 describe("unstable_serialize", async () => {
   await test("Should serialize a string key", () => {
@@ -73,6 +73,16 @@ const createSSG = () => {
 };
 
 describe("createSSRHelpers", async () => {
+  await test("Should access mutation", async () => {
+    const ssg = createSSG();
+
+    assert.equal(typeof ssg.testMutation, "function");
+
+    const data = await ssg.testMutation();
+
+    expect(data).toEqual("testMutation");
+  });
+
   await test("Should return a proxy object", () => {
     const ssg = createSSG();
 
