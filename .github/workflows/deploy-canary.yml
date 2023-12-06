@@ -17,9 +17,10 @@ jobs:
         node-version: [19]
     permissions: write-all
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 2
+          ref: canary
       - uses: pnpm/action-setup@v2
         with:
           version: 8
