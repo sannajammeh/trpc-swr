@@ -20,6 +20,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 2
+          ref: refs/heads/canary
       - uses: pnpm/action-setup@v2
         with:
           version: 8
