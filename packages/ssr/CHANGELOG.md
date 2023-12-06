@@ -1,5 +1,14 @@
 # @trpc-swr/ssr
 
+## 3.0.0-canary.1
+
+### Patch Changes
+
+- [`4d101c7`](https://github.com/sannajammeh/trpc-swr/commit/4d101c72c0bd2aa50f8a54621818099a684bdcaf) Thanks [@sannajammeh](https://github.com/sannajammeh)! - Ensure trpc-swr/ssr caller can execute on mutations
+
+- Updated dependencies []:
+  - @trpc-swr/client@3.0.0-canary.1
+
 ## 3.0.0-canary.0
 
 ### Major Changes
