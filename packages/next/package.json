@@ -1,6 +1,6 @@
 {
   "name": "@trpc-swr/next",
-  "version": "3.0.0-canary.0",
+  "version": "3.0.0-canary.1",
   "description": "",
   "main": "./dist/index.js",
   "module": "./dist/index.esm.js",

@@ -1,5 +1,12 @@
 # @trpc-swr/infinite
 
+## 3.0.0-canary.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @trpc-swr/client@3.0.0-canary.1
+
 ## 3.0.0-canary.0
 
 ### Major Changes
